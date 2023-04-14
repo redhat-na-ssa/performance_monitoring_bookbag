@@ -5,6 +5,7 @@
 == Orientation about the environment
 
 In this workshop you will work with the following tools:
+
 * OpenShift Container Platform
 * Openshift DevSpaces as the Cloud based Development Environment
 * OpenShift Pipelines based on Tekton
