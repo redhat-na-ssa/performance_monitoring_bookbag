@@ -2,16 +2,16 @@
 :user: %user%
 :markup-in-source: verbatim,attributes,quotes
 
-In this workshop you will work with the following tools:
+== Orientation about the environment
 
+In this workshop you will work with the following tools:
 * OpenShift Container Platform
 * Openshift DevSpaces as the Cloud based Development Environment
 * OpenShift Pipelines based on Tekton
 * OpenShift Serverless based on Knative
 * OpenShift Monitoring based on Prometheus
-* https://quay.io/[Quay.io]
 * Grafana Operator
-* OpenShift Logging, based on Loki
+* OpenShift Logging based on Elasticsearch, Kibana, and Fluentd ******TODO: confirm EFK or Loki
 * Quarkus, Micronaut, and Spring Boot
 * Hyperfoil for load testing execution
 
