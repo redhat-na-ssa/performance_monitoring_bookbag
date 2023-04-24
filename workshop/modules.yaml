@@ -1,16 +1,19 @@
 ---
 modules:
-  overview:
-    name: Overview
+  1-welcome:
+    name: Introduction
     exit_sign: Continue
-  exercise1:
-    name: Exercise 1
+  2-environment-setup:
+    name: Setting Up the Environment
     exit_sign: Continue
-  exercise2:
-    name: Exercise 2
+  3-applications-building:
+    name: Developing and Building Microservices using Quarkus, SpringBoot, and Micronaut.
     exit_sign: Continue
-  exercise3:
-    name: Exercise 3
+  4-deploying-applications:
+    name: Deploying the Microservices 
     exit_sign: Continue
-  review:
-    name: Review
+  5-loadtesting:
+    name: Load Testing, Scaling and Monitoring the Applications 
+    exit_sign: Continue
+  6-conclusion:
+    name: Conclusion

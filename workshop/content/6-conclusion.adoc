@@ -1,6 +1,4 @@
-:markup-in-source: verbatim,attributes,quotes
-
-== Review
+== Conclusion
 
 Hopefully you learned a few things in this lab:
 

@@ -1,0 +1,33 @@
+:guid: %guid%
+:user: %user%
+:markup-in-source: verbatim,attributes,quotes
+
+Attendees of this workshop will have the opportunity to participate in a hands-on, 
+introductory-level session focused on performance using various Java runtimes. 
+Throughout the session, participants will deploy microservices using Quarkus, Spring Boot, and Micronaut, 
+on OpenShift, and run load testing scenarios monitoring applications performance. 
+Specifically, attendees will analyze CPU load and memory usage, establish a baseline, 
+and then observe the impact of scaling up containers.
+
+This workshop is runs in a Red Hat lab, but can be easily reproduced in any OpenShift cluster.
+
+What you are going to do:
+
+**********TODO:REVIEW
+
+* Create your own GitHub Repo based on a GitHub Template
+* Develop one microservice that consumes CPU and memory with Quarkus, another one with Spring Boot and Micronaut
+* Compile, package and containerize these microservices
+* Run these microservices locally on your machine
+* Create an Azure Container Apps environment
+* Deploy your containers to Azure Container Apps
+* Execute and monitor the microservices using different performance parameters
+* Load test the microservices
+* Analyze CPU load and scale containers appropriately
+* Analyze memory and scale containers appropriately
+* And much more!
+
+Are you ready to get started? Proceed to the next step to learn more about your environment and get started with the workshop.
+
+
+

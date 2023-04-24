@@ -1,5 +1,26 @@
 :guid: %guid%
 :user: %user%
+:markup-in-source: verbatim,attributes,quotes
+
+In this workshop you will work with the following tools:
+
+* OpenShift Container Platform
+* Openshift DevSpaces as the Cloud based Development Environment
+* OpenShift Pipelines based on Tekton
+* OpenShift Serverless based on Knative
+* OpenShift Monitoring based on Prometheus
+* Grafana Operator
+* OpenShift Logging based on Elasticsearch, Kibana, and Fluentd ******TODO: confirm EFK or Loki
+* Quarkus, Micronaut, and Spring Boot
+* Hyperfoil for load testing execution
+
+The following diagram describes the architecture of the environment you will work with:
+
+******TODO: Add a simple diagram describing the environment******
+
+
+:guid: %guid%
+:user: %user%
 :ssh_command: %ssh_password%
 :markup-in-source: verbatim,attributes,quotes
 :my_deep_var_underbars: %my_deep_var%
