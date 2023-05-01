@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi est sit amet facilisis magna etiam. Tempor nec feugiat nisl pretium. Felis bibendum ut tristique et egestas quis ipsum suspendisse. Volutpat diam ut venenatis tellus in metus vulputate. Vel orci porta non pulvinar neque laoreet suspendisse interdum. Urna molestie at elementum eu facilisis sed. Et netus et malesuada fames ac turpis egestas integer. Ultrices in iaculis nunc sed augue lacus viverra. Eget velit aliquet sagittis id consectetur purus ut. Arcu odio ut sem nulla pharetra diam sit amet nisl. Nullam eget felis eget nunc lobortis mattis aliquam faucibus purus. Pharetra massa massa ultricies mi quis hendrerit. Dictum sit amet justo donec enim diam. Vel pharetra vel turpis nunc eget lorem dolor sed viverra. Arcu odio ut sem nulla pharetra diam. Donec pretium vulputate sapien nec sagittis aliquam.
 
@@ -18,3 +19,7 @@ Integer vitae justo eget magna fermentum iaculis eu. Sed lectus vestibulum matti
 Et tortor at risus viverra adipiscing at in tellus. Non consectetur a erat nam at lectus. Aliquam etiam erat velit scelerisque in. Lobortis scelerisque fermentum dui faucibus in. Blandit massa enim nec dui nunc mattis enim ut tellus. Pellentesque id nibh tortor id aliquet. At lectus urna duis convallis convallis tellus id. Lobortis mattis aliquam faucibus purus in massa tempor nec feugiat. Tortor pretium viverra suspendisse potenti nullam ac. Facilisi morbi tempus iaculis urna id volutpat.
 
 Pharetra massa massa ultricies mi quis hendrerit. In dictum non consectetur a. Morbi enim nunc faucibus a. Vitae ultricies leo integer malesuada nunc vel risus. Nulla aliquet enim tortor at auctor urna nunc id. At erat pellentesque adipiscing commodo elit at imperdiet dui. Pharetra massa massa ultricies mi quis. Suspendisse potenti nullam ac tortor vitae purus. Tempor commodo ullamcorper a lacus vestibulum sed arcu. Viverra ipsum nunc aliquet bibendum enim facilisis. Id cursus metus aliquam eleifend mi. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Pulvinar pellentesque habitant morbi tristique senectus et netus. Ante metus dictum at tempor commodo ullamcorper a.
+=======
+== Overview of sample applications
+
+>>>>>>> c967a6d (Init version)
