@@ -2,25 +2,25 @@
 :user: %user%
 :markup-in-source: verbatim,attributes,quotes
 
-Attendees of this workshop will have the opportunity to participate in a hands-on, 
-introductory-level session focused on performance using various Java runtimes. 
-Throughout the session, participants will deploy microservices using Quarkus, Spring Boot, and Micronaut, 
-on OpenShift, and run load testing scenarios monitoring applications performance. 
-Specifically, attendees will analyze CPU load and memory usage, establish a baseline, 
-and then observe the impact of scaling up containers.
+= Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift
 
-This workshop is runs in a Red Hat lab, but can be easily reproduced in any OpenShift cluster.
+== Welcome
+During this workshop attendees will have the opportunity to participate in a hands-on Lab, 
+introductory-level session focused on performance monitoring using different Modern cloud-native Java runtimes. 
+Throughout the session, participants will execute tasks such as build, test and deploy microservices using link:https://quarkus.io[Quarkus^], link:https://spring.io[Spring Boot(R)^], and link:https://micronaut.io[Micronaut(R)^], 
+on top of link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat(R) OpenShift(R)^] Application Platform, and run load testing scenarios while monitoring the application performance. 
+Specifically, attendees will analyze CPU load and memory usage, establish a baseline, and then observe the impact of scaling up application containers.
+
+This workshop runs in a shared Openshift Cluster hosted on a Red Hat lab environment, but can be easily reproduced in any OpenShift cluster.
 
 What you are going to do:
-
-**********TODO:REVIEW
 
 * Create your own GitHub Repo based on a GitHub Template
 * Develop one microservice that consumes CPU and memory with Quarkus, another one with Spring Boot and Micronaut
 * Compile, package and containerize these microservices
-* Run these microservices locally on your machine
-* Create an Azure Container Apps environment
-* Deploy your containers to Azure Container Apps
+* Run these microservices locally on your own Dev Workspace using Red Hat link:https://developers.redhat.com/products/openshift-dev-spaces/overview[Openshift DevSpaces^]
+* Build a immutable container image for your application using Openshift Pipelines (based on link:https://tekton.dev[Tekton^])
+* Deploy your containers to a staging namespace created on Openshift
 * Execute and monitor the microservices using different performance parameters
 * Load test the microservices
 * Analyze CPU load and scale containers appropriately
@@ -29,5 +29,164 @@ What you are going to do:
 
 Are you ready to get started? Proceed to the next step to learn more about your environment and get started with the workshop.
 
+== Presenting the Workshop
+This workshop is about understanding the performance of Java runtimes in a containerized environment in the cloud. It is a hands-on workshop, so you will be doing a lot of things in your development environment as well as on Red Hat Openshift.
 
+Today, most of us containerize our Java applications and then deploy them to the cloud. 
+But how do we know if our application is performing well? 
+What do we do if we see a spike in CPU or memory usage? 
+Do we scale out or scale up? 
+Do we change the JVM parameters? Do we change the container size? 
+And what about having native binaries and compiling our code with link:https://www.graalvm.org[GraalVM^]?
 
+=== What Is This Workshop About?
+
+To understand performance in a containerized environment we need a few simple algorithms that consume CPU and memory.
+We will then develop these same algorithms in https://quarkus.io[Quarkus], https://spring.io/projects/spring-boot[Spring Boot] and https://micronaut.io[Micronaut], deploy them to link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat(R) OpenShift(R)^] Application Platform and monitor their performance.
+
+The algorithm consuming CPU will be a simple loop.
+The higher the iteration, the more CPU it uses:
+
+[source,java,indent=0]
+----
+        while (iterations > 0) {
+            if (iterations % 20000 == 0) {
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException ie) {
+                }
+            }
+            iterations--;
+        }
+----
+
+The algorithm consuming memory will be a simple hashmap that we will fill with bites.
+The more bits you have, the more memory it uses:
+
+[source,java,indent=0]
+----
+        HashMap hunger = new HashMap<>();
+        for (int i = 0; i < bites * 1024 * 1024; i += 8192) {
+            byte[] bytes = new byte[8192];
+            hunger.put(i, bytes);
+            for (int j = 0; j < 8192; j++) {
+                bytes[j] = '0';
+            }
+        }
+----
+
+=== What Will You Be Developing?
+
+You will be developing 3 microservices, each doing the exact same thing (consuming CPU and memory), but using a different Java runtime: Quarkus, Spring Boot and Micronaut:
+
+* A REST endpoint (used as an entry point) that will execute our CPU and memory consuming algorithms
+* A repository used to store the results of the CPU and memory consuming algorithms
+* A statistics entity mapped to the relational database
+
+image::./imgs/module-1/welcome-develop.png[]
+
+=== What Is Already Provided for You?
+
+You will be working on a shared Openshift Cluster where each user has a set of four Projects (a.k.a Namespaces). 
+
+ * user-devspaces: this namespace host your Developer Workspace where you will be developing (inner-loop process) the applications using Openshift Devspaces.
+ * user-cicd: this namespace host the Openshift Pipeline you will use to trigger the build and deploy (outer-loop process) of each application.
+ * user-hyperfoil: this namespace hosting the Load Driver Controller used to generate load against the applications deployed on the staging environment.
+ * user-staging: this is the namespace that will host the three applications you will be building.
+
+As a developer you will be interacting with the Openshift Platform using different tools to build, test, deploy and monitor your microservices.
+
+image::./imgs/module-1/welcome-user-namespaces.png[]
+
+=== What Will You Be Deploying?
+
+Once developed and tested locally, you will be building your microservices' container images and deploy them to Openshift Container Platform:
+
+* You will create an Quay.io Registry Account to store and manage the Container Images
+* You will run a Tekton Pipeline that:
+  * builds each microservice into a container image;
+  * pushes each application container image to your Quay.io Registry account;
+  * ans finally deploys each one on a staging namespace created on Openshift;
+
+image::./imgs/module-1/welcome-deploy.png[]
+
+=== Structure of the Workshop
+
+You have this material in your hands, and you can now follow it step by step.
+The structure of this workshop is as follows:
+
+* _Accessing your DevWorkspace_:
+In this section, you will access your DevWorkspace that was pre-provisioned on Openshift DevSpaces.
+* _Developing the Quarkus Application_:
+In this section, you will develop a microservice using Quarkus, test it and run it locally.
+* _Developing the Micronaut Application_:
+In this section, you will develop a microservice using Micronaut.
+* _Developing the Spring Boot Application_:
+In this section, you will develop a microservice using Spring Boot.
+* _Setting Up the Quay.io Registry_:
+This section requires you to create a personal free account on link:https://quay.io[Quay.io^] - a Managed Container Registry Service hosted hosted by Red Hat.
+* _Deploying the Applications_:
+In this section, you will set up a CI/CD pipeline using Opensift Pipelines (based on Tekton) so that our application builds and deploy on an automated way.
+The pipelines uses various Tekton Tasks that uses popular opensource tools like Git, Apache Maven, Buildah, Skopeo and Knative CLI.
+* _Load Testing, Scaling and Monitoring the Applications_:
+In this section, you will add some load to your microservices, monitor them, scale them, check the logs, etc.
+* _Going Native_:
+In this section you will compile your microservices with GraalVM (optional), package them, deploy them on Openshift, and see how it impacts the performance.
+
+== Presenting Red Hat Openshift
+
+Red Hat(R) OpenShift(R) is a unified platform to build, modernize, and deploy applications at scale. 
+It integrates tested and trusted services to reduce the friction of developing, deploying, running, and managing applications in Kubernetes.
+
+For this workshop, we'll use in particular the following services and capabilities available in the Platform:
+
+* Openshift Container Platform: a unified platform to build, modernize, and deploy applications at scale.
+* Red Hat Quay.io: a private container registry to store our Container images.
+* Red Hat Openshift Pipelines: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by Tekton.
+* Red Hat DevSapces: the OpenShift-native developer workspace server and IDE based on the open link:https://www.eclipse.org/che/[Eclipse Che project^]
+* Crunchy Postgres for Kubernetes: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^], gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
+
+=== What's Openshift Application Platform?
+
+https://azure.microsoft.com/products/container-apps/[Azure Container Apps] is a fully managed serverless container service on Azure.
+It allows you to run containerized applications without worrying about orchestration or managing complex infrastructure such as Kubernetes.
+You write code using your preferred programming language or framework (in this workshop it's Java and Quarkus, but it can be anything), and build microservices with full support for Distributed Application Runtime (https://dapr.io/[Dapr]).
+Then, your containers will scale dynamically based on HTTP traffic or events powered by Kubernetes Event-Driven Autoscaling (https://keda.sh[KEDA]).
+
+There are already a few compute resources on Azure: from IaaS  to FaaS .
+Azure Container Apps sits between PaaS  and FaaS .
+On one hand, it feels more PaaS, because you are not forced into a specific programming model and you can control the rules on which to scale out / scale in.
+On the other hand, it has quite some serverless characteristics like scaling to zero, event-driven scaling, per second pricing and the ability to leverage Dapr's event-based bindings.
+
+image::../assets/azure-compute-services.png[Diagram showing the different compute resources on Azure]
+
+Container Apps is built on top of Azure Kubernetes Service, including a deep integration with KEDA (event-driven auto scaling for Kubernetes), Dapr (distributed application runtime) and Envoy (a service proxy designed for cloud-native applications).
+The underlying complexity is completely abstracted for the end-user.
+So no need to configure your K8S service, deployment, ingress, volume manifests… You get a very simple API and user interface to configure the desired configuration for your containerized application.
+This simplification means also less control, hence the difference with AKS.
+
+image::../assets/azure-container-apps.png[Diagram showing the architecture of Azure Container Apps]
+
+Openshift Application Platform has the following features:
+
+- _Revisions_: automatic versioning that helps to manage the application lifecycle of your container apps
+- _Traffic control_: split incoming HTTP traffic across multiple revisions for Blue/Green deployments and A/B testing
+- _Ingress_: simple HTTPS ingress configuration, without the need to worry about DNS and certificates
+- _Autoscaling_: leverage all KEDA-supported scale triggers to scale your app based on external metrics
+- _Secrets_: deploy secrets that are securely shared between containers, scale rules and Dapr sidecars
+- _Monitoring_: the standard output and error streams are automatically written to Log Analytics
+- _Dapr_: through a simple flag, you can enable native Dapr integration for your Container Apps
+
+Openshift Application Platform introduces the following concepts:
+
+- _Environment_: this is a secure boundary around a group of Container Apps.
+They are deployed in the same virtual network, these apps can easily intercommunicate easily with each other and they write logs to the same Log Analytics workspace.
+An environment can be compared with a Kubernetes namespace.
+
+- _Container App_: this is a group of containers (pod) that is deployed and scale together.
+They share the same disk space and network.
+
+- _Revision_: this is an immutable snapshot of a Container App.
+New revisions are automatically created and are valuable for HTTP traffic redirection strategies, such as A/B testing.
+
+image::../assets/aca-environment.png[Diagram showing the environment concept in Azure Container Apps]
