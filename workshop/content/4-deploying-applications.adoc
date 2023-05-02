@@ -2,11 +2,20 @@
 
 == Deploying the Microservices 
 
-Hopefully you learned a few things in this lab:
+In this module you'll learn how to deploy the Java applications using OpenShift Pipelines (based on https://tekton.dev/[Tekton]).
 
-* Thing one
-* Thing two
 
-For more information... etc...
 
-Thank you!
+Tekton is a CI/CD tool made especifically to run in a Kubernetes environment. It takes advantage of containers and shared resources, such as https://kubernetes.io/docs/concepts/storage/volumes/[volumes], to create reproducible processes to facilitate the creation of automation https://tekton.dev/docs/pipelines/pipelines/[pipelines].
+
+
+Recommended reading: https://www.redhat.com/en/topics/devops/what-is-ci-cd#overview[What is CI/CD?]
+
+
+You won't need to create your pipeline from scratch. To reduce the complexity, we already provisioned a pipeline for you in the `userx-cicd` namespace. You just need to learn what it does and how to run it.
+
+=== Understanding the pipeline
+
+In the *Developer view*, select the `userx-cicd` project. Then, on the right side menu, click on *Pipelines*.
+
+image::imgs/module-4/pipelines-view.png[Pipeline View]
