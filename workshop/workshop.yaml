@@ -1,10 +1,13 @@
 ---
-name: Modern cloud-native Java runtimes performance monitoring on Red Hat OpenShift
+name: Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift
 modules:
   activate:
     - 1-welcome
     - 2-environment-setup
-    - 3-applications-building
+    - 3-applications-building/intro
+    - 3-applications-building/quarkus
+    - 3-applications-building/micronaut
+    - 3-applications-building/springboot
     - 4-deploying-applications
     - 5-loadtesting
     - 6-conclusion

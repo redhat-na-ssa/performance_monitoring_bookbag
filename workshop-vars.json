@@ -1,9 +1,11 @@
 {
     "guid": "abcde",
     "example_var": 42,
-    "ssh_command": "ssh lab-user@bastion.abcde.example.com",
-    "ssh_password": "p4ssword!1",
-    "user": "lab-user",
+    "openshift_console_url": "https://console-openshift-console.apps.cluster-l52jv.l52jv.sandbox2369.opentlc.com/",
+    "user_devspaces_dashboard_url": "https://devspaces.apps.cluster-l52jv.l52jv.sandbox2369.opentlc.com/dashboard",
+    "user_devworkspace_url": "https://devspaces.apps.cluster-l52jv.l52jv.sandbox2369.opentlc.com/workspace53028c69c2b54fa5/tools/3100/",
+    "template_github_url": "https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps-template",
+    "user": "user1",
     "user_info_messages": "Example workshop messages:\nHello, World",
     "my": {
         "deep": {
@@ -11,3 +13,4 @@
         }
     }
 }
+ 

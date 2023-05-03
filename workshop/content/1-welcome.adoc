@@ -1,6 +1,7 @@
 :guid: %guid%
 :user: %user%
 :markup-in-source: verbatim,attributes,quotes
+:source-highlighter: highlight.js
 
 = Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift
 
@@ -47,7 +48,7 @@ We will then develop these same algorithms in https://quarkus.io[Quarkus], https
 The algorithm consuming CPU will be a simple loop.
 The higher the iteration, the more CPU it uses:
 
-[source,java,indent=0]
+[source,java,role=copy]
 ----
         while (iterations > 0) {
             if (iterations % 20000 == 0) {
@@ -142,8 +143,11 @@ For this workshop, we'll use in particular the following services and capabiliti
 
 * Openshift Container Platform: a unified platform to build, modernize, and deploy applications at scale.
 * Red Hat Quay.io: a private container registry to store our Container images.
-* Red Hat Openshift Pipelines: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by Tekton.
-* Red Hat DevSapces: the OpenShift-native developer workspace server and IDE based on the open link:https://www.eclipse.org/che/[Eclipse Che project^]
+* Openshift Pipelines: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by Tekton.
+* Openshift DevSpaces: the OpenShift-native developer workspace server and IDE based on the open link:https://www.eclipse.org/che/[Eclipse Che project^]
+* OpenShift Serverless: based on Knative
+* OpenShift Monitoring: based on Prometheus
+* OpenShift Logging, based on Loki
 * Crunchy Postgres for Kubernetes: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^], gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
 
 === What's Openshift Application Platform?
@@ -158,14 +162,14 @@ Azure Container Apps sits between PaaS  and FaaS .
 On one hand, it feels more PaaS, because you are not forced into a specific programming model and you can control the rules on which to scale out / scale in.
 On the other hand, it has quite some serverless characteristics like scaling to zero, event-driven scaling, per second pricing and the ability to leverage Dapr's event-based bindings.
 
-image::../assets/azure-compute-services.png[Diagram showing the different compute resources on Azure]
+image::./imgs/azure-compute-services.png[Diagram showing the different compute resources on Azure]
 
 Container Apps is built on top of Azure Kubernetes Service, including a deep integration with KEDA (event-driven auto scaling for Kubernetes), Dapr (distributed application runtime) and Envoy (a service proxy designed for cloud-native applications).
 The underlying complexity is completely abstracted for the end-user.
 So no need to configure your K8S service, deployment, ingress, volume manifests… You get a very simple API and user interface to configure the desired configuration for your containerized application.
 This simplification means also less control, hence the difference with AKS.
 
-image::../assets/azure-container-apps.png[Diagram showing the architecture of Azure Container Apps]
+image::./imgs/azure-container-apps.png[Diagram showing the architecture of Azure Container Apps]
 
 Openshift Application Platform has the following features:
 
@@ -189,4 +193,4 @@ They share the same disk space and network.
 - _Revision_: this is an immutable snapshot of a Container App.
 New revisions are automatically created and are valuable for HTTP traffic redirection strategies, such as A/B testing.
 
-image::../assets/aca-environment.png[Diagram showing the environment concept in Azure Container Apps]
+image::./imgs/aca-environment.png[Diagram showing the environment concept in Azure Container Apps]

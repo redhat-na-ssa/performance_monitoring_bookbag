@@ -3,6 +3,7 @@
 skinparam dpi 300
 allow_mixing
 left to right direction
+scale 0.5
 
 node "Java Runtime" as runtime {
     class "Resource" as resource <<REST>> {

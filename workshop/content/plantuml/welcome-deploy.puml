@@ -3,6 +3,7 @@
 skinparam dpi 300
 allow_mixing
 left to right direction
+scale 0.5
 
 node "Quay.io" as registry {
     agent "Quarkus" as quarkus
