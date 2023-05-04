@@ -152,45 +152,20 @@ For this workshop, we'll use in particular the following services and capabiliti
 
 === What's Openshift Application Platform?
 
-https://azure.microsoft.com/products/container-apps/[Azure Container Apps] is a fully managed serverless container service on Azure.
-It allows you to run containerized applications without worrying about orchestration or managing complex infrastructure such as Kubernetes.
-You write code using your preferred programming language or framework (in this workshop it's Java and Quarkus, but it can be anything), and build microservices with full support for Distributed Application Runtime (https://dapr.io/[Dapr]).
-Then, your containers will scale dynamically based on HTTP traffic or events powered by Kubernetes Event-Driven Autoscaling (https://keda.sh[KEDA]).
-
-There are already a few compute resources on Azure: from IaaS  to FaaS .
-Azure Container Apps sits between PaaS  and FaaS .
-On one hand, it feels more PaaS, because you are not forced into a specific programming model and you can control the rules on which to scale out / scale in.
-On the other hand, it has quite some serverless characteristics like scaling to zero, event-driven scaling, per second pricing and the ability to leverage Dapr's event-based bindings.
+A good marketing consise description os Openshift as an Application Patform...
 
 image::./imgs/azure-compute-services.png[Diagram showing the different compute resources on Azure]
 
-Container Apps is built on top of Azure Kubernetes Service, including a deep integration with KEDA (event-driven auto scaling for Kubernetes), Dapr (distributed application runtime) and Envoy (a service proxy designed for cloud-native applications).
-The underlying complexity is completely abstracted for the end-user.
-So no need to configure your K8S service, deployment, ingress, volume manifests… You get a very simple API and user interface to configure the desired configuration for your containerized application.
-This simplification means also less control, hence the difference with AKS.
+bla bla bla
 
 image::./imgs/azure-container-apps.png[Diagram showing the architecture of Azure Container Apps]
 
-Openshift Application Platform has the following features:
+Among many other capabilities Openshift Application Platform has the following features for developing Modern Cloud Native Apps:
 
 - _Revisions_: automatic versioning that helps to manage the application lifecycle of your container apps
 - _Traffic control_: split incoming HTTP traffic across multiple revisions for Blue/Green deployments and A/B testing
-- _Ingress_: simple HTTPS ingress configuration, without the need to worry about DNS and certificates
-- _Autoscaling_: leverage all KEDA-supported scale triggers to scale your app based on external metrics
-- _Secrets_: deploy secrets that are securely shared between containers, scale rules and Dapr sidecars
-- _Monitoring_: the standard output and error streams are automatically written to Log Analytics
-- _Dapr_: through a simple flag, you can enable native Dapr integration for your Container Apps
-
-Openshift Application Platform introduces the following concepts:
-
-- _Environment_: this is a secure boundary around a group of Container Apps.
-They are deployed in the same virtual network, these apps can easily intercommunicate easily with each other and they write logs to the same Log Analytics workspace.
-An environment can be compared with a Kubernetes namespace.
-
-- _Container App_: this is a group of containers (pod) that is deployed and scale together.
-They share the same disk space and network.
-
-- _Revision_: this is an immutable snapshot of a Container App.
-New revisions are automatically created and are valuable for HTTP traffic redirection strategies, such as A/B testing.
+- _Ingress_: simple HTTPS ingress routes configuration, without the need to worry about DNS and certificates
+- _Autoscaling_: leverage Knative-POD-Autoscaling (KPA) and Horizontal-POD-Autoscaling (HPA) supported scale triggers to scale your app based concurrency, cpu and memory 
+- _Monitoring_: the standard output and error streams are automatically aggregated by the Platform Logging Stack (Loki and Vector)
 
 image::./imgs/aca-environment.png[Diagram showing the environment concept in Azure Container Apps]

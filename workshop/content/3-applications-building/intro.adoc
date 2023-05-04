@@ -1,8 +1,3 @@
 :openshift_console_url: %openshift_console_url%
 :openshift_api_url: %openshift_api_url%
 
-OpenShift Web Console: {openshift_console_url}
-OpenShift API: {openshift_api_url}
-
-That's it for the Quarkus application.
-Now, let's move to the Micronaut application.

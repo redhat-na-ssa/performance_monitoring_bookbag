@@ -267,6 +267,23 @@ To make sure you have all the code and dependencies, run the following command i
 mvn compile
 ----
 
+[TIP]
+====
+Besides using Maven commands directly in the IDE Terminal you can use the pre-defined commands available as Tasks in your Workspace.
+To access these commands just open the Task Manager view at left menu of your IDE (see screenshot below) and choose the task named `01: Quarkus - JVM Package` which triggers a `mvn package -DskipTests` in a Terminal.
+
+image::../imgs/module-3/VSCode_task_manager_mvn_package.gif[Task Manager - JVM Package]
+
+All these Tasks are defined as `commands` in the project's *Devfile* (`$PROJECT_SOURCE/devfile.yaml`) following the link:https://devfile.io[Devfile.io] standard.
+====
+
+[NOTE]
+====
+At this point you may be asking yourself about the Maven dependencies since wen haven't touched the project's `pom.xml`. 
+That's true. To make things a bit easier during the Lab we already put all the project dependencies for you. 
+You can check the `quarkus-app/pom.xml` file by opening it in the editor if you want to.
+====
+
 == Configuring the Quarkus Application
 
 Because we will run our application in different environments (dev, test and prod) we need to configure our runtime for such.
@@ -419,6 +436,11 @@ All the tests should pass and you should see the following output:
 [INFO] ------------------------------------------------------------------------
 ----
 
+[TIP]
+====
+You can also use the Task Manager to trigger Maven Test by executing the task `02: Quarkus - Test` which triggers a `mvn test` in a separate Terminal.
+====
+
 == Running the Quarkus Application Locally
 
 Now that the tests are all green, let's execute the application locally and execute a few `curl` commands.
@@ -428,6 +450,23 @@ Make sure you still have Docker up and running and execute the following command
 ----
 mvn quarkus:dev
 ----
+
+[TIP]
+====
+You can also use the Task Manager to start Quarkus in Dev Mode by executing the task `03: Quarkus - Start in dev mode (Hot reload + debug)` which triggers a `mvn quarkus:dev` in a separate Terminal.
+====
+
+image::../imgs/module-3/VSCode_task_manager_mvn_quarkus-dev.gif[Task Manager - Quarkus dev mode]
+
+[NOTE]
+====
+When you start a Quarkus app in dev mode inside your Workspace watch out for two pop-ups that appear at the bottom left of your IDE.
+
+ * the first one says "A new process is listening on port 5005..." which is the JVM Debug port. Just ignore and close this one.
+ * the second one says "Process quarkus-app is now listening on port 8701" which is the http port we configured our app to listen to. *click Open in a new tab button* and then *click Open* in the next pop-up (VSCode needs your consent every time you attempt to open an external URL).
+
+This pop-up will appear every time you start a process which listens to a TCP/HTTP port. This is how *DevSpaces* exposes your app for external access during development phase.
+====
 
 In another terminal you can execute the following `curl` commands to invoke the endpoint:
 
@@ -440,6 +479,13 @@ curl 'localhost:8701/quarkus/cpu?iterations=10&db=true&desc=java17'
 curl 'localhost:8701/quarkus/memory?bites=10&db=true&desc=java17'
 ----
 
+[TIP]
+====
+To open a new Terminal in your Worksapce just click the `+` icon located at the top bar of the Terminal panel. If your Teminal is not open just hit `Ctrl + \`` (`command + \`` for Mac).
+
+You can also open a new Terminal by using the VSCode Command prompt by `Ctrl + Shift + P` (`command + Shift + P` on Mac) and typing `new terminal` and choosing the last option named `New Terminal to DevWorkspace Container`.
+====
+
 You can change the parameters to see how the application behaves.
 Change the number of iterations and the number of bites to see how the performance is impacted (with and without database).
 
@@ -447,19 +493,24 @@ Change the number of iterations and the number of bites to see how the performan
 ----
 curl 'localhost:8701/quarkus/cpu?iterations=50'
 curl 'localhost:8701/quarkus/cpu?iterations=100'
-curl 'localhost:8701/quarkus/cpu?iterations=100&db=true'
+curl 'localhost:8701/quarkus/cpu?iterations=100&db=true&desc=smoke%20test'
 
 curl 'localhost:8701/quarkus/memory?bites=50'
 curl 'localhost:8701/quarkus/memory?bites=100'
-curl 'localhost:8701/quarkus/memory?bites=100&db=true'
+curl 'localhost:8701/quarkus/memory?bites=100&db=true&desc=smoke%20test'
 ----
 
 You can check the content of the database with:
 
 [source,shell,role=copy]
 ----
-curl 'localhost:8701/quarkus/stats' | jq
+curl -s 'localhost:8701/quarkus/stats' | jq
 ----
+
+[NOTE]
+====
+when you are done testing your Quarkus app just go to the Terminal running the quarkus-app JVM process and hit `Ctrl + c` to terminal the JVM process.
+====
 
 That's it for the Quarkus application.
 Now, let's move to the Micronaut application.
