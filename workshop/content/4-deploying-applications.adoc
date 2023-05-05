@@ -1,6 +1,6 @@
 :markup-in-source: verbatim,attributes,quotes
 
-== Deploying the Microservices 
+== Introduction
 
 In this module you'll learn how to deploy the Java applications using OpenShift Pipelines (based on https://tekton.dev/[Tekton]).
 
@@ -13,11 +13,11 @@ Recommended reading: https://www.redhat.com/en/topics/devops/what-is-ci-cd#overv
 ====
 
 
-You won't need to create your pipeline from scratch. To reduce the complexity, we already provisioned a pipeline for you in the `userx-cicd` namespace. You just need to learn what it does and how to run it.
+You won't need to create your pipeline from scratch. To reduce the complexity, we already provisioned a pipeline for you in the `%user%-cicd` namespace. You just need to learn what it does and how to run it.
 
-=== Understanding the pipeline
+== Understanding the pipeline
 
-In the *Developer view*, select the `userx-cicd` project. Then, on the right side menu, click on *Pipelines*:
+Go to %console_url%/topology/ns/%user%-cicd?view=graph[%user%-cicd project]. Then, on the right side menu, click on *Pipelines*:
 
 image::imgs/module-4/pipelines_view.png[Pipelines View]
 
@@ -36,9 +36,9 @@ image::imgs/module-4/pipeline.png[Pipeline]
 We'll use the same pipeline to deploy all the applications but we can only deploy one at a time.
 ====
 
-=== Configuring Quay access
+== Configuring Quay access
 
-You need to create the image repositories in your Quay.io account and create credentials for the pipeline to be able to push the image.
+You need to create the image repositories in your https://quay.io/repository/[Quay.io] account and create credentials for the pipeline to be able to push the image.
 
 image::imgs/module-4/clean_org.png[new org]
 
@@ -65,17 +65,17 @@ Once the robot is created, you can get the secret you need to authenticate the p
 
 image::imgs/module-4/get_secret.gif[get secret]
 
-With the kubernetes secret on your copyboard, you can paste it on OpenShift console, edit it's name to `quay-secret` and set the *namespace* to  `{user}-cicd`, like in the gif:
+With the kubernetes secret on your copyboard, you can paste it on OpenShift console, edit it's name to `quay-secret` and set the *namespace* to  `%user%-cicd`, like in the gif:
 
 image::imgs/module-4/create_secret.gif[Create secret]
 
 Before running the pipeline you need to link the secret you just created to the https://kubernetes.io/docs/concepts/security/service-accounts/[Service Account] used by the pipeline.
 
-Go to your DevWorkspace and run the task that links the secret:
+Go to your %devspace_url%[DevWorkspace] and run the task that links the secret:
 
 image::imgs/module-4/link_secret.gif[Link secret]
 
-=== Running the pipeline
+== Running the pipeline
 
 Go back to the pipeline view. Click on `Actions`, then click on `Start`.
 
@@ -97,7 +97,7 @@ Once the pipeline finished succesfully, all tasks on it will be green as in the 
 
 image::imgs/module-4/pipeline_finished.png[Pipeline finshed]
 
-=== Checking the deployment
+== Checking the deployment
 
 Since we're deployment serverless applications, after the initial test of the https://knative.dev/docs/concepts/serving-resources/revisions/[revision], if there is no requests, the application will scale down to zero.
 To test if the deployment was successful, you can make a request to the application using the external https://docs.openshift.com/container-platform/4.12/networking/routes/route-configuration.html[route] created for it.
