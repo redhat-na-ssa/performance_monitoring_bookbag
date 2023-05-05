@@ -17,7 +17,7 @@ You won't need to create your pipeline from scratch. To reduce the complexity, w
 
 == Understanding the pipeline
 
-Go to %console_url%/topology/ns/%user%-cicd?view=graph[%user%-cicd project]. Then, on the right side menu, click on *Pipelines*:
+Go to %openshift_console_url%/topology/ns/%user%-cicd?view=graph[%user%-cicd project]. Then, on the right side menu, click on *Pipelines*:
 
 image::imgs/module-4/pipelines_view.png[Pipelines View]
 
