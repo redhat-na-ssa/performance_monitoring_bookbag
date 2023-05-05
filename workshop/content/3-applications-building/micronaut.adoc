@@ -294,7 +294,7 @@ interface StatisticsRepository extends CrudRepository<Statistics, Long> {
 You should have all the code to compile the application.
 To make sure you have all the code and dependencies, run the following command in the `micronaut-app` folder:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn compile
 ----
@@ -494,7 +494,7 @@ Let's also create a simple test to make sure the statistics are stored in the da
 
 Now that you have your tests methods, run them with the following command:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn test
 ----
@@ -520,7 +520,7 @@ All the tests should pass and you should see the following output:
 Now that the tests are all green, let's execute the application locally and execute a few `curl` commands.
 Under the `micronaut-app` directory, execute the following command:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn -Dmicronaut.environments=dev mn:run
 ----

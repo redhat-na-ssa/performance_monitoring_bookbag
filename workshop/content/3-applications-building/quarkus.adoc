@@ -262,7 +262,7 @@ public class StatisticsRepository implements PanacheRepository<Statistics> {
 You should have all the code to compile the application.
 To make sure you have all the code and dependencies, run the following command in the `quarkus-app` folder:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn compile
 ----
@@ -420,7 +420,7 @@ Let's also create a simple test to make sure the statistics are stored in the da
 
 Now that you have your tests methods, run them with the following command:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn test
 ----
@@ -446,7 +446,7 @@ You can also use the Task Manager to trigger Maven Test by executing the task `0
 Now that the tests are all green, let's execute the application locally and execute a few `curl` commands.
 Make sure you still have Docker up and running and execute the following command under the `quarkus-app` directory:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn quarkus:dev
 ----

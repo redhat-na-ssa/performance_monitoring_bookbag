@@ -292,7 +292,7 @@ interface StatisticsRepository extends CrudRepository<Statistics, Long> {
 You should have all the code to compile the application.
 To make sure you have all the code and dependencies, run the following command in the `springboot-app` folder:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn compile
 ----
@@ -335,10 +335,6 @@ spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=password
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
-spring.h2.console.settings.trace=false
-spring.h2.console.settings.web-allow-others=false
 
 ## Hibernate Properties
 spring.jpa.show-sql=true
@@ -473,7 +469,7 @@ Let's also create a simple test to make sure the statistics are stored in the da
 
 Now that you have your tests methods, run them with the following command:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn test
 ----
@@ -499,7 +495,7 @@ All the tests should pass and you should see the following output:
 Now that the tests are all green, let's execute the application locally and execute a few `curl` commands.
 Under the `springboot-app` directory, execute the following command:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn spring-boot:run
 ----

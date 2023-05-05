@@ -1,0 +1,14 @@
+= Lab Troubleshooting
+
+== 1. Openshift forbidden error
+
+When executing any command or Task in the DevWorkspace's Terminal...
+If you see any error similar to the following
+
+```
+Error from server (Forbidden): routes.route.openshift.io "hyperfoil-instance" is forbidden: User "system:serviceaccount:user3-devspaces:workspace53028c69c2b54fa5-sa" cannot get resource "routes" in API group "route.openshift.io" in the namespace "system:serviceaccount:user3-devspaces:workspace53028c69c2b54fa5-sa-hyperfoil"
+```
+
+From the IDE Task Manager please, execute the the `98: OC Login` Task. Youl will be prompted to entenr your user's password.
+
+image::.imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]

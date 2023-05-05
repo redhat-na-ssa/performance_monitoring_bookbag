@@ -5,6 +5,7 @@
 :user_devworkspace_url: %user_devworkspace_url%
 :template-github-url: %template-github-url%
 :hyperfoil_web_cli_url: %hyperfoil_web_cli_url%
+:grafana_url: %grafana_url%
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
 
@@ -13,7 +14,7 @@
 
 Our microservices have several endpoints consuming memory or CPU.
 Depending on the number of iterations and bites we pass as parameters to these endpoints, it can take significantly longer to respond.
-We are going to explore the problem by looking at CPU and memory metrics.
+We are going to explore the problem by looking at *CPU* and *memory* metrics.
 
 == CPU
 
@@ -38,68 +39,66 @@ When you know memory usage you are better prepared to answer the following quest
 
 == Monitoring
 
-One of the first thing you usually want to do once your application is deployed is to configure monitoring.
-We'll use the https://portal.azure.com[Azure portal] to create a nice dashboard for monitoring our application metrics.
-
-Open the http://portal.azure.com[Azure Portal] and navigate to the resource group `rg-java-runtimes` you created for your application.
-Select the `quarkus-app` container app, then select *Metrics* from the left menu, under the *Monitoring* group.
-
-image::../assets/aca-metrics.png[Screenshot of the Azure portal showing the metrics panel for the container app]
-
-Using the *Metrics* panel, you can select which metrics you want to observe, and the time range for the data.
-Under the _Standard Metrics_ namespace, you can see the list of available built-in metrics for your application.
-You can also create https://learn.microsoft.com/azure/azure-monitor/essentials/metrics-custom-overview?[your own custom metrics].
-
-image::../assets/standard-metrics.png[Screenshot of the Azure portal showing the list of standard metrics]
-
-Select "_CPU Usage_" from the list of metrics, choose "_Max_" for the *Aggregation* and select the last 30 minutes for the time range (in the top right of the panel).
-You can see the CPU and memory usage for your application.
-
-image::../assets/metrics-cpu.png[Screenshot of the Azure portal showing the list of standard metrics]
-
-=== Creating charts for all services
-
-Now let's add the CPU metrics of the Micronaut and Spring apps to the same chart.
-Select *Add metric* and select "_CPU Usage_" and aggregation "_Max_" again.
-Then click on the *Scope* setting, unselect `quarkus-app` and pick the `micronaut-app`.
-Select *Apply*, and repeat the same for the `spring-app`.
-
-Now you should see a nice chart with the CPU usage of all three applications.
-Let's save this chart on the dashboard!
-
-Select *Save to dashboard* and choose *Pin to dashboard*:
-
-image::../assets/metrics-save.png[Screenshot of the Azure portal showing the save to dashboard options]
-
-In the _Pin to dashboard_ dialog, select *Create new* and give it a name, for example "Java Runtimes" then click *Create and pin*.
-
-image::../assets/dashboard-create.png[Screenshot of the Azure portal showing the dashboard creation dialog]
-
-We'll also add charts to monitor the memory usage and number of replicas of our applications.
-
-Click on *+New chart* (top left corner) and repeat the same steps as before to create a chart with "_Memory Working Set Bytes_" metrics with aggregation "_Max_".
-Do this for the three applications (Quarkus, Micronaut and Spring Boot).
-Select *Save to dashboard*, choose *Pin to dashboard*, and select the existing "Java Runtimes" dashboard.
-
-Click on *+New chart* again, and create another chart with the "_Replica Count_" metric with aggregation "_Max_".
-Don't forget to save this dashboard as well (select *Save to dashboard*, choose *Pin to dashboard*, and select the existing "Java Runtimes" dashboard).
-
-When you're finished, in the http://portal.azure.com[Azure Portal] sidebar select *Dashboards* and choose the "_Java Runtimes_" dashboard we created earlier.
-
-image::../assets/dashboard-select.png[Screenshot of Azure portal dashboard selection]
+One of the first things you usually want to do once your application is deployed is to configure monitoring.
+For this, we'll be using the Monitoring capability built in Openshift. This feature comes with a pre-set of ready to use dashboards for monitoring application's workload metrics right from the Openshift Console. 
 
 [NOTE]
 ====
-Depending on your setup, you might see the Azure Portal sidebar menu or not.
-If not, click on the burger menu at the very top left of the portal and you will see the Dashboard menu.
-
-image::../assets/dashboard-burger.png[Screenshot of Azure portal burger menu]
+The OpenShift Container Platform monitoring stack is based on the link:https://prometheus.io/[Prometheus] open source project and its wider ecosystem. To learn more about the Openshift Monitoring stack see link:https://docs.openshift.com/container-platform/4.12/monitoring/monitoring-overview.html[About OpenShift Container Platform monitoring].
 ====
 
-You should now see the 3 charts you just created.
-You can rearrange the charts by dragging them around, and resize them by dragging the bottom right corner.
+We'll be also using the link:https://grafan.com[Grafana] tool to monitor some specific metrics provided out-of-the-box by the Openshift Monitoring Stack.
 
-image::../assets/dashboard-scale.png[Screenshot of dashboard showing metrics for our applications]
+[NOTE]
+====
+Grafana is an open platform for beautiful analytics and monitoring. For more information please visit the link:https://grafana.com/oss/[Grafana website].
+
+Red Hat provides an Openshift Operator to install and manage Grafana instances on your cluster. See link:https://operatorhub.io/operator/grafana-operator[Grafana Operator] in the Operator Hub for more details.
+====
+
+From the link:{openshif_console_url}/topology/ns/{user}-staging?view=graph[Developer Perspective in Openshift Console] navigate to the Observe view. 
+From there, select the *Dashboard* `Kubernetes / Compute Resources / Namespaces (Workloads)` and *Type* `Deployment` for instance.
+
+image::./imgs/module-5/ocp_console_observe_dashboards.gif[Screenshot of the Openshift Developer perspective - Observe - Dashboad view]
+
+You can also drill into the Metric Graph by clicking in Inspec link (top right of the graph). This will open the metric view where you can
+see the link:https://prometheus.io/docs/prometheus/latest/querying/basics/[PromoQL^] that brings this metric data point from the integrated Prometheus Data Source.
+
+image::./imgs/module-5/ocp_console_observe_metrics.gif[Screenshot of the Openshift Developer perspective - Observe - Metrics view]
+
+Using the *Dashboard* and *Metric* views, you can select which metrics you want to observe, and the time range for the data.
+The *Observe* view is contextual which means it will present the data based on the project namespace you are in. So, you can observe the metrics for the workloads you have deployed into the current project namespace.
+If you switch to a different namespace you should see the workloads deployed to that specific project namespace.
+
+[TIP]
+====
+When you have multiple deployments (workloads) running in the current namespace you can notice that these graphs aggregates the data-points by POD. 
+Take a look at the PromoQL of the following CPU metric graph.
+
+image::./imgs/module-5/ocp_console_observe_aggregated_metrics_cpu.png[Aggregated CPU metrics]
+====
+
+=== Using Grafana to Visualize Metrics
+
+Now lets look at the application metrics using a different tool that can be easily integrated with Openshift.
+Because Openshift already uses Prometheus to gather and store cluster and application metrics you can easily integrate Grafana to create 
+nice metric visualization dashboards for any workload running on Openshift.
+
+Our Lab already has a Grafana instance fully integrated with Openshift's Monitoring stack. You can access Grafana by link:{grafana_url}[clicking here^]
+Then click on the *General / Home* link at the top left then click on *grafana | Go to folder* and select *Kubernetes / Compute Resources / Namespace (Workloads)*
+At the top of this dashboard you can select your *namespace* ({user}-staging) and 'deployment' *type*.
+
+image::./imgs/module-5/grafana_workload_dashboards.gif[Grafana workload dashboard]
+
+This is the same data we just saw using the Openshift Observe view in the Developer Console, but now using a different visualization tool. 
+
+Grafana is a very powerful metric visualization tool that allows you to create rich dashboards to monitor you app and get data insights from your application metrics.
+Creating customized dashboards is outside the scope of our lab but you can explore a vast library of tutorials on link:https://grafana.com/tutorials[Grafana website^].
+
+[IMPORTANT]
+====
+It's important to notice that the metrics' data source (Prometheus) is the same regardless the visualization tool you are using.
+====
 
 == Logs
 
