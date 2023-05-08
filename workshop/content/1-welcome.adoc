@@ -124,7 +124,7 @@ In this section you will develop a microservice using Quarkus, test it and run i
 In this section you will develop a microservice using Micronaut.
 * `_Developing the Spring Boot Application_`:
 In this section you will develop a microservice using Spring Boot.
-* _Setting Up the Quay.io Registry_:
+* `_Setting Up the Quay.io Registry_`:
 This section requires you to create a personal free account on link:https://quay.io[Quay.io^] - a Managed Container Registry Service hosted hosted by Red Hat.
 * `_Deploying the Applications_`:
 In this section you will set up a CI/CD pipeline using Opensift Pipelines (based on Tekton) so that our application builds and deploy on an automated way.
