@@ -7,7 +7,7 @@
 
 == Welcome
 During this workshop attendees will have the opportunity to participate in a hands-on Lab, 
-introductory-level session focused on performance monitoring using different Modern cloud-native Java runtimes. 
+introductory-level session, focused on performance monitoring using different Modern cloud-native Java runtimes. 
 Throughout the session, participants will execute tasks such as build, test and deploy microservices using link:https://quarkus.io[Quarkus^], link:https://spring.io[Spring Boot(R)^], and link:https://micronaut.io[Micronaut(R)^], 
 on top of link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat(R) OpenShift(R)^] Application Platform, and run load testing scenarios while monitoring the application performance. 
 Specifically, attendees will analyze CPU load and memory usage, establish a baseline, and then observe the impact of scaling up application containers.
@@ -90,48 +90,48 @@ image::./imgs/module-1/welcome-develop.png[]
 
 You will be working on a shared Openshift Cluster where each user has a set of four Projects (a.k.a Namespaces). 
 
- * user-devspaces: this namespace host your Developer Workspace where you will be developing (inner-loop process) the applications using Openshift Devspaces.
- * user-cicd: this namespace host the Openshift Pipeline you will use to trigger the build and deploy (outer-loop process) of each application.
- * user-hyperfoil: this namespace hosting the Load Driver Controller used to generate load against the applications deployed on the staging environment.
- * user-staging: this is the namespace that will host the three applications you will be building.
+ * `user-devspaces`: this namespace hosts your Developer Workspace where you will develop (inner-loop process) the applications using Openshift Devspaces.
+ * `user-cicd`: this namespace hosts the Openshift Pipeline you will use to trigger the build and deploy (outer-loop process) of each application.
+ * `user-hyperfoil`: this namespace hostw the Load Driver Controller used to generate load against the applications deployed on the staging environment.
+ * `user-staging`: this is the namespace that will host the three applications you will build.
 
-As a developer you will be interacting with the Openshift Platform using different tools to build, test, deploy and monitor your microservices.
+As a developer you will interact with the Openshift Platform using different tools to build, test, deploy and monitor your microservices.
 
 image::./imgs/module-1/welcome-user-namespaces.png[]
 
-=== What Will You Be Deploying?
+=== What Will You Deploy?
 
-Once developed and tested locally, you will be building your microservices' container images and deploy them to Openshift Container Platform:
+Once developed and tested locally, you will build your microservices' container images and deploy them to Openshift Container Platform:
 
 * You will create an Quay.io Registry Account to store and manage the Container Images
 * You will run a Tekton Pipeline that:
   * builds each microservice into a container image;
   * pushes each application container image to your Quay.io Registry account;
-  * ans finally deploys each one on a staging namespace created on Openshift;
+  * and finally deploys each one on a staging namespace created on Openshift;
 
 image::./imgs/module-1/welcome-deploy.png[]
 
 === Structure of the Workshop
 
-You have this material in your hands, and you can now follow it step by step.
+You have this material in your hands, and you can now follow its step by step.
 The structure of this workshop is as follows:
 
-* _Accessing your DevWorkspace_:
-In this section, you will access your DevWorkspace that was pre-provisioned on Openshift DevSpaces.
-* _Developing the Quarkus Application_:
-In this section, you will develop a microservice using Quarkus, test it and run it locally.
-* _Developing the Micronaut Application_:
-In this section, you will develop a microservice using Micronaut.
-* _Developing the Spring Boot Application_:
-In this section, you will develop a microservice using Spring Boot.
+* `_Accessing your DevWorkspace_`:
+In this section you will access your DevWorkspace that was pre-provisioned on Openshift DevSpaces.
+* `_Developing the Quarkus Application_`:
+In this section you will develop a microservice using Quarkus, test it and run it locally.
+* `_Developing the Micronaut Application_`:
+In this section you will develop a microservice using Micronaut.
+* `_Developing the Spring Boot Application_`:
+In this section you will develop a microservice using Spring Boot.
 * _Setting Up the Quay.io Registry_:
 This section requires you to create a personal free account on link:https://quay.io[Quay.io^] - a Managed Container Registry Service hosted hosted by Red Hat.
-* _Deploying the Applications_:
-In this section, you will set up a CI/CD pipeline using Opensift Pipelines (based on Tekton) so that our application builds and deploy on an automated way.
+* `_Deploying the Applications_`:
+In this section you will set up a CI/CD pipeline using Opensift Pipelines (based on Tekton) so that our application builds and deploy on an automated way.
 The pipelines uses various Tekton Tasks that uses popular opensource tools like Git, Apache Maven, Buildah, Skopeo and Knative CLI.
-* _Load Testing, Scaling and Monitoring the Applications_:
-In this section, you will add some load to your microservices, monitor them, scale them, check the logs, etc.
-* _Going Native_:
+* `_Load Testing, Scaling and Monitoring the Applications_`:
+In this section you will add some load to your microservices, monitor them, scale them, check the logs, etc.
+* `_Going Native_`:
 In this section you will compile your microservices with GraalVM (optional), package them, deploy them on Openshift, and see how it impacts the performance.
 
 == Presenting Red Hat Openshift
@@ -139,16 +139,16 @@ In this section you will compile your microservices with GraalVM (optional), pac
 Red Hat(R) OpenShift(R) is a unified platform to build, modernize, and deploy applications at scale. 
 It integrates tested and trusted services to reduce the friction of developing, deploying, running, and managing applications in Kubernetes.
 
-For this workshop, we'll use in particular the following services and capabilities available in the Platform:
+For this workshop we'll use the following services and capabilities available in the Platform:
 
-* Openshift Container Platform: a unified platform to build, modernize, and deploy applications at scale.
-* Red Hat Quay.io: a private container registry to store our Container images.
-* Openshift Pipelines: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by Tekton.
-* Openshift DevSpaces: the OpenShift-native developer workspace server and IDE based on the open link:https://www.eclipse.org/che/[Eclipse Che project^]
-* OpenShift Serverless: based on Knative
-* OpenShift Monitoring: based on Prometheus
-* OpenShift Logging, based on Loki
-* Crunchy Postgres for Kubernetes: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^], gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
+* `Openshift Container Platform`: a unified platform to build, modernize, and deploy applications at scale.
+* `Red Hat Quay.io`: A private container registry to store our Container images.
+* `Openshift Pipelines`: A cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources and backed by Tekton.
+* `Openshift DevSpaces`: the OpenShift-native developer workspace server and IDE based on the open link:https://www.eclipse.org/che/[Eclipse Che project^]
+* `OpenShift Serverless`: Based on Knative
+* `OpenShift Monitoring`: Based on Prometheus
+* `OpenShift Logging`: Based on Loki
+* `Crunchy Postgres for Kubernetes`: A Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^]. It gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
 
 === What's Openshift Application Platform?
 
@@ -162,10 +162,10 @@ image::./imgs/azure-container-apps.png[Diagram showing the architecture of Azure
 
 Among many other capabilities Openshift Application Platform has the following features for developing Modern Cloud Native Apps:
 
-- _Revisions_: automatic versioning that helps to manage the application lifecycle of your container apps
-- _Traffic control_: split incoming HTTP traffic across multiple revisions for Blue/Green deployments and A/B testing
-- _Ingress_: simple HTTPS ingress routes configuration, without the need to worry about DNS and certificates
-- _Autoscaling_: leverage Knative-POD-Autoscaling (KPA) and Horizontal-POD-Autoscaling (HPA) supported scale triggers to scale your app based concurrency, cpu and memory 
-- _Monitoring_: the standard output and error streams are automatically aggregated by the Platform Logging Stack (Loki and Vector)
+- `_Revisions_`: Automatic versioning that helps to manage the application lifecycle of your container apps
+- `_Traffic control_`: Split incoming HTTP traffic across multiple revisions for Blue/Green deployments and A/B testing
+- `_Ingress_`: simple HTTPS ingress routes configuration, without the need to worry about DNS and certificates
+- `_Autoscaling_`: leverage Knative-POD-Autoscaling (KPA) and Horizontal-POD-Autoscaling (HPA) supported scale triggers to scale your app based concurrency, cpu and memory 
+- `_Monitoring_`: the standard output and error streams are automatically aggregated by the Platform Logging Stack (Loki and Vector)
 
 image::./imgs/aca-environment.png[Diagram showing the environment concept in Azure Container Apps]
