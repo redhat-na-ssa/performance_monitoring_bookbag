@@ -139,33 +139,43 @@ In this section you will compile your microservices with GraalVM (optional), pac
 Red Hat(R) OpenShift(R) is a unified platform to build, modernize, and deploy applications at scale. 
 It integrates tested and trusted services to reduce the friction of developing, deploying, running, and managing applications in Kubernetes.
 
-For this workshop we'll use the following services and capabilities available in the Platform:
+For this workshop, we'll use in particular the following services and capabilities available in the Platform:
 
-* `Openshift Container Platform`: a unified platform to build, modernize, and deploy applications at scale.
-* `Red Hat Quay.io`: A private container registry to store our Container images.
-* `Openshift Pipelines`: A cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources and backed by Tekton.
-* `Openshift DevSpaces`: the OpenShift-native developer workspace server and IDE based on the open link:https://www.eclipse.org/che/[Eclipse Che project^]
-* `OpenShift Serverless`: Based on Knative
-* `OpenShift Monitoring`: Based on Prometheus
-* `OpenShift Logging`: Based on Loki
-* `Crunchy Postgres for Kubernetes`: A Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^]. It gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
+* Openshift Container Platform: a unified platform to build, modernize, and deploy applications at scale.
+* Red Hat Quay.io: a private container registry to store our Container images.
+* Openshift Pipelines: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by Tekton.
+* Openshift DevSpaces: the OpenShift-native developer workspace server and IDE based on the open link:https://www.eclipse.org/che/[Eclipse Che project^]
+* OpenShift Serverless: based on Knative
+* OpenShift Monitoring: based on Prometheus
+* OpenShift Logging, based on Loki
+* Crunchy Postgres for Kubernetes: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^], gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
 
 === What's Openshift Application Platform?
 
-A good marketing consise description os Openshift as an Application Patform...
+Red Hat(R) OpenShift(R), the industry's leading hybrid cloud application platform powered by Kubernetes, brings together tested and trusted services to reduce the friction of developing, modernizing, deploying, running, and managing applications. OpenShift delivers a consistent experience across public cloud, on-premise, hybrid cloud, or edge architecture.
 
-image::./imgs/azure-compute-services.png[Diagram showing the different compute resources on Azure]
+OpenShift Container Platform includes multiple advanced capabilities that are tested and integrated with the underlying certified Kubernetes environment.
 
-bla bla bla
+* *Automated* Day 1 and Day 2 operations.
+** Operators provide *automated installation, upgrades and life cycle management* for applications, ensuring applications are running correctly and making necessary changes to comply with the desired configuration.
+** Helm brings a *Kubernetes-native package manager* that developers can use to package their applications and define how to package, deploy, and configure them. It can also automate Day 1 tasks and a limited number of Day 2 operations. 
+* *Red Hat OpenShift Service Mesh* provides a uniform way to *manage, connect, and observe applications* as managing and security between services become more challenging.
+* *Red Hat OpenShift Serverless* allows an application to *use compute resources and automatically scale up or down based on use*, driven on demand from some event sources. 
+* *Red Hat OpenShift Pipelines* brings a *Kubernetes-native continuous integration and continuous development (CI/CD)* solution on Tekton that provides a streamlined user experience through the OpenShift console. 
+* *Red Hat OpenShift GitOps* is built from the open source Argo CD project and lets IT teams *implement GitOps workflows for cluster configuration and application delivery* for more efficient, security-focused, and scalable software development.
+* *Red Hat OpenShift Virtualization* brings *virtual machines to OpenShift* to modernize existing applications or run them alongside containers, and serverless, in a Kubernetes-native architecture.
+* *Edge computing* includes 3-node clusters, remote worker nodes, and single nodes to provide organizations *full Kubernetes capabilities in a smaller footprint*. 
+* *Support for diverse workloads with consistency* across applications with a common platform to accelerate the deployment of intelligent applications across a hybrid cloud environment. 
+** Supported workloads include: 
+*** Databases.
+*** Data analytics. 
+*** AI/ML software, programming languages, and frameworks.
+*** Logging and monitoring. 
+*** Web and application servers.
+*** Message broker services. 
 
-image::./imgs/azure-container-apps.png[Diagram showing the architecture of Azure Container Apps]
+The following diagram shows the OpenShift capabilities that is provided with the platform:
 
-Among many other capabilities Openshift Application Platform has the following features for developing Modern Cloud Native Apps:
+image::./imgs/module-1/openshift-diagram.png[OpenShift included services and offerings]
 
-- `_Revisions_`: Automatic versioning that helps to manage the application lifecycle of your container apps
-- `_Traffic control_`: Split incoming HTTP traffic across multiple revisions for Blue/Green deployments and A/B testing
-- `_Ingress_`: simple HTTPS ingress routes configuration, without the need to worry about DNS and certificates
-- `_Autoscaling_`: leverage Knative-POD-Autoscaling (KPA) and Horizontal-POD-Autoscaling (HPA) supported scale triggers to scale your app based concurrency, cpu and memory 
-- `_Monitoring_`: the standard output and error streams are automatically aggregated by the Platform Logging Stack (Loki and Vector)
-
-image::./imgs/aca-environment.png[Diagram showing the environment concept in Azure Container Apps]
+Check this link:https://www.redhat.com/en/resources/openshift-container-platform-datasheet[link] to find out more information about Red Hat OpenShift and its features.
