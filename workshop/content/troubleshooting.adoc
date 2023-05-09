@@ -12,3 +12,20 @@ Error from server (Forbidden): routes.route.openshift.io "hyperfoil-instance" is
 From the IDE Task Manager please, execute the the `98: OC Login` Task. Youl will be prompted to entenr your user's password.
 
 image::.imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
+
+== 2. Hyperfoil Web CLI Authentication
+
+When trying to access the WebCLI for the first time you will be prompted to enter you Lab credentials.
+
+If for some reason you enter the wrong credentials you have to close the current browser window or open a new one in Incognito mode.
+That's because Hyperfoil Web CLI currently uses Http Basic Authentication. To avoid that you can type your credential right in the URL address bar: https://{user}:{user_password}@{user}-hyperfoil.{cluster_domain}
+
+This way you don't have to close your current browser window or open a new one in Incognito.
+
+If you take too much time with you Web CLI idle in a browser window, you may also see an error message like this
+
+```
+ERROR: Failed to retrieve source for benchmark summit-lab-load-apps: Server responded with unexpected code: 401, UnauthorizedERROR: Server responded with unexpected code: 401, Unauthorized
+```
+
+In this case try to use this url https://{user}:{user_password}@{user}-hyperfoil.{cluster_domain} to authenticate the Hyperfoul Web CLI again.

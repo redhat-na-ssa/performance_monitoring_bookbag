@@ -6,9 +6,6 @@ modules:
   2-environment-setup:
     name: Setting Up the Environment
     exit_sign: Continue
-  3-applications-building/intro:
-    name: Developing and Building Microservices using Quarkus, Micronaut, and Spring Boot.
-    exit_sign: Continue
   3-applications-building/quarkus:
     name: Developing the Quarkus Application
     exit_sign: Continue
@@ -21,8 +18,14 @@ modules:
   4-deploying-applications:
     name: Deploying the Microservices 
     exit_sign: Continue
-  5-loadtesting:
-    name: Load Testing, Scaling and Monitoring the Applications 
+  5-loadtesting-monitoring/loadtesting:
+    name: Load Testing and Scaling the Applications 
+    exit_sign: Continue
+  5-loadtesting-monitoring/monitoring:
+    name: Monitoring the Applications 
+    exit_sign: Continue
+  5-loadtesting-monitoring/logging:
+    name: Analyzing Application Logging 
     exit_sign: Continue
   6-conclusion:
     name: Conclusion

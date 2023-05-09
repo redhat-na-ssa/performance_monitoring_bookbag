@@ -4,10 +4,11 @@ modules:
   activate:
     - 1-welcome
     - 2-environment-setup
-    - 3-applications-building/intro
     - 3-applications-building/quarkus
     - 3-applications-building/micronaut
     - 3-applications-building/springboot
     - 4-deploying-applications
-    - 5-loadtesting
+    - 5-loadtesting-monitoring/loadtesting
+    - 5-loadtesting-monitoring/monitoring
+    - 5-loadtesting-monitoring/logging
     - 6-conclusion

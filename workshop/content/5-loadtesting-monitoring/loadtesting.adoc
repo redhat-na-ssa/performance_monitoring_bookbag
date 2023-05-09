@@ -1,0 +1,392 @@
+:guid: %guid%
+:user: %user%
+:openshift_user_password: %openshift_user_password%
+:openshift_console_url: %openshift_console_url%
+:user_devworkspace_url: %user_devworkspace_url%
+:template-github-url: %template-github-url%
+:hyperfoil_web_cli_url: %hyperfoil_web_cli_url%
+:hyperfoil_benchmark_definition_url: 'https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml'
+:grafana_url: %grafana_url%
+:markup-in-source: verbatim,attributes,quotes
+:source-highlighter: highlight.js
+
+= Load Testing
+
+Now that we have our apps built and deployed to our staging environment it's time to add some load to them.
+For the purpose of our Lab this will allow us to see two things:
+
+1. observe resource consumption metrics (CPU, memory, networking traffic, etc) for each app container.
+2. how the auto-scaling features works in Openshift.
+
+== Introducing Hyperfoil Load Driver
+
+Nowadays there are many opensource tools that can be used to generate application load towards your applications. 
+Many of them was designed before Containers and Kubernetes making its deployment, configuration and scalability a challenge considering the distributed nature of Kubernetes. 
+
+For this Lab we will be using a tool called link:https://hyperfoil.io[Hyperfoil.io^]. Hyperfoil is described as a *Microservice-oriented distributed benchmark framework*.
+Because Hyperfoil is kubernetes-native (built to run on a scalable containerized distributed environment) it's perfect for our use-case as it is easy to deploy and run on any Kubernetes environment.
+
+[TIP]
+====
+Hyperfoil is a powerful and flexible (kubernetes-native) *Load Driver* tool that can be applied to very robust use-cases. It was initially developed by the Red Hat Engineering team to test
+our own Software but is now available as an link:https://github.com/Hyperfoil/Hyperfoil[opensource project^] for anyone to use and contribute.
+
+To see more details around the motivation and purpose of the tool, please see its link:https://hyperfoil.io/docs[Documentation here^]
+====
+
+=== Hyperfoil Architecture
+As mentioned early in its nature Hyperfoil is a distributed tool with link:https://martinfowler.com/articles/patterns-of-distributed-systems/leader-follower.html[leader-follower architecture^]. 
+Controller has the leader role; this is a link:https://vertx.io/[Vert.x-based^] server with REST API. 
+When a benchmark is started controller deploys agents (according to the benchmark definition), pushes the benchmark definition to these agents and orchestrates benchmark phases. 
+Agents execute the benchmark, periodically sending statistics to the controller. 
+This way the controller can combine and evaluate statistics from all agents on the fly. When the benchmark is completed all agents terminate.
+
+image::../imgs/module-5/hyperfoil-diagram.png
+
+In order to run a load testing using Hyperfoil we need to create a link:https://hyperfoil.io/userguide/benchmark.html[Benchmark^]. In Hyperfoil terms a Benchmark is a declarative YAML file where you define
+your load test Scenario. Lets take a look at one snippet of the 
+link:https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/blob/main/scripts/hyperfoil/summit-load-apps.hf.yaml[benchmark definition] 
+we'll be using thought this section of our Lab.
+
+[source, yaml]
+----
+# This is the name of the benchmark. It's recommended to keep this in sync with
+# name of this file, adding extension `.hf.yaml`.
+name: summit-lab-load-apps
+# We must define at least one HTTP target, in this case it becomes a default
+# for all HTTP requests.
+http:
+- host: http://quarkus-app:8080
+
+# Distribute the connections among two agents
+agents:
+  agent-01:
+    node: kubernetes.io/os=linux # you can use labels to select nodes
+  #... define many agents as you may need
+
+# Simulation consists of phases - potentially independent workloads.
+# all phases are started independently at the same moment (when the benchmark was started)
+phases:
+# `wakeUp` is the name of the 1st phase in this benchmark.
+- wakeUp:
+    # The benchmark will start certain number of users according to a schedule 
+    # regardless of previously started users completing the scenario. 
+    # This is the open-model
+    atOnce:
+      users: 1 # run the scenario exactly once
+      scenario:
+      - serviceWakeup: # the only sequence for this scenario
+        # In the only step in this sequence we'll do a HTTP GET request
+        # Steps are the basic building blocks that form each sequence of a scenario, 
+        # similar to statements in a programming language. Steps are potentially blocking (the sequence cannot continue with next step until previous one finishes).
+        - httpRequest:
+            GET: /quarkus
+            # Inject helpers to make this request synchronous, i.e. keep
+            # the sequence blocked until Hyperfoil processes the response.
+            sync: true
+
+# 2nd phase of this bechmark
+- hello:
+    constantRate:
+      startAfterStrict: wakeUp # will wait until the wakeUp phase is TERMINATED (all requests done!)
+      # 10 users will be starting the scenario every second (during 120s)
+      usersPerSec: 10 # run the scenario 'n' times per second in average
+      duration: 180s #let it run for about 3min...
+      # In Hyperfoil, everything is pre-allocated = limited in size. Here we'll
+      # set that we won't run more than LOOP (1 by default) iterations of this phase.
+      # maxIterations: !param LOOP 1
+      scenario:
+      - sayHello: #sequence
+        - httpRequest:
+            GET: !param APP_CONTEXT_PATH
+            endpoint: app-host
+        # Wait 3 seconds to simulate user-interaction
+        - thinkTime:
+            duration: 300 ms
+#...
+----
+
+The benchmark used in our lab defines the following structure:
+
+ * 3 agents
+ * A scenario with 6 phases
+
+  1. `wakeUp`: single request to the app main endpoint
+  2. `hello`: 10 virtual users at constant rate hitting the main endpoint
+  3. `cpuRampUp`: increasing rate (1..10) virtual users hitting the `/cpu` endpoint to generate cpu load
+  4. `cpuWithPersistence`: same as `cpuRampUp` but persisting result to a DB
+  5. `memoryRampUp`: increasing rate (1..10) virtual users hitting the `/memory` endpoint to generate cpu load
+  6. `memoryWithPersistence`: same as `memoryRampUp` but persisting result to a DB
+
+[NOTE]
+====
+The full benchmark definition can be found inside the lab repo: `$PROJECT_SOURCE/main/scripts/hyperfoil/summit-load-apps.hf.yaml`. 
+====
+
+[TIP]
+====
+The inline comments in the above benchmark snippet give us a glimpse of what each property means. 
+To better understand the basic concepts of Hyperfoil we recommend reading though the following sections of the in the Project Documentation:
+
+ * link:https://hyperfoil.io/quickstart/quickstart1.html[Getting started: First benchmark]
+ * link:https://hyperfoil.io/docs/concepts.html[Concepts]
+ * link:https://hyperfoil.io/userguide/benchmark.html[Benchmark definition format]
+ * link:https://hyperfoil.io/docs/reference_index.html[steps and handlers used in a scenario]
+ * link:https://hyperfoil.io/userguide/examples.html[Complex Benchmark definition samples]
+====
+
+
+=== Running a Hyperfoil Benchmark
+
+Once you have a Benchmark definition you are ready to run it using Hyperfoil Controller. We already deployed one Hyperfoil instance for you
+in  the `{user}-hyperfoil` project namespace for you. You can access it using its link:{user}:{user_password}@{hyperfoil_web_cli_url}[Web CLI]. 
+
+image::../imgs/module-5/hyperfoil-web-cli-open.gif[Screenshot of Hyperfoil Web CLI]
+
+From the Web CLI you can upload our benchmark and start running it to generate load towards your apps.
+Follow the following steps:
+
+1.
+Inside the Web CLI type `upload` and hit `Enter`. 
+
+2.
+Click inside the `Input Text` field that appears in the console.
+
+3. 
+Paste this URL: `{hyperfoil_benchmark_definition_url}` and click the `Upload from URL` button.
+
+image::../imgs/module-5/hyperfoil-web-cli-upload.gif[Screenshot of Hyperfoil Web CLI - uploading a benchmark definition]
+
+Once you have the benchmark file uploaded to the Controller you can start your first `run` by just executing 
+
+[source, shell, role=copy]
+----
+run summit-lab-load-apps
+----
+
+At the first `run` you will be prompted two `params` (defined inside the benchmark file by using the `!param` notation).
+
+ * the first one is the context path of the application (`/quarkus` for the `quakus-app`)
+ * the second one is the application URI. You can use the internal Kubernetes cluster service URI or the Openshift external Ingress Route 
+
+For instance, to start a `run` for the `quarkus-app` enter the param values as follows:
+
+[source, shell, role=copy]
+----
+run summit-lab-load-apps
+APP_CONTEXT_PATH=/quarkus
+APP_URL=http://quarkus-app.{user}-staging.svc.cluster.local
+----
+
+When you start a test `run` a few things happens:
+
+1. the Controller starts the Agents and gets registered against the Controller.
+2. each Agent gets the test Scenario and start running its Phases as defined in the benchmark.
+3. as the `run` goes each agent continually report various stats to the Controller.
++
+NOTE: Eventually an agent may get overwhelmed (run out of resource for various reasons) and the `run` may get interrupted.
+That's when you have to adjust your test scenario accordingly to your resources and application capacity. 
+Hyperfoil offers many ways to fine tune your test scenario.
++
+4. when the scenario finishes and all the sessions are finished the agent stops automatically.
+
+[TIP]
+====
+ * to get the correct value for `APP_URL` param go to you DevWorkspace adn from the Task Manager execute the Task `10: Show Hyperfoil and Apps Routes`.
+ * you don't if needed to make any change to the benchmark definition.
+ But if you need to (or just want to see its definition) you can open it right from the Web CLI using an embedded editor. To do that just type `edit summit-lab-load-apps` in the Web CLI as shown in the screenshot. 
+====
+
+The screenshot bellow show how to start a benchmark `run` against the  `quarkus-app`.
+
+image::../imgs/module-5/hyperfoil-web-cli-run.gif[Screenshot of Hyperfoil Web CLI - running a benchmark against the quarkus-app]
+
+[NOTE]
+====
+From the screenshot above we can observe a few things:
+
+1. Three agents get started. You can see their PODs running on the Openshift Console (select the `{user}-hyperfoil` project namespace) using the *Topology* view in the Developer perspective.
+2. The `quarkus-app` POD starts to handle the http traffic generated by the test run. In the Openshift Console you can see it by switching to the `{user}-staging` project namespace and using the the *Topology* view in the Developer perspective.
+3. During the test `run` you can hit some keys to follow various stats of the current run:
+
+ * `s` to see status
+ * `t` to see stats of current phase(s)
+ * `e` to see current session(s)
+ * `c` to see current connections
+ * `esc` to detach from the current `run`. When detached you can use the command `runs` to see all the current runs
+
+====
+
+After about 6min the test run gets finished and you should see a test summary like the following showing the stats for each scenario phase.
+
+image::../imgs/module-5/hyperfoil-web-cli-test-summary.png[Screenshot of Hyperfoil Web CLI - test run summary]
+
+You can also drill down and see more details of each test run. For instance to see detailed metrics of each phase executed, use the `stats 0001` (`0001` is the `RunI`, yours may be different) in the Web CLI.
+
+image::../imgs/module-5/hyperfoil-web-cli-test-phase-metrics.png[Screenshot of Hyperfoil Web CLI - test run phase metrics summary]
+
+Lastly, but not least you can get a very detailed (html) report by executing the `report 0001` (`0001` is the `RunId`). 
+Hyperfoil will generate a nice html report that gets automatically downloaded though your web browser.
+
+image::../imgs/module-5/hyperfoil-web-cli-test-run-html-report.png[Screenshot of Hyperfoil Web CLI - test run html report]
+
+Now that you know how to execute (and inspect) your benchmark inside the Hyperfoil Web CLI, run it against the `micronaut-app` and the `springboot-app`.
+This time When executing a new run you *have to* explicitly pass the `APP_CONTEXT_PATH` and the `APP_URL` to the `run` command, 
+otherwise it will use the value you entered the first time. 
+
+To run against the `micronaut-app` use:
+
+[source, shell, role=copy]
+----
+run summit-lab-load-apps -PAPP_URL=http://micronaut-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/micronaut
+----
+
+To run against the `springboot-app` use:
+
+[source, shell, role=copy]
+----
+run summit-lab-load-apps -PAPP_URL=http://springboot-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/springboot
+----
+
+[NOTE]
+====
+By default each `phase` should last for *~2min* (`PHASE_DURATION_SECS` parameter defaults to `120s`). 
+Because some phases run in parallel the total time of our test run may be around *6min*.
+====
+
+== Scaling
+
+Our Openshift Cluster has the *Serverless capability* enabled, as such our applications gets deployed as Serverless workloads leveraging all the
+link:https://docs.openshift.com/container-platform/4.12/serverless/about/about-knative-serving.html[Knative Serving features^] like link:https://docs.openshift.com/container-platform/4.12/serverless/knative-serving/autoscaling/serverless-autoscaling-developer.html[scale-to-zero] (when not serving http requests) and link:https://docs.openshift.com/container-platform/4.12/serverless/knative-serving/autoscaling/serverless-autoscaling-developer.html[auto-scaling] (to meet the concurrency demand).
+
+So far we generated a small traffic using our load test driver (Hyperfoil), just enough to generate some resource consumption metrics.
+Now let's generate a bit more load and see how our apps behaves concerning the *Serverless auto-scaling* capability.
+
+Openshift supports different types of POD scaling that can be applied depending on the workload use-case.
+
+ * The default scaling mechanism for Openshift Serverless workloads are:
+  - based on link:https://docs.openshift.com/container-platform/4.12/serverless/knative-serving/autoscaling/serverless-autoscaling-developer.html[http concurrency for Knative Serving] based services.
+  - based on link:https://docs.openshift.com/container-platform/4.12/serverless/eventing/triggers/serverless-triggers.html[Event triggers] for Knative Eventing based services.
+ * The default link:https://docs.openshift.com/container-platform/4.12/nodes/pods/nodes-pods-autoscaling.html[*Horizontal POD Autoscaler (HPA)*] supports scaling based on the amount of _CPU_ or _memory_ consumed by a replica.
+ * Custom scaling mechanism are also supported by using the link:https://docs.openshift.com/container-platform/4.12/nodes/pods/nodes-pods-autoscaling-custom.html[*Custom Metrics Autoscaler Operator*] based on link:https://keda.sh[KEDA Project].
+
+[NOTE]
+====
+When you deployed the apps by running our Openshift Pipelines, each app was set to scale from 0 to 3 replicas. 
+The default scaling rule for Knative Serving uses HTTP concurrency scaling and defaults to a _soft limit of_ `100` concurrent requests (configurable).
+====
+
+As our applications provides endpoints to load either the CPU or the memory, we will explore usage of the _CPU_ and _Memory usage_ 
+triggers to scale our application using the native Kubernetes HPA capability.
+
+=== Scaling based on CPU usage
+
+To scale based on CPU usage, we need to update the scale rule of the application to use the `cpu` trigger.
+This will create a new revision of the application (but the URL `http://quarkus-app-{user}-staging.{openshift_cluster_ingress_domain}` remains unchanged), and will start a new deployment.
+
+To set a new scale rule for our Quarkus use the Task `11: Enable CPU based auto-scaling` in your DevWorkspace.
+
+image::../imgs/module-5/VSCode_task_manager_enable_cpu_autoscaling.gif[Screenshot of VSCode Task Manager - enabling CPU based auto-scaling]
+
+[TIP]
+====
+If preferred you execute the script manually from inside your DevWorkspce Terminal:
+
+[source,shell,role=copy]
+----
+$PROJECT_SOURCE/scripts/enable-auto-scaling.sh cpu 20
+----
+
+The script uses the `kn` CLI to update the service deployed in your `{user}-staging` project namespace.
+====
+
+This will automatically scale out the application *when the CPU usage is above 20%* (we set it low deliberately to make it easy to go up).
+
+To the auto-scaling in action we need to generate some load towards our app. So, go back to the link:{hyperfoil_web_cli_url}[Hyperfoil Web CLI]
+and start a new test run against one of our apps but now increasing the number of CPU iterations:
+
+[source, shell, role=copy]
+----
+run summit-lab-load-apps -PCPU_ITERATIONS=35 -PAPP_URL=http://quarkus-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/quarkus
+----
+
+After a couple of minutes (~4min) you should be able to watch the `quarkus-app` automatically scaling from 1 to 3 replicas
+using the Openshift Console Topology view. You can also notice an increase on the CPU by looking at the Openshift Observe Metrics' graph.
+
+image::../imgs/module-5/hyperfoil-web-cli-test-cpu-load-autoscaling-trigger.gif[Screenshot of Hyperfoil - CPU based auto-scaling test run]
+
+[NOTE]
+====
+After a couple of minutes (~6min) without load or traffic the app should be scaled down to 1 replica.
+Because we switched our app to use cpu-based scaling metric (based on Kubernetes HPA mechanism) it will 
+have a minimum of 1 replica instead of zero (default when using Knative POD Autoscaling - KPA).
+
+You don't need to wait for the scale-down. Go ahead with the next section!
+====
+
+=== Scaling based on memory usage
+
+Another option that we can use is to scale based on the memory usage, with the `memory` trigger.
+
+This time lets set the scale rule for our Micronaut app using the Task `12: Enable memory based auto-scaling` in your DevWorkspace:
+
+image::../imgs/module-5/VSCode_task_manager_enable_memory_autoscaling.gif[Screenshot of VSCode Task Manager - enabling memory based auto-scaling]
+
+[TIP]
+====
+If preferred you execute the script manually from inside your DevWorkspce Terminal:
+
+[source,shell,role=copy]
+----
+$PROJECT_SOURCE/scripts/enable-auto-scaling.sh memory 400
+----
+
+The script uses the `kn` CLI to update the service deployed in your `{user}-staging` project namespace.
+====
+
+This will automatically scale out the application when the memory usage is above 400M (we set it low deliberately to make it easy to go up).
+
+If you open the Openshift Console, Topology view and look at the Micronaut app you should a see a new revision (`00002`) reflecting the new scaling setting.
+
+image::../imgs/module-5/ocp_console_topology_micronaut-app-revision2.png[Screenshot of Micronaut app setting up memory scaler]
+
+Now, go back to the link:{hyperfoil}[Hyperfoil Web CLI] and start a new test run against the Micronaut app, but now increasing the number of Memory Bytes to be consumed by each request:
+
+[source, shell, role=copy]
+----
+run summit-lab-load-apps -PMEMORY_BYTES=40 -PAPP_URL=http://micronaut-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/micronaut
+----
+
+After a couple of minutes (~4min) you should be able to watch the `micronaut-app` automatically scaling from 1 to 3 replicas
+using the Openshift Console Topology view. You can also notice an increase on the memory by looking at the Openshift Observe Metrics' graph.
+
+image::../imgs/module-5/hyperfoil-web-cli-test-memory-load-autoscaling-trigger.gif[Screenshot of Hyperfoil - memory based auto-scaling test run]
+
+Now lets visualize a different graph consolidating three metrics: CPU usage, memory usage and number of POD replicas. For this we will use Grafana.
+link:{grafana_url}[Open Grafana] and select the `App Performance` Dashboard. Look at the `# Replicas` graph (bellow `Max CPU usage`), 
+see the number of replicas for the Micronaut app right after this last test run. 
+
+image::../imgs/module-5/grafana_cpu_mem_replicas_graph.gif[Screenshot of Hyperfoil - memory based auto-scaling test run]
+
+Now, go ahead and execute another test run towards the Springboot app. For the springboot we'll leave the default auto-scaling rule which 
+is based on the http concurrency (we set a threshold of 10 concurrent requests deliberately to make it easy to go up). 
+
+From the Hyperfoil WebC CLI start a new test run passing the `USERS_PER_SEC=15` param:
+
+[source, shell, role=copy]
+----
+run summit-lab-load-apps -PUSERS_PER_SEC=15 -PAPP_URL=http://springboot-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/springboot
+----
+
+You can now compare how the CPU (Quarkus), memory (Micronaut), and HTTP (Spring) triggers behave when scaling the application, under the similar load.
+
+image::../imgs/module-5/grafana-all-apps-cpu-mem-replicas-graph.png[Screenshot of dashboard showing CPU scaler results]
+
+As you can see, using different scaling triggers allows to tune the scaling behavior of your application, depending on the type of load you want to handle.
+Note that you're not limited to only one scaling trigger, you can use multiple triggers at the same time.
+
+[TIP]
+====
+Fine tuning the scaling rules is a key factor to get the best performance/cost ratio for your application.
+You want to make sure that you don't scale too early, and that you don't scale too much to avoid paying for resources that are not needed.
+====

@@ -1,0 +1,77 @@
+:guid: %guid%
+:user: %user%
+:openshift_user_password: %openshift_user_password%
+:openshift_console_url: %openshift_console_url%
+:user_devworkspace_url: %user_devworkspace_url%
+:template-github-url: %template-github-url%
+:hyperfoil_web_cli_url: %hyperfoil_web_cli_url%
+:hyperfoil_benchmark_definition_url: 'https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml'
+:grafana_url: %grafana_url%
+:markup-in-source: verbatim,attributes,quotes
+:source-highlighter: highlight.js
+
+[[scaling]]
+= Load Testing, Scaling and Monitoring the Applications
+
+== Monitoring
+
+One of the first things you usually want to do once your application is deployed is to configure monitoring.
+For this, we'll be using the Monitoring capability built in Openshift. This feature comes with a pre-set of ready to use dashboards for monitoring application's workload metrics right from the Openshift Console. 
+
+[NOTE]
+====
+The OpenShift Container Platform monitoring stack is based on the link:https://prometheus.io/[Prometheus] open source project and its wider ecosystem. To learn more about the Openshift Monitoring stack see link:https://docs.openshift.com/container-platform/4.12/monitoring/monitoring-overview.html[About OpenShift Container Platform monitoring].
+====
+
+We'll be also using the link:https://grafan.com[Grafana] tool to monitor some specific metrics provided out-of-the-box by the Openshift Monitoring Stack.
+
+[NOTE]
+====
+Grafana is an open platform for beautiful analytics and monitoring. For more information please visit the link:https://grafana.com/oss/[Grafana website].
+
+Red Hat provides an Openshift Operator to install and manage Grafana instances on your cluster. See link:https://operatorhub.io/operator/grafana-operator[Grafana Operator] in the Operator Hub for more details.
+====
+
+From the link:{openshif_console_url}/topology/ns/{user}-staging?view=graph[Developer Perspective in Openshift Console] navigate to the Observe view. 
+From there, select the *Dashboard* `Kubernetes / Compute Resources / Namespaces (Workloads)` and *Type* `Deployment` for instance.
+
+image::../imgs/module-5/ocp_console_observe_dashboards.gif[Screenshot of the Openshift Developer perspective - Observe - Dashboad view]
+
+You can also drill into the Metric Graph by clicking in Inspec link (top right of the graph). This will open the metric view where you can
+see the link:https://prometheus.io/docs/prometheus/latest/querying/basics/[PromoQL^] that brings this metric data point from the integrated Prometheus Data Source.
+
+image::../imgs/module-5/ocp_console_observe_metrics.gif[Screenshot of the Openshift Developer perspective - Observe - Metrics view]
+
+Using the *Dashboard* and *Metric* views, you can select which metrics you want to observe, and the time range for the data.
+The *Observe* view is contextual which means it will present the data based on the project namespace you are in. So, you can observe the metrics for the workloads you have deployed into the current project namespace.
+If you switch to a different namespace you should see the workloads deployed to that specific project namespace.
+
+[TIP]
+====
+When you have multiple deployments (workloads) running in the current namespace you can notice that these graphs aggregates the data-points by POD. 
+Take a look at the PromoQL of the following CPU metric graph.
+
+image::../imgs/module-5/ocp_console_observe_aggregated_metrics_cpu.png[Aggregated CPU metrics]
+====
+
+=== Using Grafana to Visualize Metrics
+
+Now lets look at the application metrics using a different tool that can be easily integrated with Openshift.
+Because Openshift already uses Prometheus to gather and store cluster and application metrics you can easily integrate Grafana to create 
+nice metric visualization dashboards for any workload running on Openshift.
+
+Our Lab already has a Grafana instance fully integrated with Openshift's Monitoring stack. You can access Grafana by link:{grafana_url}[clicking here^]
+Then click on the *General / Home* link at the top left then click on *grafana | Go to folder* and select *Kubernetes / Compute Resources / Namespace (Workloads)*
+At the top of this dashboard you can select your *namespace* ({user}-staging) and 'deployment' *type*.
+
+image::../imgs/module-5/grafana_workload_dashboards.gif[Grafana workload dashboard]
+
+This is the same data we just saw using the Openshift Observe view in the Developer Console, but now using a different visualization tool. 
+
+Grafana is a very powerful metric visualization tool that allows you to create rich dashboards to monitor you app and get data insights from your application metrics.
+Creating customized dashboards is outside the scope of our lab but you can explore a vast library of tutorials on link:https://grafana.com/tutorials[Grafana website^].
+
+[IMPORTANT]
+====
+It's important to notice that the metrics' data source (Prometheus) is the same regardless the visualization tool you are using.
+====
