@@ -1,11 +1,9 @@
 :guid: %guid%
 :user: %user%
 
-:openshift_user_password: %openshift_user_password%
 :openshift_user_password: %password%
 :openshift_console_url: %openshift_console_url%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
-:template-github-url: %template-github-url%
 :hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :hyperfoil_benchmark_definition_url: 'https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml'
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%

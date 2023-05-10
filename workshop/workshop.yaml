@@ -12,3 +12,4 @@ modules:
     - 5-loadtesting-monitoring/loadtesting
     - 5-loadtesting-monitoring/logging
     - 6-conclusion
+    - troubleshooting

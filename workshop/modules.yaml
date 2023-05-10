@@ -29,3 +29,5 @@ modules:
     exit_sign: Continue
   6-conclusion:
     name: Conclusion
+  troubleshooting:
+    name: Troubleshooting

@@ -1,14 +1,14 @@
 :guid: %guid%
 :user: %user%
 
-:openshift_user_password: %openshift_user_password%
+:openshift_user_password: %password%
 :openshift_console_url: %openshift_console_url%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
-:template-github-url: %template-github-url%
 :hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
-:hyperfoil_web_cli_url_auth_creds: https://%user%:%openshift_user_password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url_auth_creds: https://%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :hyperfoil_benchmark_definition_url: https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
+:pgadmin_url: https://pgadmin-%user%-staging.%openshift_cluster_ingress_domain%
 
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
@@ -81,7 +81,8 @@ phases:
       - serviceWakeup: # the only sequence for this scenario
         # In the only step in this sequence we'll do a HTTP GET request
         # Steps are the basic building blocks that form each sequence of a scenario, 
-        # similar to statements in a programming language. Steps are potentially blocking (the sequence cannot continue with next step until previous one finishes).
+        # similar to statements in a programming language. 
+        # steps are potentially blocking (the sequence cannot continue with next step until previous one finishes).
         - httpRequest:
             GET: /quarkus
             # Inject helpers to make this request synchronous, i.e. keep
@@ -91,7 +92,8 @@ phases:
 # 2nd phase of this bechmark
 - hello:
     constantRate:
-      startAfterStrict: wakeUp # will wait until the wakeUp phase is TERMINATED (all requests done!)
+      #will wait until the wakeUp phase is TERMINATED (all requests done!)
+      startAfterStrict: wakeUp
       # 10 users will be starting the scenario every second (during 120s)
       usersPerSec: 10 # run the scenario 'n' times per second in average
       duration: 180s #let it run for about 3min...
@@ -142,7 +144,7 @@ To better understand the basic concepts of Hyperfoil we recommend reading though
 === Running a Hyperfoil Benchmark
 
 Once you have a Benchmark definition you are ready to run it using Hyperfoil Controller. We already deployed one Hyperfoil instance for you
-in  the `{user}-hyperfoil` project namespace for you. You can access it using its link:{hyperfoil_web_cli_url_auth_creds}[Web CLI]. 
+in  the `{user}-hyperfoil` project namespace for you. You can access it using its {hyperfoil_web_cli_url_auth_creds}[Web CLI]. 
 
 image::../imgs/module-5/hyperfoil-web-cli-open.gif[Screenshot of Hyperfoil Web CLI]
 
@@ -174,7 +176,7 @@ At the first `run` you will be prompted two `params` (defined inside the benchma
 
 For instance, to start a `run` for the `quarkus-app` enter the param values as follows:
 
-[source, shell, role=copy]
+[source,shell,role=copy,subs=attributes]
 ----
 run summit-lab-load-apps
 APP_CONTEXT_PATH=/quarkus
@@ -239,14 +241,14 @@ otherwise it will use the value you entered the first time.
 
 To run against the `micronaut-app` use:
 
-[source, shell, role=copy]
+[source,shell,role=copy,subs=attributes]
 ----
 run summit-lab-load-apps -PAPP_URL=http://micronaut-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/micronaut
 ----
 
 To run against the `springboot-app` use:
 
-[source, shell, role=copy]
+[source,shell,role=copy,subs=attributes]
 ----
 run summit-lab-load-apps -PAPP_URL=http://springboot-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/springboot
 ----
@@ -285,7 +287,7 @@ triggers to scale our application using the native Kubernetes HPA capability.
 === Scaling based on CPU usage
 
 To scale based on CPU usage, we need to update the scale rule of the application to use the `cpu` trigger.
-This will create a new revision of the application (but the URL `http://quarkus-app-{user}-staging.{openshift_cluster_ingress_domain}` remains unchanged), and will start a new deployment.
+This will create a new revision of the application (but the URL `http://quarkus-app-%user%-staging.%openshift_cluster_ingress_domain%` remains unchanged), and will start a new deployment.
 
 To set a new scale rule for our Quarkus use the Task `11: Enable CPU based auto-scaling` in your DevWorkspace.
 
@@ -308,7 +310,7 @@ This will automatically scale out the application *when the CPU usage is above 2
 To the auto-scaling in action we need to generate some load towards our app. So, go back to the link:{hyperfoil_web_cli_url}[Hyperfoil Web CLI]
 and start a new test run against one of our apps but now increasing the number of CPU iterations:
 
-[source, shell, role=copy]
+[source,shell,role=copy,subs=attributes]
 ----
 run summit-lab-load-apps -PCPU_ITERATIONS=35 -PAPP_URL=http://quarkus-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/quarkus
 ----
@@ -355,7 +357,7 @@ image::../imgs/module-5/ocp_console_topology_micronaut-app-revision2.png[Screens
 
 Now, go back to the link:{hyperfoil}[Hyperfoil Web CLI] and start a new test run against the Micronaut app, but now increasing the number of Memory Bytes to be consumed by each request:
 
-[source, shell, role=copy]
+[source,shell,role=copy,subs=attributes]
 ----
 run summit-lab-load-apps -PMEMORY_BYTES=40 -PAPP_URL=http://micronaut-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/micronaut
 ----
@@ -376,7 +378,7 @@ is based on the http concurrency (we set a threshold of 10 concurrent requests d
 
 From the Hyperfoil WebC CLI start a new test run passing the `USERS_PER_SEC=15` param:
 
-[source, shell, role=copy]
+[source,shell,role=copy,subs=attributes]
 ----
 run summit-lab-load-apps -PUSERS_PER_SEC=15 -PAPP_URL=http://springboot-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/springboot
 ----
@@ -393,3 +395,72 @@ Note that you're not limited to only one scaling trigger, you can use multiple t
 Fine tuning the scaling rules is a key factor to get the best performance/cost ratio for your application.
 You want to make sure that you don't scale too early, and that you don't scale too much to avoid paying for resources that are not needed.
 ====
+
+== Checking the Metrics in the Database
+Remember that we have a PostgreSQL Database with three tables where we store our metrics. You can execute the following SQL statements so you get all the metrics for Quarkus, Micronaut and Spring Boot.
+
+To query our Postgres DB instance we're going to use a tool called pgAdmin is provisioned by the CrunchyData Operator. Open the link:{{pgadmin_url}[pgAdmin console] and use the following credentials:
+
+ * username: `postgres@pgo`
+ * password: `password`
+
+select the `postgres` database and open the Query Tool to execute the following sentences.
+
+[source,sql,role=copy]
+----
+select 
+  to_char( (Duration/1e9), '''0.999''' ), 
+  Parameter, 
+  Description 
+from Statistics_Quarkus
+order by Duration DESC;
+----
+
+[source,sql,role=copy]
+----
+select 
+  to_char( (Duration/1e9), '''0.999''' ), 
+  Parameter, 
+  Description 
+from Statistics_Micronaut
+order by Duration DESC;
+----
+
+[source,sql,role=copy]
+----
+select 
+  to_char( (Duration/1e9), '''0.999''' ), 
+  Parameter, 
+  Description 
+from Statistics_Springboot
+order by Duration DESC;
+----
+
+image::../imgs/module-5/pgadmin.gif[pgAdmin]
+
+== Going Native
+
+image::../imgs/module-5/quay_io_native_image_build_gb_action.gif[Github Action to build native images for our applications]
+
+=== Updating our application deployments to use the native container image
+
+==== Updating the Quarkus service
+
+[source, shell, role=copy]
+----
+kn service update quarkus-app --image quay.io/redhat_na_ssa/quarkus-app-native
+----
+
+==== Updating the Micronaut service
+
+[source, shell, role=copy]
+----
+kn service update micronaut-app --image quay.io/redhat_na_ssa/micronaut-app-native
+----
+
+==== Updating the Quarkus service
+
+[source, shell, role=copy]
+----
+kn service update springboot-app --image quay.io/redhat_na_ssa/springboot-app-native
+----

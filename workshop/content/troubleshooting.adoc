@@ -1,10 +1,9 @@
 :guid: %guid%
 :user: %user%
 
-:openshift_user_password: %openshift_user_password%
+:openshift_user_password: %password%
 :openshift_console_url: %openshift_console_url%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
-:template-github-url: %template-github-url%
 :hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :hyperfoil_web_cli_url_auth_creds: https://%user%:%openshift_user_password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
@@ -19,12 +18,12 @@ When executing any command or Task in the DevWorkspace's Terminal...
 If you see any error similar to the following
 
 ```
-Error from server (Forbidden): routes.route.openshift.io "hyperfoil-instance" is forbidden: User "system:serviceaccount:user3-devspaces:workspace53028c69c2b54fa5-sa" cannot get resource "routes" in API group "route.openshift.io" in the namespace "system:serviceaccount:user3-devspaces:workspace53028c69c2b54fa5-sa-hyperfoil"
+Error from server (Forbidden): routes.route.openshift.io "hyperfoil-instance" is forbidden: User "system:serviceaccount:%user%-devspaces:workspace53028c69c2b54fa5-sa" cannot get resource "routes" in API group "route.openshift.io" in the namespace "system:serviceaccount:%user%-devspaces:workspace53028c69c2b54fa5-sa-hyperfoil"
 ```
 
 From the IDE Task Manager please, execute the the `98: OC Login` Task. Youl will be prompted to entenr your user's password.
 
-image::.imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
+image::./imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
 
 == 2. Hyperfoil Web CLI Authentication
 
