@@ -1,16 +1,17 @@
 :guid: %guid%
 :user: %user%
+
 :openshift_user_password: %openshift_user_password%
+
 :openshift_console_url: %openshift_console_url%
-:user_devworkspace_url: %user_devworkspace_url%
+:user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
 :template-github-url: %template-github-url%
-:hyperfoil_web_cli_url: %hyperfoil_web_cli_url%
-:hyperfoil_benchmark_definition_url: 'https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml'
-:grafana_url: %grafana_url%
+
+:grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
+
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
 
-[[scaling]]
 = Load Testing, Scaling and Monitoring the Applications
 
 == Monitoring
@@ -54,6 +55,11 @@ Take a look at the PromoQL of the following CPU metric graph.
 image::../imgs/module-5/ocp_console_observe_aggregated_metrics_cpu.png[Aggregated CPU metrics]
 ====
 
+[NOTE]
+====
+At this point you don't have enough data points collected to visualize. That's fine as the goal of this section is to introduce you to the Openshift Monitoring Stack. On the next section we'll be doing a set of load testing that will generate lots of data metrics so you can use what we're introducing here to monitor our applications.
+====
+
 === Using Grafana to Visualize Metrics
 
 Now lets look at the application metrics using a different tool that can be easily integrated with Openshift.
@@ -74,4 +80,148 @@ Creating customized dashboards is outside the scope of our lab but you can explo
 [IMPORTANT]
 ====
 It's important to notice that the metrics' data source (Prometheus) is the same regardless the visualization tool you are using.
+====
+
+=== Monitoring the JVM
+
+Our Openshift cluster is configured to link:https://docs.openshift.com/container-platform/4.12/monitoring/enabling-monitoring-for-user-defined-projects.html[monitor User Workloads] in addition to the link:https://docs.openshift.com/container-platform/4.12/monitoring/monitoring-overview.html[Platform resources monitoring]. With user workload monitoring enabled only resources that can be seen from outside the container like _CPU_, _Memory_, _Networking_, _Storage_ are monitored. What about the application metrics like the JVM resources (Heap, GC, etc)? Because Openshift uses Prometheus underneath its monitoring stack it becomes easy to expose application specific metrics using it.
+
+So, let's expose our application metrics using application Prometheus extensions. Thankfully, the three application frameworks we used to build our apps already provides easy extensions (libraries) to expose metrics to Prometheus.
+
+==== Exposing application metrics in Quarkus
+Quarkus provides a link:https://quarkus.io/guides/micrometer[Micrometer extension] that makes it really easy to expose application metrics to prometheus. All we need to do is to add the `quarkus-micrometer` extension to the app's POM.
+
+In your DevWorkspace IDE open the `$PROJECT_SOURCE/quarkus-app/pom.xml` and *uncomment the following section* (around line `#80`) to enable the extension.
+[source, xml, ident=0, role=copy]
+----
+    <!-- Enable Micrometer for prometheus metrics.
+     Default metrics are exposed though /q/metrics endpoint
+    -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+    </dependency>
+----
+
+And that's it! Out of the box you quarkus-app will expose JVM specific metrics to Prometheus.
+Now, lets test it.
+
+From the Task Manager run the task `03: Quarkus - Start in dev mode (Hot reload + debug)` to check our change.
+When the application starts open it in your browser (look for a popup at the left bottom of your IDE and click open) and access the 
+`/q/metrics` context path (without the `/quarkus-app` root path!). You should see a bunch of metrics like:
+
+image::../imgs/module-5/quarkus_metrics.png[Quarkus JVM metrics]
+
+Alright, now lets push this change to our git repo and deploy it using our CI/CD pipeline.
+
+1. commit your changes to you git repo.
++
+[source,shell]
+----
+cd $PROJECT_SOURCE/
+git commit -am "exposing JVM metrics for quarkus-app"
+git push
+----
++
+2. go to Openshift Console Developer perspective, switch to the `{user}-cicd` and open the *Pipelines* view from the left Menu.
+3. run the pipeline again to build and deploy the `quarkus-app` with this change.
+
+[NOTE]
+====
+link:https://micrometer.io[Micrometer] is *Vendor-neutral application observability facade* that provides a simple facade over the instrumentation clients for the most popular observability systems, allowing you to instrument your JVM-based application code without vendor lock-in. Think SLF4J, but for observability.
+====
+
+==== Exposing application metrics in Micronaut
+Like Quarkus, Micrometer also provides a link:https://guides.micronaut.io/latest/micronaut-metrics-maven-java.html[Micrometer integration] that makes it really easy to expose application metrics to prometheus. All we need to do is to add the `micronaut-micrometer` dependency to the app's POM.
+
+In your DevWorkspace IDE open the `$PROJECT_SOURCE/micronaut-app/pom.xml` and *uncomment the following section* (around line `#113`) to enable the extension.
+[source, xml, ident=0, role=copy]
+----
+    <!-- Enable Micrometer for prometheus metrics.
+     Default metrics are exposed though /metrics and prometheus metrics thorugh /prometheus endpoint
+    -->
+    <dependency>
+      <groupId>io.micronaut.micrometer</groupId>
+      <artifactId>micronaut-micrometer-registry-prometheus</artifactId>
+    </dependency>
+----
+
+And that's it! Out of the box you quarkus-app will expose JVM specific metrics to Prometheus.
+Now, lets test it.
+
+From the Task Manager run the task `05: Micronaut - Start in dev mode` to check our change.
+When the application starts open it in your browser (look for a popup at the left bottom of your IDE and click open) and access the 
+`/prometheus` context path (without the `/micronaut-app` root path!). You should see a bunch of metrics 
+
+image::../imgs/module-5/micronaut_metrics.png[Micronaut JVM metrics]
+
+Alright, now lets push this change to our git repo and deploy it using our CI/CD pipeline.
+
+1. commit your changes to you git repo.
++
+[source,shell]
+----
+cd $PROJECT_SOURCE/
+git commit -am "exposing JVM metrics for micronaut"
+git push
+----
++
+2. go to Openshift Console Developer perspective, switch to the `{user}-cicd` and open the *Pipelines* view from the left Menu.
+3. run the pipeline again to build and deploy the `micronaut-app` with this change.
+
+==== Exposing application metrics in Springboot
+Like Quarkus and Micronaut, Springboot now provides a link:https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.metrics.export.prometheus[Micrometer integration] that makes it really easy to expose application metrics to prometheus. All we need to do is to add the micrometer dependency to the app's POM.
+
+In your DevWorkspace IDE open the `$PROJECT_SOURCE/springboot-app/pom.xml` and *uncomment the following section* (around line `#90`) to enable the extension.
+[source, xml, ident=0, role=copy]
+----
+    <!-- Enable Micrometer for prometheus metrics.
+      Default metrics are exposed though /actuator/prometheus endpoint
+    -->
+    <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+----
+
+And that's it! Out of the box your springboot-app will expose JVM specific metrics to Prometheus.
+Now, lets test it.
+
+From the Task Manager run the task `08: SpringBoot - Start in dev mode` to check our change.
+When the application starts open it in your browser (look for a popup at the left bottom of your IDE and click open) and access the 
+`/actuator/prometheus` context path (without the `/springboot-app` root path!). You should see a bunch of metrics like:
+
+image::../imgs/module-5/springboot_metrics.png[Springboot JVM metrics]
+
+Alright, now lets push this change to our git repo and deploy it using our CI/CD pipeline.
+
+1. commit your changes to you git repo.
++
+[source,shell]
+----
+cd $PROJECT_SOURCE/
+git commit -am "exposing JVM metrics for springboot"
+git push
+----
++
+2. go to Openshift Console Developer perspective, switch to the `{user}-cicd` and open the *Pipelines* view from the left Menu.
+3. run the pipeline again to build and deploy the `springboot-app` with this change.
+
+==== Using Grafana to visualize Application JVM metrics
+Once you have micrometer enabled in your applications you should be able to visualize application specific metrics using Grafana.
+Open the link:{grafana_url}[Grafana console] and navigate the the *JVM (Micrometer)* dashboard. You can now monitor many metrics that are specific to your Java workload.
+
+image::../imgs/module-5/grafana_jvm_micrometer_metrics.gif[Grafana JVM metrics]
+
+[NOTE]
+====
+All the data metrics you see in this dashboard is being automatically captured by the Openshift Metrics stack based on Prometheus.
+This dashboard was pre-loaded for you in our Lab Grafana instance, but with the right permissions you can freely customize it, create or import new ones.
+====
+
+[TIP]
+====
+All the graphs presented in this section are better seen with real-time data! 
+So we encourage you to visualize them during the load testing execution. This way you will be able to see how you apps behaves when serving real traffic.
 ====

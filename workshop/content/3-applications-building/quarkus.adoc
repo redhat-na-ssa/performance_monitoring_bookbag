@@ -304,6 +304,8 @@ During development and testing (inner-loop) we will be using a InMemory Database
 [source,properties,indent=0, role=copy]
 ----
 # Dev Config
+%dev.quarkus.http.port=8701
+
 # Use InMem H2 DB for dev and test profiles
 %dev.quarkus.datasource.db-kind=h2
 %dev.quarkus.datasource.jdbc.url=jdbc:h2:mem:test
@@ -510,6 +512,56 @@ curl -s 'localhost:8701/quarkus/stats' | jq
 [NOTE]
 ====
 when you are done testing your Quarkus app just go to the Terminal running the quarkus-app JVM process and hit `Ctrl + c` to terminal the JVM process.
+====
+
+== Setting up for Staging
+
+To wrap up with our quarkus app we need to make two changes in its configuration:
+
+1. set the http connector to listen to port 8080
+2. connect to a Postgres Database instead of a H2DB.
++
+We have already deployed one Postgres instance in the `{user}-staging` project namespace using the link:https://access.crunchydata.com/documentation/postgres-operator/v5/[Crunchy Data PGO Operator], so you don't need to worry about setting up Postgres yourself.
++
+
+To make these changes open the `$PROJECT_SOURCE/quarkus-app/src/main/resources/application.properties` config file and add the following properties that will be taken in `prod` mode.
+
+.Prod Configuration Properties
+[source,properties,indent=0, role=copy]
+----
+
+# Prod Config
+%prod.quarkus.http.port=8080
+
+# Postgres DB connection
+%prod.quarkus.datasource.db-kind=postgresql
+%prod.quarkus.datasource.username=postgres
+%prod.quarkus.datasource.password=password
+%prod.quarkus.datasource.jdbc.url=jdbc:postgresql://postgres-ha/postgres
+%prod.quarkus.hibernate-orm.database.generation=none
+----
+
+== Push our changes to Github
+
+Alright, now lets push this change to our git repo. From the DevWorkspace Terminal execute:
+
+[source,shell]
+----
+cd $PROJECT_SOURCE/
+git add .
+git commit -m "adding PostgresDB connection properties"
+git push
+----
+
+[TIP]
+====
+You can also use the VSCode integrated Source Control extension to commit and push your changes.
+
+.See to use it here
+[%collapsible]
+======
+image::../imgs/module-3/VSCode_git_commit_push.gif[VSCode integrated Source Control - git sync]
+======
 ====
 
 That's it for the Quarkus application.

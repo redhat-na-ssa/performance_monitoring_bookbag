@@ -1,3 +1,16 @@
+:guid: %guid%
+:user: %user%
+
+:openshift_user_password: %openshift_user_password%
+:openshift_console_url: %openshift_console_url%
+:user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
+:template-github-url: %template-github-url%
+:hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url_auth_creds: https://%user%:%openshift_user_password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
+
+:markup-in-source: verbatim,attributes,quotes
+
 = Lab Troubleshooting
 
 == 1. Openshift forbidden error
@@ -18,7 +31,7 @@ image::.imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
 When trying to access the WebCLI for the first time you will be prompted to enter you Lab credentials.
 
 If for some reason you enter the wrong credentials you have to close the current browser window or open a new one in Incognito mode.
-That's because Hyperfoil Web CLI currently uses Http Basic Authentication. To avoid that you can type your credential right in the URL address bar: https://{user}:{user_password}@{user}-hyperfoil.{cluster_domain}
+That's because Hyperfoil Web CLI currently uses Http Basic Authentication. To avoid that you can type your credential right in the URL address bar: {hyperfoil_web_cli_url_auth_creds}
 
 This way you don't have to close your current browser window or open a new one in Incognito.
 
@@ -28,4 +41,4 @@ If you take too much time with you Web CLI idle in a browser window, you may als
 ERROR: Failed to retrieve source for benchmark summit-lab-load-apps: Server responded with unexpected code: 401, UnauthorizedERROR: Server responded with unexpected code: 401, Unauthorized
 ```
 
-In this case try to use this url https://{user}:{user_password}@{user}-hyperfoil.{cluster_domain} to authenticate the Hyperfoul Web CLI again.
+In this case try to use this url {hyperfoil_web_cli_url_auth_creds} to authenticate the Hyperfoul Web CLI again.

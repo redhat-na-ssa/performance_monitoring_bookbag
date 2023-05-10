@@ -32,13 +32,13 @@ Here are the information you will user to access the tools during this Lab sessi
 
 * Openshift Web Console: {openshift_console_url}
 * Access Credentials:
-
-====
-*Username*: {user}
-
-*Password*: {openshift_user_password}
-====
-
++
+[source, shell, role=copy]
+----
+Username: {user}
+Password: {openshift_user_password}
+----
++
 * Openshift DevSpaces Workspace: {user_devworkspace_url}
 * Hyperfoil Web CLI: {hyperfoil_web_cli_url}
 
@@ -63,7 +63,7 @@ Click the **Code** button, then copy your repository url.
 
 image::./imgs/module-2/github-clone.png[Screenshot of GitHub showing the repository URL,440,280,scaledwidth=80%]
 
-== Opening Up Your DevWorkspace in OpenshiftDevSpaces
+== Opening Up Your DevWorkspace in Openshift DevSpaces
 
 link:https://developers.redhat.com/products/openshift-dev-spaces/overview[Openshift DevSpaces^] allows you to have an instant cloud-based dev environment already prepared for this workshop.
 
@@ -110,13 +110,59 @@ image::./imgs/module-2/VSCode_terminal_git_add_remote.gif[DevWorkspace initializ
 You can open new VSCode Terminal  by using `'Ctrl + \`'` (or `'command + \`'` on MacOS)
 ====
 
-
 [source, shell, role=copy]
 ----
+git config --global user.email "you@example.com" # <=== CHANGE IT
+git config --global user.name "Your Name" # <=== CHANGE IT
+
+# to avoid git asking your credentials all the time
+git config --global credential.helper store
+
+# copy and paste your OWN git repo URL!!!
 git remote set-url origin https://github.com/your-git-username/your-repo-name.git
 
 git remote -v
 ----
+
+Now lets do an empty commit and push it to test our git setup.
+
+[code, shell, role=copy]
+----
+git commit --allow-empty -m "Git setup"
+git push
+----
+
+[NOTE]
+====
+At the first time you try to push a change to your remote git repo VSCode will show a pop-up 
+saying 
+
+"The extension 'GitHub' wants to sign in using GitHub."
+
+click `Allow`.
+
+Next, another popup will show up at the bottom left saying 
+
+"Che could not authenticate to your Github account. The setup for Github OAuth provider is not complete."
+
+just close it!
+
+Finally, it will ask for your personal git credentials. 
+
+1. type your github username in the prompt that appears at the top middle of your IDE and hit `Enter`. 
+2. type your github password and hit `Enter`.
++
+[TIP]
+=====
+If you prefer use a temporary Personal Access Token (PAT) in your Github account.
+.See how to create one in your Github account
+[%collapsible]
+======
+image::./imgs/module-2/github_pat.gif[Github PAT setup]
+======
+=====
+
+====
 
 Now you should be good to start coding!
 

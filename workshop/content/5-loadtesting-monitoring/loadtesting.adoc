@@ -1,12 +1,15 @@
 :guid: %guid%
 :user: %user%
+
 :openshift_user_password: %openshift_user_password%
 :openshift_console_url: %openshift_console_url%
-:user_devworkspace_url: %user_devworkspace_url%
+:user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
 :template-github-url: %template-github-url%
-:hyperfoil_web_cli_url: %hyperfoil_web_cli_url%
-:hyperfoil_benchmark_definition_url: 'https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml'
-:grafana_url: %grafana_url%
+:hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url_auth_creds: https://%user%:%openshift_user_password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_benchmark_definition_url: https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml
+:grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
+
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
 
@@ -24,7 +27,7 @@ Nowadays there are many opensource tools that can be used to generate applicatio
 Many of them was designed before Containers and Kubernetes making its deployment, configuration and scalability a challenge considering the distributed nature of Kubernetes. 
 
 For this Lab we will be using a tool called link:https://hyperfoil.io[Hyperfoil.io^]. Hyperfoil is described as a *Microservice-oriented distributed benchmark framework*.
-Because Hyperfoil is kubernetes-native (built to run on a scalable containerized distributed environment) it's perfect for our use-case as it is easy to deploy and run on any Kubernetes environment.
+Because Hyperfoil is kubernetes-native it's perfect for our use-case as it is easy to deploy and run on any Kubernetes environment.
 
 [TIP]
 ====
@@ -45,7 +48,7 @@ image::../imgs/module-5/hyperfoil-diagram.png
 
 In order to run a load testing using Hyperfoil we need to create a link:https://hyperfoil.io/userguide/benchmark.html[Benchmark^]. In Hyperfoil terms a Benchmark is a declarative YAML file where you define
 your load test Scenario. Lets take a look at one snippet of the 
-link:https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/blob/main/scripts/hyperfoil/summit-load-apps.hf.yaml[benchmark definition] 
+link:{hyperfoil_benchmark_definition_url}[benchmark definition] 
 we'll be using thought this section of our Lab.
 
 [source, yaml]
@@ -139,7 +142,7 @@ To better understand the basic concepts of Hyperfoil we recommend reading though
 === Running a Hyperfoil Benchmark
 
 Once you have a Benchmark definition you are ready to run it using Hyperfoil Controller. We already deployed one Hyperfoil instance for you
-in  the `{user}-hyperfoil` project namespace for you. You can access it using its link:{user}:{user_password}@{hyperfoil_web_cli_url}[Web CLI]. 
+in  the `{user}-hyperfoil` project namespace for you. You can access it using its link:{hyperfoil_web_cli_url_auth_creds}[Web CLI]. 
 
 image::../imgs/module-5/hyperfoil-web-cli-open.gif[Screenshot of Hyperfoil Web CLI]
 

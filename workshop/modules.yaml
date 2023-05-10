@@ -18,11 +18,11 @@ modules:
   4-deploying-applications:
     name: Deploying the Microservices 
     exit_sign: Continue
-  5-loadtesting-monitoring/loadtesting:
-    name: Load Testing and Scaling the Applications 
-    exit_sign: Continue
   5-loadtesting-monitoring/monitoring:
     name: Monitoring the Applications 
+    exit_sign: Continue
+  5-loadtesting-monitoring/loadtesting:
+    name: Load Testing and Scaling the Applications 
     exit_sign: Continue
   5-loadtesting-monitoring/logging:
     name: Analyzing Application Logging 

@@ -8,7 +8,7 @@ modules:
     - 3-applications-building/micronaut
     - 3-applications-building/springboot
     - 4-deploying-applications
-    - 5-loadtesting-monitoring/loadtesting
     - 5-loadtesting-monitoring/monitoring
+    - 5-loadtesting-monitoring/loadtesting
     - 5-loadtesting-monitoring/logging
     - 6-conclusion
