@@ -8,6 +8,8 @@
 :hyperfoil_web_cli_url_auth_creds: https://%user%:%openshift_user_password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
 
+:sectlinks:
+:sectanchors:
 :markup-in-source: verbatim,attributes,quotes
 
 = Lab Troubleshooting

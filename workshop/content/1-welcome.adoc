@@ -1,5 +1,7 @@
 :guid: %guid%
 :user: %user%
+:sectlinks:
+:sectanchors:
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
 

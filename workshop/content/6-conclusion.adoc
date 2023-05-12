@@ -1,3 +1,5 @@
+:sectlinks:
+:sectanchors:
 == Conclusion
 
 This is the end of the *Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift*. 

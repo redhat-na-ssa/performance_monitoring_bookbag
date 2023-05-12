@@ -6,6 +6,8 @@
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
 
+:sectlinks:
+:sectanchors:
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
 
@@ -49,7 +51,7 @@ If you switch to a different namespace you should see the workloads deployed to 
 When you have multiple deployments (workloads) running in the current namespace you can notice that these graphs aggregates the data-points by POD. 
 Take a look at the PromoQL of the following CPU metric graph.
 
-image::../imgs/module-5/ocp_console_observe_aggregated_metrics_cpu.png[Aggregated CPU metrics]
+image::../imgs/module-5/ocp_console_observe_aggregated_metrics_cpu.png[Aggregated CPU metrics,640,480,align=center]
 ====
 
 [NOTE]
@@ -107,7 +109,7 @@ From the Task Manager run the task `03: Quarkus - Start in dev mode (Hot reload 
 When the application starts open it in your browser (look for a popup at the left bottom of your IDE and click open) and access the 
 `/q/metrics` context path (without the `/quarkus-app` root path!). You should see a bunch of metrics like:
 
-image::../imgs/module-5/quarkus_metrics.png[Quarkus JVM metrics]
+image::../imgs/module-5/quarkus_metrics.png[Quarkus JVM metrics,640,480,align=center]
 
 Alright, now lets push this change to our git repo and deploy it using our CI/CD pipeline.
 
@@ -150,7 +152,7 @@ From the Task Manager run the task `05: Micronaut - Start in dev mode` to check 
 When the application starts open it in your browser (look for a popup at the left bottom of your IDE and click open) and access the 
 `/prometheus` context path (without the `/micronaut-app` root path!). You should see a bunch of metrics 
 
-image::../imgs/module-5/micronaut_metrics.png[Micronaut JVM metrics]
+image::../imgs/module-5/micronaut_metrics.png[Micronaut JVM metrics,640,480,align=center]
 
 Alright, now lets push this change to our git repo and deploy it using our CI/CD pipeline.
 
@@ -189,7 +191,7 @@ From the Task Manager run the task `08: SpringBoot - Start in dev mode` to check
 When the application starts open it in your browser (look for a popup at the left bottom of your IDE and click open) and access the 
 `/actuator/prometheus` context path (without the `/springboot-app` root path!). You should see a bunch of metrics like:
 
-image::../imgs/module-5/springboot_metrics.png[Springboot JVM metrics]
+image::../imgs/module-5/springboot_metrics.png[Springboot JVM metrics,640,480,align=center]
 
 Alright, now lets push this change to our git repo and deploy it using our CI/CD pipeline.
 

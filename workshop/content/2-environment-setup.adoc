@@ -1,11 +1,15 @@
 :guid: %guid%
 :user: %user%
+
 :openshift_user_password: %password%
 :openshift_console_url: %openshift_console_url%
 :user_devworkspace_dashboard_url: https://devspaces.%openshift_cluster_ingress_domain%
 :user_devworkspace_url: https://devspaces.apps.cluster-s5zm7.s5zm7.sandbox1541.opentlc.com/dashboard/#/ide/%user%-devspaces/workshop-performance-monitoring-apps
 :template-github-url: https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps.git
 :hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
+
+:sectlinks:
+:sectanchors:
 :markup-in-source: verbatim,attributes,quotes
 
 [[setup-project]]
@@ -34,8 +38,8 @@ Here are the information you will user to access the tools during this Lab sessi
 * *Openshift Web Console:* {openshift_console_url}
 * *Access Credentials:*
 
- ** *Username:* `{user}`
- ** *Password:* `{openshift_user_password}`
+ ** *Username:* #`{user}`#
+ ** *Password:* #`{openshift_user_password}`#
 
 * *Openshift DevSpaces Workspace:* {user_devworkspace_url}
 * *Hyperfoil Web CLI:* {hyperfoil_web_cli_url}
@@ -49,7 +53,7 @@ Please, if you have any issue accessing any of the resources during the lab, don
 
 Open link:{template-github-url}[this GitHub repository,window=_blank], click on `Use this template` then `Create a new repository`.
 
-image::./imgs/module-2/github-template.png[Screenshot of GitHub showing the "Use this template" button]
+image::./imgs/module-2/github-template.png[Screenshot of GitHub showing the "Use this template" button,640,480,align=center]
 
 You will be redirected to the repository creation page.
 Select the owner of the repository, enter a name for your new repository (eg.
@@ -59,7 +63,7 @@ Once the repository is created, copy its URL so we can use it in the next step.
 
 Click the **Code** button, then copy your repository url.
 
-image::./imgs/module-2/github-clone.png[Screenshot of GitHub showing the repository URL,440,280,scaledwidth=80%]
+image::./imgs/module-2/github-clone.png[Screenshot of GitHub showing the repository URL,440,280,align=center]
 
 == Opening Up Your DevWorkspace in Openshift DevSpaces
 
@@ -81,7 +85,7 @@ When you open your Workspace for the first time, watch for a few pop-ups that ma
  * `Tools for Microprofile...`. Click *Yes* button
  * `Opening Java Projects...`. Click *'check details'* just to check the Java Language Server initialization. Then you can close the terminal.
 
-.See how to open your DevWorkspace for the first time
+.*Click to see how to open your DevWorkspace for the first time*
 [%collapsible]
 ======
 image::./imgs/module-2/openshift-devspaces-first-access.gif[DevWorkspace initialization]
@@ -98,13 +102,19 @@ You can experiment Openshift Devspaces for 30 days by signing up for a Red Hat D
 Your workspace has already cloned the workshop template repo. But before you start coding, you need to properly setup git for the first time inside your DevWorkspace. 
 
 Open a new `Terminal` panel and execute the following commands:
-[source, shell, role=copy]
+[source, shell]
 ----
 # set your name and email to sign commits
 git config --global user.email "%user%@rhsummit2023.com"
 git config --global user.name "%user% at RH Summit 2023"
 # to avoid git asking your credentials all the time
 git config --global credential.helper store
+----
+
+Now point your local git to your fork on your own GitHub account!
+
+[source, shell]
+----
 # copy and paste your OWN git repo URL!!!
 git remote set-url origin https://github.com/YOUR_GITHUB_ACCOUNT/your-repo-name.git
 # check the remote address
@@ -115,7 +125,7 @@ git remote -v
 ====
 You can open new VSCode Terminal  by using `'Ctrl + \`'` (or `'command + \`'` on MacOS)
 
-.See how to open a new Terminal
+.*Click to see how to open a new Terminal*
 [%collapsible]
 =====
 image::./imgs/module-2/VSCode_terminal_git_add_remote.gif[VSCode new Terminal - git remote set-url]
@@ -155,7 +165,8 @@ Finally, it will ask for your personal git credentials.
 [TIP]
 =====
 If you prefer use a temporary Personal Access Token (PAT) in your Github account.
-.See how to create one in your Github account
+
+.*Click to see how to create one in your Github account*
 [%collapsible]
 ======
 image::./imgs/module-2/github_pat.gif[Github PAT setup]

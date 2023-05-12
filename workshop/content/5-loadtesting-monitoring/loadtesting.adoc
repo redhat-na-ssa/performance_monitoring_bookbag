@@ -12,6 +12,8 @@
 
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
+:sectlinks:
+:sectanchors:
 
 = Load Testing
 
@@ -140,27 +142,24 @@ To better understand the basic concepts of Hyperfoil we recommend reading though
  * link:https://hyperfoil.io/userguide/examples.html[Complex Benchmark definition samples]
 ====
 
-
+[#running-hyperfoil]
 === Running a Hyperfoil Benchmark
 
 Once you have a Benchmark definition you are ready to run it using Hyperfoil Controller. We already deployed one Hyperfoil instance for you
-in  the `{user}-hyperfoil` project namespace for you. You can access it using its {hyperfoil_web_cli_url_auth_creds}[Web CLI]. 
+in  the `{user}-hyperfoil` project namespace for you. You can access it using its link:{hyperfoil_web_cli_url_auth_creds}[Web CLI]. 
 
-image::../imgs/module-5/hyperfoil-web-cli-open.gif[Screenshot of Hyperfoil Web CLI]
+image::../imgs/module-5/hyperfoil-web-cli-open.gif[Screenshot of Hyperfoil Web CLI,640,480,align=center]
 
 From the Web CLI you can upload our benchmark and start running it to generate load towards your apps.
 Follow the following steps:
 
-1.
-Inside the Web CLI type `upload` and hit `Enter`. 
+1. Inside the Web CLI type `upload` and hit `Enter`. 
 
-2.
-Click inside the `Input Text` field that appears in the console.
+2. Click inside the `Input Text` field that appears in the console.
+[subs=-macros]
+3. Paste this URL: `{hyperfoil_benchmark_definition_url}` and click the `Upload from URL` button.
 
-3. 
-Paste this URL: `{hyperfoil_benchmark_definition_url}` and click the `Upload from URL` button.
-
-image::../imgs/module-5/hyperfoil-web-cli-upload.gif[Screenshot of Hyperfoil Web CLI - uploading a benchmark definition]
+image::../imgs/module-5/hyperfoil-web-cli-upload.gif[Screenshot of Hyperfoil Web CLI - uploading a benchmark definition,align=center]
 
 Once you have the benchmark file uploaded to the Controller you can start your first `run` by just executing 
 
@@ -204,7 +203,7 @@ Hyperfoil offers many ways to fine tune your test scenario.
 
 The screenshot bellow show how to start a benchmark `run` against the  `quarkus-app`.
 
-image::../imgs/module-5/hyperfoil-web-cli-run.gif[Screenshot of Hyperfoil Web CLI - running a benchmark against the quarkus-app]
+image::../imgs/module-5/hyperfoil-web-cli-run.gif[Screenshot of Hyperfoil Web CLI - running a benchmark against the quarkus-app,align=center]
 
 [NOTE]
 ====
@@ -224,16 +223,16 @@ From the screenshot above we can observe a few things:
 
 After about 6min the test run gets finished and you should see a test summary like the following showing the stats for each scenario phase.
 
-image::../imgs/module-5/hyperfoil-web-cli-test-summary.png[Screenshot of Hyperfoil Web CLI - test run summary]
+image::../imgs/module-5/hyperfoil-web-cli-test-summary.png[Screenshot of Hyperfoil Web CLI - test run summary,640,480,align=center]
 
 You can also drill down and see more details of each test run. For instance to see detailed metrics of each phase executed, use the `stats 0001` (`0001` is the `RunI`, yours may be different) in the Web CLI.
 
-image::../imgs/module-5/hyperfoil-web-cli-test-phase-metrics.png[Screenshot of Hyperfoil Web CLI - test run phase metrics summary]
+image::../imgs/module-5/hyperfoil-web-cli-test-phase-metrics.png[Screenshot of Hyperfoil Web CLI - test run phase metrics summary,640,480,align=center]
 
 Lastly, but not least you can get a very detailed (html) report by executing the `report 0001` (`0001` is the `RunId`). 
 Hyperfoil will generate a nice html report that gets automatically downloaded though your web browser.
 
-image::../imgs/module-5/hyperfoil-web-cli-test-run-html-report.png[Screenshot of Hyperfoil Web CLI - test run html report]
+image::../imgs/module-5/hyperfoil-web-cli-test-run-html-report.png[Screenshot of Hyperfoil Web CLI - test run html report,640,480,align=center]
 
 Now that you know how to execute (and inspect) your benchmark inside the Hyperfoil Web CLI, run it against the `micronaut-app` and the `springboot-app`.
 This time When executing a new run you *have to* explicitly pass the `APP_CONTEXT_PATH` and the `APP_URL` to the `run` command, 
@@ -353,7 +352,7 @@ This will automatically scale out the application when the memory usage is above
 
 If you open the Openshift Console, Topology view and look at the Micronaut app you should a see a new revision (`00002`) reflecting the new scaling setting.
 
-image::../imgs/module-5/ocp_console_topology_micronaut-app-revision2.png[Screenshot of Micronaut app setting up memory scaler]
+image::../imgs/module-5/ocp_console_topology_micronaut-app-revision2.png[Screenshot of Micronaut app setting up memory scaler,640,480,align=center]
 
 Now, go back to the link:{hyperfoil}[Hyperfoil Web CLI] and start a new test run against the Micronaut app, but now increasing the number of Memory Bytes to be consumed by each request:
 
@@ -385,7 +384,7 @@ run summit-lab-load-apps -PUSERS_PER_SEC=15 -PAPP_URL=http://springboot-app.{use
 
 You can now compare how the CPU (Quarkus), memory (Micronaut), and HTTP (Spring) triggers behave when scaling the application, under the similar load.
 
-image::../imgs/module-5/grafana-all-apps-cpu-mem-replicas-graph.png[Screenshot of dashboard showing CPU scaler results]
+image::../imgs/module-5/grafana-all-apps-cpu-mem-replicas-graph.png[Screenshot of dashboard showing CPU scaler results,640,480,align=center]
 
 As you can see, using different scaling triggers allows to tune the scaling behavior of your application, depending on the type of load you want to handle.
 Note that you're not limited to only one scaling trigger, you can use multiple triggers at the same time.
@@ -436,4 +435,4 @@ from Statistics_Springboot
 order by Duration DESC;
 ----
 
-image::../imgs/module-5/pgadmin.gif[pgAdmin]
+image::../imgs/module-5/pgadmin.gif[pgAdmin,align=center]

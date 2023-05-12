@@ -1,5 +1,8 @@
 :user: %user%
 :devspaces_url: https://devspaces.%openshift_cluster_ingress_domain%
+
+:sectlinks:
+:sectanchors:
 :markup-in-source: verbatim,attributes,quotes
 
 == Introduction
@@ -21,11 +24,11 @@ You won't need to create your pipeline from scratch. To reduce the complexity, w
 
 Go to %openshift_console_url%/topology/ns/{user}-cicd?view=graph[{user}-cicd project]. Then, on the right side menu, click on *Pipelines*:
 
-image::imgs/module-4/pipelines_view.png[Pipelines View]
+image::imgs/module-4/pipelines_view.png[Pipelines View,640,480,align=center]
 
 if you click on the *build-and-deploy-apps* link, you'll be able to see the pipeline steps.
 
-image::imgs/module-4/pipeline.png[Pipeline]
+image::imgs/module-4/pipeline.png[Pipeline,640,480,align=center]
 
 . Clone your source code from your fork.
 . Build the Java code using Maven.
@@ -42,7 +45,7 @@ We'll use the same pipeline to deploy all the applications but we can only deplo
 
 You need to create the image repositories in your https://quay.io/repository/[Quay.io] account and create credentials for the pipeline to be able to push the image.
 
-image::imgs/module-4/clean_org.png[new org]
+image::imgs/module-4/clean_org.png[new org,640,480,align=center]
 
 You need to create 3 repositories in your account: 
 
@@ -55,13 +58,13 @@ You need to create 3 repositories in your account:
 To avoid problems, keep the same name for the repositories. Make sure they are public
 ====
 
-image::imgs/module-4/create_repo.png[new repo]
+image::imgs/module-4/create_repo.png[new repo,640,480,align=center]
 
 Once the 3 repositories are created, you can create a robot account. This robot account needs write permissions for the repositories. 
 
 Follow the steps in the following gif to set your robot account: 
 
-image::imgs/module-4/robot_account.gif[create robot]
+image::imgs/module-4/robot_account.gif[create robot,640,480,align=center]
 
 Once the robot is created, you can get the secret you need to authenticate the pipeline.
 
@@ -93,11 +96,11 @@ For the Workspaces section, select:
 
 Click on `start` and wait for the pipeline to finish it's process.
 
-image::imgs/module-4/workspaces.png[Workspace values]
+image::imgs/module-4/workspaces.png[Workspace values,640,480,align=center]
 
 Once the pipeline finished succesfully, all tasks on it will be green as in the following image:
 
-image::imgs/module-4/pipeline_finished.png[Pipeline finshed]
+image::imgs/module-4/pipeline_finished.png[Pipeline finished,640,480,align=center]
 
 == Checking the deployment
 
@@ -106,8 +109,8 @@ To test if the deployment was successful, you can make a request to the applicat
 
 Using the %openshift_console_url%[OpenShift console], go to the `staging` project. In the topology view, click on the arrow icon in the quarkus application box:
 
-image::imgs/module-4/app_running.png[App running]
+image::imgs/module-4/app_running.png[App running,640,480,align=center]
 
 You should be able to visualize the Quarkus application home page, just like in the image:
 
-image::imgs/module-4/quarkus_home.png[Quarkus Home]
+image::imgs/module-4/quarkus_home.png[Quarkus Home,640,480,align=center]

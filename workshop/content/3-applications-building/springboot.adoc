@@ -1,8 +1,12 @@
 :guid: %guid%
 :user: %user%
+:sectlinks:
+:sectanchors:
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
+
 [[springboot]]
+= Developing the Spring Boot Application
 
 [IMPORTANT]
 ====
@@ -13,7 +17,6 @@ This version of the app implements the same logic, exposing the exact same resou
 Feel free to go through the source code. You don't need to code any Java Class in this section. Just run the Maven commands (or run the Tasks using the IDE Task Manager) to package, run and test the app inside your DevWorkspace.
 ====
 
-= Developing the Spring Boot Application
 
 In this section you will:
 
@@ -302,7 +305,11 @@ mvn compile
 Besides using Maven commands directly in the IDE Terminal you can use the pre-defined commands available as Tasks in your Workspace.
 To access these commands just open the Task Manager view at left menu of your IDE (see screenshot below) and choose the task named `07: SpringBoot - JVM Package` which triggers a `mvn package -DskipTests` in a Terminal.
 
+.*Click to see how use the Task Manager inside your DevWorkspace*
+[%collapsible]
+=====
 image::../imgs/module-3/VSCode_task_manager_mvn_package.gif[Task Manager - JVM Package]
+=====
 
 All these Tasks are defined as `commands` in the project's *Devfile* (`$PROJECT_SOURCE/devfile.yaml`) following the link:https://devfile.io[Devfile.io] standard.
 ====
