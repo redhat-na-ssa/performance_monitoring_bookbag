@@ -11,5 +11,6 @@ modules:
     - 5-loadtesting-monitoring/monitoring
     - 5-loadtesting-monitoring/loadtesting
     - 5-loadtesting-monitoring/logging
+    - 5-loadtesting-monitoring/going-native
     - 6-conclusion
     - troubleshooting

@@ -2,7 +2,8 @@
 :user: %user%
 :openshift_user_password: %password%
 :openshift_console_url: %openshift_console_url%
-:user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
+:user_devworkspace_dashboard_url: https://devspaces.%openshift_cluster_ingress_domain%
+:user_devworkspace_url: https://devspaces.apps.cluster-s5zm7.s5zm7.sandbox1541.opentlc.com/dashboard/#/ide/%user%-devspaces/workshop-performance-monitoring-apps
 :template-github-url: https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps.git
 :hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :markup-in-source: verbatim,attributes,quotes
@@ -68,26 +69,25 @@ image:https://img.shields.io/static/v1?label=Open+My+DevWorkspace&message=Opensh
 
 
 When you first access your DevWorkspace, you'll be prompted to log in. Use the same Openshift credentials provided to you at the top of this page.
-After you logged in you should see your Workspace (named `workspace-performance-monitoring-apps`) initializing. Wait for a few seconds until it get started.
+After you logged in you should see your Workspace (named `workspace-performance-monitoring-apps`), click the `Open` link. Wait for a few seconds until it gets fully initialized (can take a few minutes for the first time).
 When it's ready you should see a VSCode IDE in your browser! It's the same VSCode you may be already familiar with. 
-
-[WARNING]
-====
-At first your workspace should take about 1 minute to fully initialize.
-During this first initialization VSCode will install some extensions (Java, Quarkus, Microprofile) and start the Java Language Server.
-====
-
-image::./imgs/module-2/openshift-devspaces-first-access.gif[DevWorkspace initialization]
 
 [IMPORTANT]
 ====
+During this first initialization VSCode will install some extensions (Java, Quarkus, Microprofile) and start the IDE Java Language Server.
 When you open your Workspace for the first time, watch for a few pop-ups that may appear at the bottom right of the IDE.
 
  * `Do you trust the authors of the files in this Folder?` banner. Mark the checkbox and click the *Yes* button.
  * `Tools for Microprofile...`. Click *Yes* button
  * `Opening Java Projects...`. Click *'check details'* just to check the Java Language Server initialization. Then you can close the terminal.
 
+.See how to open your DevWorkspace for the first time
+[%collapsible]
+======
+image::./imgs/module-2/openshift-devspaces-first-access.gif[DevWorkspace initialization]
+======
 ====
+
 
 [TIP]
 ====
@@ -98,33 +98,31 @@ You can experiment Openshift Devspaces for 30 days by signing up for a Red Hat D
 Your workspace has already cloned the workshop template repo. But before you start coding, you need to properly setup git for the first time inside your DevWorkspace. 
 
 Open a new `Terminal` panel and execute the following commands:
-
-.See how to open a new Terminal
-[%collapsible]
-====
-image::./imgs/module-2/VSCode_terminal_git_add_remote.gif[VSCode new Terminal - git remote set-url]
-====
+[source, shell, role=copy]
+----
+# set your name and email to sign commits
+git config --global user.email "%user%@rhsummit2023.com"
+git config --global user.name "%user% at RH Summit 2023"
+# to avoid git asking your credentials all the time
+git config --global credential.helper store
+# copy and paste your OWN git repo URL!!!
+git remote set-url origin https://github.com/YOUR_GITHUB_ACCOUNT/your-repo-name.git
+# check the remote address
+git remote -v
+----
 
 [TIP]
 ====
 You can open new VSCode Terminal  by using `'Ctrl + \`'` (or `'command + \`'` on MacOS)
+
+.See how to open a new Terminal
+[%collapsible]
+=====
+image::./imgs/module-2/VSCode_terminal_git_add_remote.gif[VSCode new Terminal - git remote set-url]
+=====
+
 ====
 
-[source, shell, role=copy]
-----
-# set your name and email to sign commits
-git config --global user.email "you@example.com" # <=== CHANGE IT
-git config --global user.name "Your Name" # <=== CHANGE IT
-
-# to avoid git asking your credentials all the time
-git config --global credential.helper store
-
-# copy and paste your OWN git repo URL!!!
-git remote set-url origin https://github.com/YOUR_GITHUB_ACCOUNT/your-repo-name.git
-
-# check the remote address
-git remote -v
-----
 
 Now lets do an empty commit and push it to test our git setup.
 
