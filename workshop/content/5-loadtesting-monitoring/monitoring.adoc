@@ -102,7 +102,7 @@ In your DevWorkspace IDE open the `$PROJECT_SOURCE/quarkus-app/pom.xml` and *unc
     </dependency>
 ----
 
-And that's it! Out of the box you quarkus-app will expose JVM specific metrics to Prometheus.
+And that's it! Now your Quarkus app will expose JVM specific metrics to Prometheus.
 Now, lets test it.
 
 From the Task Manager run the task `03: Quarkus - Start in dev mode (Hot reload + debug)` to check our change.
@@ -145,7 +145,31 @@ In your DevWorkspace IDE open the `$PROJECT_SOURCE/micronaut-app/pom.xml` and *u
     </dependency>
 ----
 
-And that's it! Out of the box you quarkus-app will expose JVM specific metrics to Prometheus.
+Now we need to tell Micronaut to expose its runtime metrics to Prometheus. Open the `$PROJECT_SOURCE/micronaut-app/src/main/resources/application.yml` file and uncomment the the section `export` under `metrics`:
+
+[source, yaml]
+----
+micronaut:
+  application:
+    name: MicronautApp
+  server:
+    port: 8080
+    thread-selection: IO
+  metrics:
+    enabled: true
+    export: #<=== HERE
+      prometheus:
+        enabled: true
+        step: PT1M
+        descriptions: true
+----
+
+[WARNING]
+====
+Pay attention to the yaml indentation!
+====
+
+And that's it! Now your Micronaut app will expose JVM specific metrics to Prometheus.
 Now, lets test it.
 
 From the Task Manager run the task `05: Micronaut - Start in dev mode` to check our change.
@@ -184,7 +208,14 @@ In your DevWorkspace IDE open the `$PROJECT_SOURCE/springboot-app/pom.xml` and *
     </dependency>
 ----
 
-And that's it! Out of the box your springboot-app will expose JVM specific metrics to Prometheus.
+Now we need to tell Springboot to expose its runtime metrics to Prometheus. Open the `$PROJECT_SOURCE/springboot-app/src/main/resources/application.properties` file and add `prometheus` to the `management.endpoints.web.exposure.include` property:
+
+[source, properties]
+----
+management.endpoints.web.exposure.include=health,info,prometheus
+----
+
+And that's it! Now your Springboot app will expose JVM specific metrics to Prometheus.
 Now, lets test it.
 
 From the Task Manager run the task `08: SpringBoot - Start in dev mode` to check our change.
