@@ -4,9 +4,9 @@
 :openshift_user_password: %password%
 :openshift_console_url: %openshift_console_url%
 :user_devworkspace_dashboard_url: https://devspaces.%openshift_cluster_ingress_domain%
-:user_devworkspace_url: https://devspaces.apps.cluster-s5zm7.s5zm7.sandbox1541.opentlc.com/dashboard/#/ide/%user%-devspaces/workshop-performance-monitoring-apps
+:user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%/dashboard/#/ide/%user%-devspaces/workshop-performance-monitoring-apps
 :template-github-url: https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps.git
-:hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url: https://%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
 
 :sectlinks:
 :sectanchors:
@@ -20,8 +20,8 @@
 Before starting our Lab, you need to set up a few prerequisites.
 This includes:
 
-* Have a Github account (you can quickly link:https://github.com/signup[*sign up for a new one*^] if you don't have yet)
-* Have a Quay.io account (you can quickly link:https://quay.io/signin[*sign up for a new one*^] if you don't have yet)
+* a Github account (you can quickly link:https://github.com/signup[*sign up for a new one*^] if you don't have yet)
+* a Quay.io account (you can quickly link:https://quay.io/signin[*sign up for a new one*^] if you don't have yet)
 
 [NOTE]
 ====
@@ -33,14 +33,12 @@ Both services are public and offer free accounts, which we will be leveraging th
 
 == Accessing your Lab Environment
 
-Here are the information you will user to access the tools during this Lab session.
+Here are the information you will be using throughout this Lab session.
 
 * *Openshift Web Console:* {openshift_console_url}
-* *Access Credentials:*
-
- ** *Username:* #`{user}`#
- ** *Password:* #`{openshift_user_password}`#
-
+ ** *Access Credentials:*
+  *** *Username:* #`{user}`#
+  *** *Password:* #`{openshift_user_password}`#
 * *Openshift DevSpaces Workspace:* {user_devworkspace_url}
 * *Hyperfoil Web CLI:* {hyperfoil_web_cli_url}
 
@@ -72,14 +70,12 @@ link:https://developers.redhat.com/products/openshift-dev-spaces/overview[Opensh
 image:https://img.shields.io/static/v1?label=Open+My+DevWorkspace&message=Openshift+DevSpaces&color=EE0000&style=for-the-badge&logo=redhatopenshift[link={user_devworkspace_url},title=Click to open your DevWorkspace on Openshift]
 
 
-When you first access your DevWorkspace, you'll be prompted to log in. Use the same Openshift credentials provided to you at the top of this page.
-After you logged in you should see your Workspace (named `workspace-performance-monitoring-apps`), click the `Open` link. Wait for a few seconds until it gets fully initialized (can take a few minutes for the first time).
-When it's ready you should see a VSCode IDE in your browser! It's the same VSCode you may be already familiar with. 
+When you first access your DevWorkspace, you'll be prompted to log in. Use the same Openshift credentials provided to you at the top of this page. After logging in, you should see your Workspace (`workspace-performance-monitoring-apps`). Click the `Open` link. Wait for a few seconds until it gets fully initialized (it can take a few minutes for the first time). When it's ready, you should see a VSCode IDE in your browser! It's the same VSCode you may already be familiar with.
 
 [IMPORTANT]
 ====
-During this first initialization VSCode will install some extensions (Java, Quarkus, Microprofile) and start the IDE Java Language Server.
-When you open your Workspace for the first time, watch for a few pop-ups that may appear at the bottom right of the IDE.
+During this first initialization VSCode will install some extensions (Java, Quarkus, Microprofile) and start the Java Language Server.
+Please, watch out for a few pop-ups that may appear at the bottom right of the IDE.
 
  * `Do you trust the authors of the files in this Folder?` banner. Mark the checkbox and click the *Yes* button.
  * `Tools for Microprofile...`. Click *Yes* button
@@ -147,24 +143,24 @@ git push
 At the first time you try to push a change to your remote git repo VSCode will show a pop-up 
 saying 
 
-"The extension 'GitHub' wants to sign in using GitHub."
+"*The extension 'GitHub' wants to sign in using GitHub.*"
 
 click `Allow`.
 
 Next, another popup will show up at the bottom left saying 
 
-"Che could not authenticate to your Github account. The setup for Github OAuth provider is not complete."
+"*Che could not authenticate to your Github account. The setup for Github OAuth provider is not complete.*"
 
-just close it!
+Just close it!
 
 Finally, it will ask for your personal git credentials. 
 
-1. type your github username in the prompt that appears at the top middle of your IDE and hit `Enter`. 
-2. type your github password and hit `Enter`.
+1. type your github `username` in the prompt that appears at the top middle of your IDE and hit `Enter`. 
+2. type your github `password` and hit `Enter`.
 +
 [TIP]
 =====
-If you prefer use a temporary Personal Access Token (PAT) in your Github account.
+If you prefer to use a temporary *Personal Access Token (PAT)* in your Github account.
 
 .*Click to see how to create one in your Github account*
 [%collapsible]
@@ -180,7 +176,7 @@ Now you should be good to start coding!
 == Building the Initial Project
 Using the same terminal build the projects using Maven (already present in your DevWorkspace):
 
-[source,shell]
+[source,shell,role=copy]
 ----
 mvn install -DskipTests
 ----
@@ -207,7 +203,7 @@ You should see an output similar to this:
 [NOTE]
 ====
 Your workspace comes with all the tools you may need as a Java Developer to perform the dev inner-loop tasks (code, test, debug, change, etc).
-Everything you use (tools and commands) in this workspace is defined using the Devfile standard -  a declarative open standard that uses `YAML` manifest to define your dev workspace stack.
+Everything you use (tools and commands) in this workspace is defined using the *Devfile* standard -  a declarative open standard that uses `YAML` manifest to define your dev workspace stack.
 
 Check link:https://devfile.io[Devfile.io] for more details.
 ====
