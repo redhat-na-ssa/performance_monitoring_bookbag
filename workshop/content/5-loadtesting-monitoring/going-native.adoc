@@ -74,7 +74,13 @@ The workflow run should take about *8min or less*. If it succeeds (your entered 
 
 [WARNING]
 ====
-Make sure you make your image repo *public* after the build completes and the images gets pusshed to your quay.io account!
+Make sure you make your image repo *public* after the build completes and the images gets pushed to your quay.io account!
+
+.*Click to see how to make your image repo public on quay.io
+[%collapsible]
+=====
+image::../imgs/module-5/quay_io_repo_public.png[Quat.io public repo]
+=====
 
 Due to our Lab session time constraint, we already built the three app native images and made it available for you in our Quay.io.
 This way you can skip this Github Action build step got to the next section to update your service's deployment pointing to our registry.
@@ -103,13 +109,13 @@ To update the Quarkus app deployment open a Terminal in your DevWorkspace and ru
 
 [source, shell, role=copy]
 ----
-kn service update quarkus-app \
-  --image quay.io/redhat_na_ssa/quarkus-app-native \
+kn service update quarkus-app -n %user%-staging \
   --probe-liveness-opts='initialDelaySeconds=1' \
   --probe-readiness-opts='initialDelaySeconds=1' \
   --limit=cpu=1,memory=700Mi \
   --scale=0..5 \
-  -n %user%-staging
+  --image quay.io/redhat_na_ssa/quarkus-app-native
+
 ----
 
 [TIP]
@@ -142,13 +148,12 @@ To update the Quarkus app deployment open a Terminal in your DevWorkspace and ru
 
 [source, shell, role=copy]
 ----
-kn service update micronaut-app \
-  --image quay.io/redhat_na_ssa/micronaut-app-native \
+kn service update micronaut-app -n %user%-staging \
   --probe-liveness-opts='initialDelaySeconds=1' \
   --probe-readiness-opts='initialDelaySeconds=1' \
   --limit=cpu=1,memory=700Mi \
   --scale=0..5 \
-  -n %user%-staging
+  --image quay.io/redhat_na_ssa/micronaut-app-native
 ----
 
 ==== Updating the Springboot service
@@ -156,13 +161,12 @@ To update the Springboot app deployment open a Terminal in your DevWorkspace and
 
 [source, shell, role=copy]
 ----
-kn service update springboot-app \
-  --image quay.io/redhat_na_ssa/springboot-app-native \
+kn service update springboot-app -n %user%-staging \
   --probe-liveness-opts='initialDelaySeconds=1' \
   --probe-readiness-opts='initialDelaySeconds=1' \
   --limit=cpu=1,memory=700Mi \
   --scale=0..5 \
-  -n %user%-staging
+  --image quay.io/redhat_na_ssa/springboot-app-native
 ----
 
 == Load Testing the Native Images

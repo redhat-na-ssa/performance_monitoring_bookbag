@@ -63,6 +63,12 @@ public class QuarkusResource {
 }
 ----
 
+[WARNING]
+====
+You should see the IDE complaining about the `StatisticsRepository` class. 
+Don't worry about it now as we will be adding this class in the next few steps.
+====
+
 Let's add a `hello` method returning *_Hello World_*, so we can quickly check if our endpoint responds or not.
 
 [[quarkus-listing-rest-resource-2]]
@@ -87,6 +93,7 @@ That allows us to check the impact of the database on the CPU consumption.
 .CPU Method
 [source,java,indent=0,role=copy]
 ----
+    @GET
     @Path("/cpu")
     public String cpu(@QueryParam("iterations") @DefaultValue("10") Long iterations,
                       @QueryParam("db") @DefaultValue("false") Boolean db,
@@ -127,6 +134,12 @@ That allows us to check the impact of the database on the CPU consumption.
         return msg;
     }
 ----
+
+[WARNING]
+====
+You should see the IDE complaining about the `Statistics` class. 
+Don't worry about it now as we will be adding this class in the next few steps.
+====
 
 Now add a `memory` method that consumes memory depending on a few optional parameters.
 
@@ -301,7 +314,7 @@ To have this service exposed on the port 8701, add the following configuration i
 .Configuration Properties
 [source,properties,indent=0, role=copy]
 ----
-quarkus.http.port=8701
+%dev.quarkus.http.port=8701
 ----
 
 During development and testing (inner-loop) we will be using a InMemory Database (H2 Db). To configure Quarkus to use H2 InMem DB in dev and test, add the following properties.
@@ -313,7 +326,7 @@ During development and testing (inner-loop) we will be using a InMemory Database
 %dev.quarkus.http.port=8701
 
 # Use InMem H2 DB for dev and test profiles
-%dev.quarkus.datasource.db-kind=h2
+quarkus.datasource.db-kind=h2
 %dev.quarkus.datasource.jdbc.url=jdbc:h2:mem:test
 %dev.quarkus.hibernate-orm.database.generation=drop-and-create
 %dev.quarkus.hibernate-orm.log.sql=true
@@ -356,6 +369,8 @@ import static org.hamcrest.CoreMatchers.*;
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
 public class QuarkusResourceTest {
+
+
 }
 ----
 
@@ -543,7 +558,6 @@ To make these changes open the `$PROJECT_SOURCE/quarkus-app/src/main/resources/a
 ----
 
 # Prod Config
-%prod.quarkus.http.port=8080
 
 # Postgres DB connection
 %prod.quarkus.datasource.db-kind=postgresql
