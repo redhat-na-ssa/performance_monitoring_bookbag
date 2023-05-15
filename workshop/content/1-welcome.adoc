@@ -19,13 +19,13 @@ This workshop runs in a shared Openshift Cluster hosted on a Red Hat lab environ
 What you are going to do:
 
 * Create your own GitHub Repo based on a GitHub Template
-* Develop three microservices that consumes CPU and memory, each one using a different runtime stack
+* Develop three microservices that consume CPU and memory, each one using a different runtime stack
   ** Quarkus
   ** Spring Boot
   ** Micronaut
 * Compile, package and containerize these microservices
 * Run these microservices locally on your own Dev Workspace using Red Hat link:https://developers.redhat.com/products/openshift-dev-spaces/overview[Openshift DevSpaces^]
-* Build immutable container image for each microservice using Openshift Pipelines (based on link:https://tekton.dev[Tekton^])
+* Build an immutable container image for each microservice using Openshift Pipelines (based on link:https://tekton.dev[Tekton^])
 * Deploy your containers to a staging namespace created on Openshift
 * Execute and monitor the microservices using different performance parameters
 * Load test the microservices
@@ -36,7 +36,7 @@ What you are going to do:
 Are you ready to get started? Proceed to the next step to learn more about your environment and get started with the Lab.
 
 == Presenting the Workshop
-This workshop is about understanding the performance of Java runtimes in a containerized environment in the cloud. . It is a hands-on workshop, so you will be doing many things in your development environment and on Red Hat Openshift.
+This workshop is about understanding the performance of Java runtimes in a containerized environment in the cloud. It is a hands-on workshop, so you will be doing many things in your development environment and on Red Hat Openshift.
 
 Today, most of us containerize our Java applications and then deploy them to the cloud. 
 But how do we know if our application is performing well? 
