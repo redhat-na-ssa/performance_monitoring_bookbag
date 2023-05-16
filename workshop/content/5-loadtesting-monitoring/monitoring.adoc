@@ -37,13 +37,13 @@ From there, select the *Dashboard* `Kubernetes / Compute Resources / Namespaces 
 
 image::../imgs/module-5/ocp_console_observe_dashboards.gif[Screenshot of the Openshift Developer perspective - Observe - Dashboad view]
 
-You can also drill into the Metric Graph by clicking in Inspec link (top right of the graph). This will open the metric view where you can
+You can also drill into the Metric Graph by clicking the Inspect link (top right of the graph). This will open the metric view where you can
 see the link:https://prometheus.io/docs/prometheus/latest/querying/basics/[PromoQL^] that brings this metric data point from the integrated Prometheus Data Source.
 
 image::../imgs/module-5/ocp_console_observe_metrics.gif[Screenshot of the Openshift Developer perspective - Observe - Metrics view]
 
 Using the *Dashboard* and *Metric* views, you can select which metrics you want to observe, and the time range for the data.
-The *Observe* view is contextual which means it will present the data based on the project namespace you are in. So, you can observe the metrics for the workloads you have deployed into the current project namespace.
+The *Observe* view is contextual, which means it will present the data based on the project namespace you are in. So, you can observe the metrics for the workloads you have deployed into the current project namespace.
 If you switch to a different namespace you should see the workloads deployed to that specific project namespace.
 
 [TIP]
@@ -83,9 +83,9 @@ It's important to notice that the metrics' data source (Prometheus) is the same 
 
 === Monitoring the JVM
 
-Our Openshift cluster is configured to link:https://docs.openshift.com/container-platform/4.12/monitoring/enabling-monitoring-for-user-defined-projects.html[monitor User Workloads] in addition to the link:https://docs.openshift.com/container-platform/4.12/monitoring/monitoring-overview.html[Platform resources monitoring]. With user workload monitoring enabled only resources that can be seen from outside the container like _CPU_, _Memory_, _Networking_, _Storage_ are monitored. What about the application metrics like the JVM resources (Heap, GC, etc)? Because Openshift uses Prometheus underneath its monitoring stack it becomes easy to expose application specific metrics using it.
+Our Openshift cluster is configured to link:https://docs.openshift.com/container-platform/4.12/monitoring/enabling-monitoring-for-user-defined-projects.html[monitor User Workloads] in addition to the link:https://docs.openshift.com/container-platform/4.12/monitoring/monitoring-overview.html[Platform resources monitoring]. With user workload monitoring enabled, only resources that can be seen from outside the container like _CPU_, _Memory_, _Networking_, _Storage_ are monitored. What about the application metrics like the JVM resources (Heap, GC, etc)? Because Openshift uses Prometheus underneath, its monitoring stack becomes easy to expose application specific metrics.
 
-So, let's expose our application metrics using application Prometheus extensions. Thankfully, the three application frameworks we used to build our apps already provides easy extensions (libraries) to expose metrics to Prometheus.
+So, let's expose our application metrics using application Prometheus extensions. Thankfully, the three application frameworks we used to build our apps already provide easy extensions (libraries) to expose metrics to Prometheus.
 
 ==== Exposing application metrics in Quarkus
 Quarkus provides a link:https://quarkus.io/guides/micrometer[Micrometer extension] that makes it really easy to expose application metrics to prometheus. All we need to do is to add the `quarkus-micrometer` extension to the app's POM.
@@ -240,7 +240,7 @@ git push
 
 ==== Using Grafana to visualize Application JVM metrics
 Once you have micrometer enabled in your applications you should be able to visualize application specific metrics using Grafana.
-Open the link:{grafana_url}[Grafana console] and navigate the the *JVM (Micrometer)* dashboard. You can now monitor many metrics that are specific to your Java workload.
+Open the link:{grafana_url}[Grafana console] and navigate the the *JVM (Micrometer)* dashboard. You can now monitor many metrics that are specific to your Java workload. Make sure you select the namespace related to your user.
 
 image::../imgs/module-5/grafana_jvm_micrometer_metrics.gif[Grafana JVM metrics]
 
