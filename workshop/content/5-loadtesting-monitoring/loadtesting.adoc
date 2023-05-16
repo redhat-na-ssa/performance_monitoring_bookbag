@@ -157,7 +157,7 @@ Follow the following steps:
 
 2. Click inside the `Input Text` field that appears in the console.
 [subs=-macros]
-3. Paste this URL: `{hyperfoil_benchmark_definition_url}` and click the `Upload from URL` button.
+3. Copy this URL: `{hyperfoil_benchmark_definition_url}`, paste in the text box, and click the `Upload from URL` button.
 
 image::../imgs/module-5/hyperfoil-web-cli-upload.gif[Screenshot of Hyperfoil Web CLI - uploading a benchmark definition,align=center]
 
