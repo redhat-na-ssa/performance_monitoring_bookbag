@@ -324,8 +324,7 @@ You can check the `micronaut-app/pom.xml` file by opening it in the editor if yo
 
 == Configuring the Micronaut Application
 
-During our development and testing phase we will be using an InMemory Database (H2 DB). Later when we will be deploying our app to our Openshift Cluster
-we will switch to a Postgre SQL Database instance.
+During our development and testing phase we will be using an InMemory Database (link:https://www.h2database.com/[H2] in our case). Later when we will be deploying our app to our Openshift Cluster we will switch to a Postgres SQL Database instance.
 
 In Dev we also need this service to be exposed on the port 8702 (different port from the Quarkus application).
 Notice that we use non-blocking threads (`thread-selection: IO`).
@@ -502,12 +501,13 @@ Now that you have your tests methods, run them with the following command:
 
 [source,shell,role=copy]
 ----
+cd $PROJECT_SOURCE/micronaut-app
 mvn test
 ----
 
-[TIP]
+[NOTE]
 ====
-You can also use the Task Manager to trigger Maven Test by executing the task `06: Micronaut - Test` which triggers a `mvn test` in a separate Terminal.
+A pop-up saying "*A new process is now listening on port 8882...*" may appear at the bottom left during the test run. Just click `No` or close it! 
 ====
 
 All the tests should pass and you should see the following output:
@@ -521,13 +521,20 @@ All the tests should pass and you should see the following output:
 [INFO] ------------------------------------------------------------------------
 ----
 
+[TIP]
+====
+You can also use the Task Manager to trigger Maven Test by executing the task `06: Micronaut - Test` which triggers a `mvn test` in a separate Terminal.
+====
+
 == Running the Micronaut Application Locally
 
-Now that the tests are all green, let's execute the application locally and execute a few `curl` commands.
-Under the `micronaut-app` directory, execute the following command:
+Now that the tests are all green, let's execute the application locally and execute a few `curl` commands to  to test the exposed endpoints.
+
+Execute the following command inside the `micronaut-app` directory:
 
 [source,shell,role=copy]
 ----
+cd $PROJECT_SOURCE/micronaut-app
 mvn -Dmicronaut.environments=dev mn:run
 ----
 
@@ -554,11 +561,11 @@ In another terminal you can execute the following `curl` commands to invoke the 
 
 [source,shell]
 ----
-curl 'localhost:8702/micronaut'
+curl -w '\n' 'localhost:8702/micronaut'
 
-curl 'localhost:8702/micronaut/cpu?iterations=10&db=true&desc=java17'
+curl -w '\n' 'localhost:8702/micronaut/cpu?iterations=10&db=true&desc=java17'
 
-curl 'localhost:8702/micronaut/memory?bites=10&db=true&desc=java17'
+curl -w '\n' 'localhost:8702/micronaut/memory?bites=10&db=true&desc=java17'
 ----
 
 You can change the parameters to see how the application behaves.
@@ -566,13 +573,13 @@ Change the number of iterations and the number of bites to see how the performan
 
 [source,shell]
 ----
-curl 'localhost:8702/micronaut/cpu?iterations=50'
-curl 'localhost:8702/micronaut/cpu?iterations=100'
-curl 'localhost:8702/micronaut/cpu?iterations=100&db=true&desc=smoke%20test'
+curl -w '\n' 'localhost:8702/micronaut/cpu?iterations=50'
+curl -w '\n' 'localhost:8702/micronaut/cpu?iterations=100'
+curl -w '\n' 'localhost:8702/micronaut/cpu?iterations=100&db=true&desc=smoke%20test'
 
-curl 'localhost:8702/micronaut/memory?bites=50'
-curl 'localhost:8702/micronaut/memory?bites=100'
-curl 'localhost:8702/micronaut/memory?bites=100&db=true&desc=smoke%20test'
+curl -w '\n' 'localhost:8702/micronaut/memory?bites=50'
+curl -w '\n' 'localhost:8702/micronaut/memory?bites=100'
+curl -w '\n' 'localhost:8702/micronaut/memory?bites=100&db=true&desc=smoke%20test'
 ----
 
 You can check the content of the database with:
@@ -580,6 +587,50 @@ You can check the content of the database with:
 [source,shell]
 ----
 curl -s 'localhost:8702/micronaut/stats' | jq
+----
+
+You should see an output like the following.
+
+[source, json]
+----
+[
+  {
+    "id": 1,
+    "doneAt": "2023-05-16T14:16:37.744772Z",
+    "framework": "MICRONAUT",
+    "type": "CPU",
+    "parameter": "0",
+    "duration": 0.211009419,
+    "description": "java17"
+  },
+  {
+    "id": 2,
+    "doneAt": "2023-05-16T14:16:49.520952Z",
+    "framework": "MICRONAUT",
+    "type": "MEMORY",
+    "parameter": "10",
+    "duration": 0.023290367,
+    "description": "java17"
+  },
+  {
+    "id": 3,
+    "doneAt": "2023-05-16T14:18:11.559207Z",
+    "framework": "MICRONAUT",
+    "type": "CPU",
+    "parameter": "0",
+    "duration": 2.039769092,
+    "description": "smoke test"
+  },
+  {
+    "id": 4,
+    "doneAt": "2023-05-16T14:18:28.166053Z",
+    "framework": "MICRONAUT",
+    "type": "MEMORY",
+    "parameter": "100",
+    "duration": 0.188299506,
+    "description": "smoke test"
+  }
+]
 ----
 
 That's it for the Micronaut application.

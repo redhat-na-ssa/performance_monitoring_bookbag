@@ -101,10 +101,10 @@ Open a new `Terminal` panel and execute the following commands:
 [source, shell]
 ----
 # set your name and email to sign commits
-git config --global user.email "%user%@rhsummit2023.com"
-git config --global user.name "%user% at RH Summit 2023"
+git config --local user.email "%user%@rhsummit2023.com"
+git config --local user.name "%user% at RH Summit 2023"
 # to avoid git asking your credentials all the time
-git config --global credential.helper store
+git config --local credential.helper store
 ----
 
 Now point your local git to your fork on your own GitHub account!
