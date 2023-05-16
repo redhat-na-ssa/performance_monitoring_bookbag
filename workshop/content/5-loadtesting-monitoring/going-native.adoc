@@ -25,7 +25,7 @@ In this section you will:
 
 == What is GraalVM
 
-GraalVM is a new technology, allowing to create a native build of a Java application:
+GraalVM is a new technology, allowing for the creation of a native build of a Java application;
 your application will be compiled to a native executable, and will not need a JVM to run.
 That executable will be specific to your operating system, and will start much faster than with a JVM.
 
@@ -83,7 +83,7 @@ image::../imgs/module-5/quay_io_repo_public.png[Quat.io public repo]
 =====
 
 Due to our Lab session time constraint, we already built the three app native images and made it available for you in our Quay.io.
-This way you can skip this Github Action build step got to the next section to update your service's deployment pointing to our registry.
+This way you can skip this Github Action build step and then go to the next section to update your service's deployment pointing to our registry.
 
 native images ready to use:
 
@@ -102,10 +102,10 @@ image::../imgs/module-5/quay_io_quarkus_native_image.png[Quay.io - Quarkus nativ
 Now, how about the resource consumption at runtime? To find that out lets update our apps' deployment and run some load tests to observe how it behaves compared to its JVM version...
 
 === Updating our application deployments to use the native container image
-Because ou apps are deployed as Serverless workload (based on Knative Serving) we'll be using the Knative CLI (`kn`) to update them.
+Because your apps are deployed as Serverless workload (based on Knative Serving) we'll be using the Knative CLI (`kn`) to update them.
 
 ==== Updating the Quarkus service
-To update the Quarkus app deployment open a Terminal in your DevWorkspace and run this command.
+To update the Quarkus app deployment, open a Terminal in your DevWorkspace and run this command.
 
 [source, shell, role=copy]
 ----
@@ -135,7 +135,7 @@ This command will update the app deployment pointing to the native image version
  * cpu and mem limits
  * increase the replica scaling range 
 
-That's ins important as the native version of our app is supposed to require much less compute resource. As a consequence we get much more deployment density when using native builds.
+This is important as the native version of our app is supposed to require much less compute resource. As a consequence we get much more deployment density when using native builds.
 
 Notice for instance, the startup time of the native version of our quarkus-app. As you can see the app started in a sub-second (`0.020s` in my case) time!!!
 
@@ -144,7 +144,7 @@ image::../imgs/module-5/quarkus_native_startup.png[VSCode Terminal - kn service 
 Now, go ahead and update the other two apps and observe the same aspects of this update.
 
 ==== Updating the Micronaut service
-To update the Quarkus app deployment open a Terminal in your DevWorkspace and run this command.
+To update the Micronaut app deployment open a Terminal in your DevWorkspace and run this command.
 
 [source, shell, role=copy]
 ----
