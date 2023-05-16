@@ -17,7 +17,7 @@
 
 = Load Testing
 
-Now that we have our apps built and deployed to our staging environment it's time to add some load to them.
+Now that we have our apps built and deployed to our staging environment, it's time to add some load to them.
 For the purpose of our Lab this will allow us to see two things:
 
 1. observe resource consumption metrics (CPU, memory, networking traffic, etc) for each app container.
@@ -25,11 +25,11 @@ For the purpose of our Lab this will allow us to see two things:
 
 == Introducing Hyperfoil Load Driver
 
-Nowadays there are many opensource tools that can be used to generate application load towards your applications. 
-Many of them was designed before Containers and Kubernetes making its deployment, configuration and scalability a challenge considering the distributed nature of Kubernetes. 
+Nowadays, there are many opensource tools that can be used to generate application load towards your applications. 
+Many of these tools were designed before Containers and Kubernetes, making their deployment, configuration and scalability a challenge considering the distributed nature of Kubernetes. 
 
 For this Lab we will be using a tool called link:https://hyperfoil.io[Hyperfoil.io^]. Hyperfoil is described as a *Microservice-oriented distributed benchmark framework*.
-Because Hyperfoil is kubernetes-native it's perfect for our use-case as it is easy to deploy and run on any Kubernetes environment.
+Because Hyperfoil is kubernetes-native, it's perfect for our use-case as it is easy to deploy and run on any Kubernetes environment.
 
 [TIP]
 ====
@@ -157,7 +157,7 @@ Follow the following steps:
 
 2. Click inside the `Input Text` field that appears in the console.
 [subs=-macros]
-3. Paste this URL: `{hyperfoil_benchmark_definition_url}` and click the `Upload from URL` button.
+3. Copy this URL: `{hyperfoil_benchmark_definition_url}`, paste in the text box, and click the `Upload from URL` button.
 
 image::../imgs/module-5/hyperfoil-web-cli-upload.gif[Screenshot of Hyperfoil Web CLI - uploading a benchmark definition,align=center]
 
@@ -260,11 +260,11 @@ Because some phases run in parallel the total time of our test run may be around
 
 == Scaling
 
-Our Openshift Cluster has the *Serverless capability* enabled, as such our applications gets deployed as Serverless workloads leveraging all the
+Our Openshift Cluster has the *Serverless capability* enabled, as such, our applications get deployed as Serverless workloads leveraging all the
 link:https://docs.openshift.com/container-platform/4.12/serverless/about/about-knative-serving.html[Knative Serving features^] like link:https://docs.openshift.com/container-platform/4.12/serverless/knative-serving/autoscaling/serverless-autoscaling-developer.html[scale-to-zero] (when not serving http requests) and link:https://docs.openshift.com/container-platform/4.12/serverless/knative-serving/autoscaling/serverless-autoscaling-developer.html[auto-scaling] (to meet the concurrency demand).
 
-So far we generated a small traffic using our load test driver (Hyperfoil), just enough to generate some resource consumption metrics.
-Now let's generate a bit more load and see how our apps behaves concerning the *Serverless auto-scaling* capability.
+So far we generated small traffic using our load test driver (Hyperfoil), just enough to generate some resource consumption metrics.
+Now let's generate a bit more load and see how our apps behave concerning the *Serverless auto-scaling* capability.
 
 Openshift supports different types of POD scaling that can be applied depending on the workload use-case.
 
@@ -280,7 +280,7 @@ When you deployed the apps by running our Openshift Pipelines, each app was set 
 The default scaling rule for Knative Serving uses HTTP concurrency scaling and defaults to a _soft limit of_ `100` concurrent requests (configurable).
 ====
 
-As our applications provides endpoints to load either the CPU or the memory, we will explore usage of the _CPU_ and _Memory usage_ 
+As our applications provide endpoints to load either the CPU or the memory, we will explore usage of the _CPU_ and _Memory usage_ 
 triggers to scale our application using the native Kubernetes HPA capability.
 
 === Scaling based on CPU usage
@@ -291,6 +291,8 @@ This will create a new revision of the application (but the URL `http://quarkus-
 To set a new scale rule for our Quarkus use the Task `11: Enable CPU based auto-scaling` in your DevWorkspace.
 
 image::../imgs/module-5/VSCode_task_manager_enable_cpu_autoscaling.gif[Screenshot of VSCode Task Manager - enabling CPU based auto-scaling]
+
+If you get an authorization error, use the Task `98: OC Login` in your DevWorkspace to login with your OpenShift credentials.
 
 [TIP]
 ====
@@ -403,7 +405,7 @@ To query our Postgres DB instance we're going to use a tool called pgAdmin is pr
  * username: `postgres@pgo`
  * password: `password`
 
-select the `postgres` database and open the Query Tool to execute the following sentences.
+select the `postgres` database and open the Query Tool to execute the following SQL queries.
 
 [source,sql,role=copy]
 ----
