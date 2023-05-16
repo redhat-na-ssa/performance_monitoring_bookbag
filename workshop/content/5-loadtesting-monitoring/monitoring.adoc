@@ -246,12 +246,12 @@ image::../imgs/module-5/grafana_jvm_micrometer_metrics.gif[Grafana JVM metrics]
 
 [NOTE]
 ====
-All the data metrics you see in this dashboard is being automatically captured by the Openshift Metrics stack based on Prometheus.
+All the data metrics you see in this dashboard are being automatically captured by the Openshift Metrics stack based on Prometheus.
 This dashboard was pre-loaded for you in our Lab Grafana instance, but with the right permissions you can freely customize it, create or import new ones.
 ====
 
 [TIP]
 ====
 All the graphs presented in this section are better seen with real-time data! 
-So we encourage you to visualize them during the load testing execution. This way you will be able to see how you apps behaves when serving real traffic.
+So we encourage you to visualize them during the load testing execution. This way you will be able to see how your apps behave when serving real traffic.
 ====
