@@ -17,7 +17,7 @@
 
 = Load Testing
 
-Now that we have our apps built and deployed to our staging environment it's time to add some load to them.
+Now that we have our apps built and deployed to our staging environment, it's time to add some load to them.
 For the purpose of our Lab this will allow us to see two things:
 
 1. observe resource consumption metrics (CPU, memory, networking traffic, etc) for each app container.
@@ -25,11 +25,11 @@ For the purpose of our Lab this will allow us to see two things:
 
 == Introducing Hyperfoil Load Driver
 
-Nowadays there are many opensource tools that can be used to generate application load towards your applications. 
-Many of them was designed before Containers and Kubernetes making its deployment, configuration and scalability a challenge considering the distributed nature of Kubernetes. 
+Nowadays, there are many opensource tools that can be used to generate application load towards your applications. 
+Many of these tools were designed before Containers and Kubernetes, making their deployment, configuration and scalability a challenge considering the distributed nature of Kubernetes. 
 
 For this Lab we will be using a tool called link:https://hyperfoil.io[Hyperfoil.io^]. Hyperfoil is described as a *Microservice-oriented distributed benchmark framework*.
-Because Hyperfoil is kubernetes-native it's perfect for our use-case as it is easy to deploy and run on any Kubernetes environment.
+Because Hyperfoil is kubernetes-native, it's perfect for our use-case as it is easy to deploy and run on any Kubernetes environment.
 
 [TIP]
 ====
