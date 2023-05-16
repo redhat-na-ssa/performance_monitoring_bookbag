@@ -21,6 +21,7 @@ Before starting our Lab, you need to set up a few prerequisites.
 This includes:
 
 * a Github account (you can quickly link:https://github.com/signup[*sign up for a new one*^] if you don't have yet)
+  ** with a *Personal Access Token* (PAT)
 * a Quay.io account (you can quickly link:https://quay.io/signin[*sign up for a new one*^] if you don't have yet)
 
 [NOTE]
@@ -138,7 +139,7 @@ git commit --allow-empty -m "Git setup"
 git push
 ----
 
-[NOTE]
+[IMPORTANT]
 ====
 At the first time you try to push a change to your remote git repo VSCode will show a pop-up 
 saying 
@@ -151,16 +152,19 @@ Next, another popup will show up at the bottom left saying
 
 "*Che could not authenticate to your Github account. The setup for Github OAuth provider is not complete.*"
 
-Just close it!
+Just close it by clicking the 'x' icon!!!
 
 Finally, it will ask for your personal git credentials. 
 
-1. type your github `username` in the prompt that appears at the top middle of your IDE and hit `Enter`. 
-2. type your github `password` and hit `Enter`.
+1. type your Github `username` in the prompt that appears at the top middle of your IDE and hit `Enter`. 
+2. type your #Github Personal Access Token# and hit `Enter`.
 +
-[TIP]
+[WARNING]
 =====
-If you prefer to use a temporary *Personal Access Token (PAT)* in your Github account.
+
+#Support for password authentication on GitHub was removed on August 13, 2021.#
+
+You need a *Personal Access Token (PAT)* in your Github account in order to authenticate and *push* your changes.
 
 .*Click to see how to create one in your Github account*
 [%collapsible]

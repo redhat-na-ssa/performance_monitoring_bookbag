@@ -16,7 +16,7 @@ modules:
     name: Developing the Springboot Application
     exit_sign: Continue
   4-deploying-applications:
-    name: Deploying the Microservices 
+    name: Deploying the Applications 
     exit_sign: Continue
   5-loadtesting-monitoring/monitoring:
     name: Monitoring the Applications 
