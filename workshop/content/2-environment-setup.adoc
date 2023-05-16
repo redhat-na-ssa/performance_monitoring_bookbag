@@ -44,7 +44,7 @@ Here are the information you will be using throughout this Lab session.
 
 [IMPORTANT]
 ====
-Please, if you have any issue accessing any of the resources during the lab, don't hesitate in asking for help to any of the lab assistants or instructors!
+Please, if you have any issue accessing any of the resources during the lab, don't hesitate to ask any of the lab assistants or instructors for help!
 ====
 
 == Using the GitHub Template
@@ -54,7 +54,7 @@ Open link:{template-github-url}[this GitHub repository,window=_blank], click on 
 image::./imgs/module-2/github-template.png[Screenshot of GitHub showing the "Use this template" button,640,480,align=center]
 
 You will be redirected to the repository creation page.
-Select the owner of the repository, enter a name for your new repository (eg.
+Select the owner of the repository, enter a name for your new repository (for e.g.
 `rhsummit2023-workshop-performance-monitoring`), set the repo visibility to `public` and click on `Create repository from template`.
 
 Once the repository is created, copy its URL so we can use it in the next step.
@@ -91,7 +91,7 @@ image::./imgs/module-2/openshift-devspaces-first-access.gif[DevWorkspace initial
 
 [TIP]
 ====
-You can experiment Openshift Devspaces for 30 days by signing up for a Red Hat Developer Sandbox account, see link:https://developers.redhat.com/developer-sandbox[Red Hat Developer Sandbox].
+You can experiment with Openshift Devspaces for 30 days by signing up for a Red Hat Developer Sandbox account, see link:https://developers.redhat.com/developer-sandbox[Red Hat Developer Sandbox].
 ====
 
 == Configuring Git
