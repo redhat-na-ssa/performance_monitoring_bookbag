@@ -405,7 +405,7 @@ To query our Postgres DB instance we're going to use a tool called pgAdmin is pr
  * username: `postgres@pgo`
  * password: `password`
 
-select the `postgres` database and open the Query Tool to execute the following sentences.
+select the `postgres` database and open the Query Tool to execute the following SQL queries.
 
 [source,sql,role=copy]
 ----
