@@ -26,11 +26,11 @@ For this Lab session you don't need to create your pipeline from scratch. To acc
 
 Access the link:{openshift_console_url}/dev-pipelines/ns/{user}-cicd[{user}-cicd project namespace]. Then, on the right side menu, click on *Pipelines*:
 
-image::imgs/module-4/pipelines_view.png[Pipelines View,640,480,align=center]
+image::imgs/module-4/pipelines_view.png[Pipelines View,align=center]
 
 if you click on the *build-and-deploy-apps* link, you'll be able to see the pipeline steps.
 
-image::imgs/module-4/pipeline.png[Pipeline,640,480,align=center]
+image::imgs/module-4/pipeline.png[Pipeline,align=center]
 
 . Clone your source code from your fork.
 . Build the Java code using Maven.
@@ -120,6 +120,7 @@ Events:              <none>
 
 ====
 
+[#running-pipeline]
 == Running the pipeline
 
 Now you are ready to start your first *Pipeline Run*. 
@@ -128,7 +129,7 @@ Go back to the *Pipeline view* in the link:link:%openshift_console_url%/topology
 Fill in the mandatory parameters:
 
 * *git-url*: copy and paste your git repo URL - the one you created at the beginning from the Workshop Template.
-* *app-name*: `quarkus-app` or `micronaut-app` or `springboot-app`
+* *app-name*: `quarkus-app` or `micronaut-app` or `springboot-app` (#pay attention to use exact app name, otherwise the pipeline run will fail!#)
 * *registry-repo*: your (quay.io) account name
 * leave all the others with the default values!
 
@@ -144,9 +145,16 @@ image::imgs/module-4/start_pipeline.gif[Start pipeline]
 
 [TIP]
 ====
+An easy and quick way to get your *git repo url* is to execute the following command in the DevWorkspace Terminal:
+
+[source, shell, role=copy]
+-----
+git remote -v
+-----
+
 During the Pipeline Run execution you can follow its log live by opening the `Logs` view like this:
 
-image::imgs/module-4/pipeline_live_log.png[Pipeline Run live log, 640, 480]
+image::imgs/module-4/pipeline_live_log.png[Pipeline Run live log]
 ====
 
 Once the pipeline finished successfully, all tasks on it will be green as in the following image:

@@ -99,7 +99,7 @@ Error from server (Forbidden): ... is forbidden: User "system:serviceaccount:%us
 ```
 
 It may happen your DevWorkspace was not able to inject your user information properly during its initialization.
-To solve that issue, from the IDE Task Manager please, execute the the `98: OC Login` Task. Youl will be prompted to entenr your user's password.
+To solve that issue, from the IDE *Task Manager* please, execute the *Task* named `98: OC Login`. You will be prompted to enter your assigned user password: `%password%`.
 
 image::./imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
 

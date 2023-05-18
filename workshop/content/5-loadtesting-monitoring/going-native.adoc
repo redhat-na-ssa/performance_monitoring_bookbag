@@ -97,7 +97,7 @@ quay.io/redhat_na_ssa/springboot-app-native
 
 Notice the size of our native container image! Compare it with the JVM based image.
 
-image::../imgs/module-5/quay_io_quarkus_native_image.png[Quay.io - Quarkus native image,640,480,align="center"]
+image::../imgs/module-5/quay_io_quarkus_native_image.png[Quay.io - Quarkus native image,align="center"]
 
 Now, how about the resource consumption at runtime? To find that out lets update our apps' deployment and run some load tests to observe how it behaves compared to its JVM version...
 
@@ -139,7 +139,7 @@ This is important as the native version of our app is supposed to require much l
 
 Notice for instance, the startup time of the native version of our quarkus-app. As you can see the app started in a sub-second (`0.020s` in my case) time!!!
 
-image::../imgs/module-5/quarkus_native_startup.png[VSCode Terminal - kn service update,740,580,align="center"]
+image::../imgs/module-5/quarkus_native_startup.png[VSCode Terminal - kn service update,align="center"]
 
 Now, go ahead and update the other two apps and observe the same aspects of this update.
 
@@ -173,9 +173,9 @@ kn service update springboot-app -n %user%-staging \
 
 After all your native images are built and deployed, let's run our load tests again.
 
-Open the link:{hyperfoil_web_cli_url_auth_creds}[Hyperfoil Web CLI^] and start new Test runs as described in the load testing section.
+Open the link:{hyperfoil_web_cli_url_auth_creds}[Hyperfoil Web CLI] and start new Test runs as described in the load testing section.
 
-You can run the same load tests we ran the first time we introduce Hyperfoil Web CLI to you in the  xref:loadtesting.adoc#running-hyperfoil[load testing section^].
+You can run the same load tests we ran the first time we introduce Hyperfoil Web CLI to you in the  xref:loadtesting.adoc#running-hyperfoil[load testing section].
 
 == Monitoring the Native Images
 

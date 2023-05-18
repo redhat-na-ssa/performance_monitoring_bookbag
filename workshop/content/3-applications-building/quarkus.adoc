@@ -418,7 +418,7 @@ public class QuarkusResourceTest {
 Maven based projects follows a link:https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html[standard directory layout].
 
 Application _Test classes_ *must* reside under the `src/test/java` directory
-[source]
+[source, subs=+quotes]
 -----
 .
 ├── pom.xml
