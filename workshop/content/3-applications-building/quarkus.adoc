@@ -93,10 +93,10 @@ Don't worry about it now as we will be adding this class in the next few steps.
 [TIP]
 ====
 After copying and pasting inside your class you may get your class with wrong indentation. 
-You can ask the IDE to `Format Document` by:
+You can ask the IDE to `Format Document` by choosing one of the following two options:
 
 * Context Menu (mouse right-click) inside the class file and selecting `Format Document` option
-* `Ctrl + Shift + P`, start typing `Format...` and select `Format Document`
+* Opening the Command Palette (`Ctrl + Shift + P` or `Cmd + Shit + P` on mac), start typing `Format...` and select `Format Document`
 ====
 
 Let's add a `hello` method returning *_Hello World_*, so we can quickly check if our endpoint responds or not.
@@ -562,18 +562,16 @@ This pop-up will appear every time you start a process which listens to a TCP/HT
 
 In another terminal you can execute the following `curl` commands to invoke the endpoint:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 curl -w '\n' 'localhost:8701/quarkus'
-
 curl -w '\n' 'localhost:8701/quarkus/cpu?iterations=10&db=true&desc=java17'
-
 curl -w '\n' 'localhost:8701/quarkus/memory?bites=10&db=true&desc=java17'
 ----
 
 [TIP]
 ====
-To open a new Terminal in your Worksapce just click the `+` icon located at the top bar of the Terminal panel. If your Teminal is not open just hit `Ctrl + \`` (`command + \`` for Mac).
+To open a new Terminal in your Workspace just click the `+` icon located at the top bar of the Terminal panel. If your Teminal is not open just hit `Ctrl + \`` (`command + \`` for Mac).
 
 You can also open a new Terminal by using the VSCode Command prompt by `Ctrl + Shift + P` (`command + Shift + P` on Mac) and typing `new terminal` and choosing the last option named `New Terminal to DevWorkspace Container`.
 ====
@@ -581,7 +579,7 @@ You can also open a new Terminal by using the VSCode Command prompt by `Ctrl + S
 You can change the parameters to see how the application behaves.
 Change the number of iterations and the number of bites to see how the performance is impacted (with and without database).
 
-[source,shell]
+[source,shell,role=copy]
 ----
 curl -w '\n' 'localhost:8701/quarkus/cpu?iterations=50'
 curl -w '\n' 'localhost:8701/quarkus/cpu?iterations=100'

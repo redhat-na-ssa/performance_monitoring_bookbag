@@ -105,7 +105,7 @@ Quarkus provides a link:https://quarkus.io/guides/micrometer[Micrometer extensio
 link:https://micrometer.io[Micrometer] is *Vendor-neutral application observability facade* that provides a simple facade over the instrumentation clients for the most popular observability systems, allowing you to instrument your JVM-based application code without vendor lock-in. Think SLF4J, but for observability.
 ====
 
-In your link:{user_devworkspace_url}[DevWorkspace] open the `$PROJECT_SOURCE/quarkus-app/pom.xml` file and *uncomment (just move the `-->` up to before `<dependency>` tag) the following section* (around line `#80`) to enable the extension.
+In your link:{user_devworkspace_url}[DevWorkspace] open the `$PROJECT_SOURCE/quarkus-app/pom.xml` file and *uncomment (just move the `-- >` up to before `<dependency>` tag) the following section* (around line `#80`) to enable the extension.
 [source, xml, ident=0]
 ----
     <!-- Enable Micrometer for prometheus metrics.
@@ -173,7 +173,7 @@ Remember to enter the correct params: `git repo url`, `app name` and your `quay.
 ==== Exposing application metrics in Micronaut
 Like Quarkus, Micrometer also provides a link:https://guides.micronaut.io/latest/micronaut-metrics-maven-java.html[Micrometer integration] that makes it really easy to expose application metrics to prometheus. All we need to do is to add the `micronaut-micrometer` dependency to the app's POM.
 
-In your link:{user_devworkspace_url}[DevWorkspace] open the `$PROJECT_SOURCE/micronaut-app/pom.xml` and *uncomment (just move the `-->` up to before `<dependency>` tag) the following section* (around line `#113`) to enable the extension.
+In your link:{user_devworkspace_url}[DevWorkspace] open the `$PROJECT_SOURCE/micronaut-app/pom.xml` and *uncomment (just move the `-- >` up to before `<dependency>` tag) the following section* (around line `#113`) to enable the extension.
 [source, xml, ident=0]
 ----
     <!-- Enable Micrometer for prometheus metrics.
@@ -241,7 +241,7 @@ git push
 ==== Exposing application metrics in Springboot
 Like Quarkus and Micronaut, Springboot now provides a link:https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.metrics.export.prometheus[Micrometer integration] that makes it really easy to expose application metrics to prometheus. All we need to do is to add the micrometer dependency to the app's POM.
 
-In your link:{user_devworkspace_url}[DevWorkspace] open the `$PROJECT_SOURCE/springboot-app/pom.xml` and *uncomment (just move the `-->` up to before `<dependency>` tag) the following section* (around line `#90`) to enable the extension.
+In your link:{user_devworkspace_url}[DevWorkspace] open the `$PROJECT_SOURCE/springboot-app/pom.xml` and *uncomment (just move the `-- >` up to before `<dependency>` tag) the following section* (around line `#90`) to enable the extension.
 [source, xml, ident=0]
 ----
     <!-- Enable Micrometer for prometheus metrics.

@@ -12,9 +12,11 @@
 ====
 Due to our Lab session time constraint, we already provided the code for the app, so you have time to experience other exiting capabilities available in the platform.
 
-This version of the app implements the same logic, exposing the exact same resources, but now using Spring Boot as its underline Runtime.
+This version of the app implements the same logic, exposing the exact same resources, but now using *SpringBoot* as its underline Runtime.
 
-Feel free to go through the source code. You don't need to code any Java Class in this section. Just run the Maven commands (or run the Tasks using the IDE Task Manager) to package, run and test the app inside your DevWorkspace.
+Feel free to go through the source code. But #*you don't need to code any Java Class in this section*#. 
+
+*You can jump right to the* link:#Running-the-Springboot-Application-Locally[*Running the Springboot Application Locally*] section and just run the Maven commands (or run the Tasks using the IDE Task Manager) to run and test the app inside your DevWorkspace.
 ====
 
 
@@ -506,7 +508,8 @@ All the tests should pass and you should see the following output:
 You can also use the Task Manager to trigger Maven Test by executing the task `09: SpringBoot - Test` which triggers a `mvn test` in a separate Terminal.
 ====
 
-== Running the Spring Boot Application Locally
+[#Running-the-Springboot-Application-Locally]
+== Running the SpringBoot Application Locally
 
 Now that the tests are all green, let's execute the application locally and execute a few `curl` commands to test the exposed endpoints.
 
@@ -534,19 +537,17 @@ This pop-up will appear every time you start a process which listens to a TCP/HT
 
 In another terminal you can execute the following `curl` commands to invoke the endpoint:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 curl -w '\n' 'localhost:8703/springboot'
-
 curl -w '\n' 'localhost:8703/springboot/cpu?iterations=10&db=true&desc=java17'
-
 curl -w '\n' 'localhost:8703/springboot/memory?bites=10&db=true&desc=java17'
 ----
 
 You can change the parameters to see how the application behaves.
 Change the number of iterations and the number of bites to see how the performance is impacted (with and without database).
 
-[source,shell]
+[source,shell,role=copy]
 ----
 curl -w '\n' 'localhost:8703/springboot/cpu?iterations=50'
 curl -w '\n' 'localhost:8703/springboot/cpu?iterations=100'
@@ -559,7 +560,7 @@ curl -w '\n' 'localhost:8703/springboot/memory?bites=100&db=true&desc=smoke%20te
 
 You can check the content of the database with:
 
-[source,shell]
+[source,shell,role=copy]
 ----
 curl -s 'localhost:8703/springboot/stats' | jq
 ----

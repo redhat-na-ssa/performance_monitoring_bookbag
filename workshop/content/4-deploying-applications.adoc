@@ -43,6 +43,7 @@ image::imgs/module-4/pipeline.png[Pipeline,align=center]
 We'll be using the same pipeline to deploy all three applications, but we'll run it three times (one for each app).
 ====
 
+[#configuring-access-to-quay]
 == Configuring access to Quay.io
 
 You need to create the image repositories in your https://quay.io/repository/[Quay.io] account and create credentials for the pipeline to be able to push the image.
@@ -100,14 +101,14 @@ To check the link use
 
 [source, shell, role=copy]
 -----
-oc describe sa pipeline -n user1-cicd
+oc describe sa pipeline -n %user%-cicd
 -----
 
 Look for `Mountable secrets:` like bellow
 [source]
 -----
 Name:                pipeline
-Namespace:           user1-cicd
+Namespace:           %user%-cicd
 Labels:              <none>
 Annotations:         <none>
 Image pull secrets:  pipeline-dockercfg-8dsk2

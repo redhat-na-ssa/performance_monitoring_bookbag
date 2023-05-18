@@ -47,6 +47,20 @@ For instance if you are interested in know how to create a native-executable for
 
 == Building native image using Github Actions
 
+[IMPORTANT]
+====
+Again, #due to our Lab session time constraint, we already built all the three apps' native images and made them available for you in our Quay.io Organization:#
+
+[code]
+----
+quay.io/redhat_na_ssa/quarkus-app-native
+quay.io/redhat_na_ssa/micronaut-app-native
+quay.io/redhat_na_ssa/springboot-app-native
+----
+
+*Feel free to skip this build step and then go straight to the link:#updating-native-images[next section to update your service's deployment] pointing to our registry.*
+====
+
 To build native images of our 3 microservices, we will use a pre-configured link:https://docs.github.com/en/actions[*GitHub Action workflow*] already created for you inside your git repo.
 There three workflow definitions inside `$PROJECT_SOURCE/.github/workflows`:
 
@@ -60,8 +74,8 @@ For instance, lets trigger the workflow to build a native image for our Quarkus 
 3. then at the far right click the `Run workflow` button.
 4. fill in the fields:
  ** `Container Registry Organization/Account name`: should be your personal quay.io account name
- ** `Container Registry Username`: should be your personal quay.io account name (*or a robot account name*)
- ** `Container Registry User token`: your quay.io user password (*or a robot password/token*)
+ ** `Container Registry Username`: #use the same *Robot account name* you set up early# (in the xref:../4-deploying-applications.adoc#configuring-access-to-quay[Configuring access to Quay.io] section)
+ ** `Container Registry User token`: #use the same *Robot account token* you set up early#
 5. finally, click `Run workflow`
 
 .*Click to see how to run a Github action workflow*
@@ -72,26 +86,13 @@ image::../imgs/module-5/github_action_native_build_trigger.gif[Github Action to 
 
 The workflow run should take about *8min or less*. If it succeeds (your entered the right registry credentials) you should have a new image pushed to your Quay.io.
 
-[WARNING]
+[NOTE]
 ====
-Make sure you make your image repo *public* after the build completes and the images gets pushed to your quay.io account!
+To make things easy, the Github Action workflow is configured to push the native image to the same repository you created early when setting up the Build and Deploy CI/CD Pipeline. So, each app native image will be pushed to its corresponding repo in quay.io, but tagged with '#native#':
 
-.*Click to see how to make your image repo public on quay.io
-[%collapsible]
-=====
-image::../imgs/module-5/quay_io_repo_public.png[Quat.io public repo]
-=====
-
-Due to our Lab session time constraint, we already built the three app native images and made it available for you in our Quay.io.
-This way you can skip this Github Action build step and then go to the next section to update your service's deployment pointing to our registry.
-
-native images ready to use:
-
-```
-quay.io/redhat_na_ssa/quarkus-app-native
-quay.io/redhat_na_ssa/micronaut-app-native
-quay.io/redhat_na_ssa/springboot-app-native
-```
+* *quarkus-app*    - will be pushed to `quay.io/*your-account*/quarkus-app:native`
+* *micronaut-app*  - will be pushed to `quay.io/*your-account*/micronaut-app:native`
+* *springboot-app* - will be pushed to `quay.io/*your-account*/springboot-app:native`
 
 ====
 
@@ -101,26 +102,37 @@ image::../imgs/module-5/quay_io_quarkus_native_image.png[Quay.io - Quarkus nativ
 
 Now, how about the resource consumption at runtime? To find that out lets update our apps' deployment and run some load tests to observe how it behaves compared to its JVM version...
 
+[#updating-native-images]
 === Updating our application deployments to use the native container image
 Because your apps are deployed as Serverless workload (based on Knative Serving) we'll be using the Knative CLI (`kn`) to update them.
 
 ==== Updating the Quarkus service
 To update the Quarkus app deployment, open a Terminal in your DevWorkspace and run this command.
 
-[source, shell, role=copy]
+[source, shell, role=copy, subs=+quotes]
 ----
 kn service update quarkus-app -n %user%-staging \
   --probe-liveness-opts='initialDelaySeconds=1' \
   --probe-readiness-opts='initialDelaySeconds=1' \
   --limit=cpu=1,memory=700Mi \
   --scale=0..5 \
-  --image quay.io/redhat_na_ssa/quarkus-app-native
+  --image quay.io/redhat_na_ssa/quarkus-app-native # <=== YOU CAN REPLACE TO YOUR NATIVE IMAGE HERE
 
 ----
 
 [TIP]
 ====
-If you were able to successfully run the Github Action workflow and to want to use your on image from your quay.io account, just remember to replace the `--image` param to point to your quay.io account
+If you were able to successfully run the Github Action workflow and to want to use your own image here, *just remember to replace the `--image` param to point to your quay.io account*. For instance, to use you own quarkus native image use
+
+[source, subs=+quotes]
+-----
+kn service update quarkus-app -n %user%-staging \
+  --probe-liveness-opts='initialDelaySeconds=1' \
+  --probe-readiness-opts='initialDelaySeconds=1' \
+  --limit=cpu=1,memory=700Mi \
+  --scale=0..5 \
+  --image quay.io/*your-account*/quarkus-app:native #<=== here#
+-----
 ====
 
 .*Click to see how to execute the above `kn service update` from your DevWorkspace Terminal*
@@ -146,27 +158,29 @@ Now, go ahead and update the other two apps and observe the same aspects of this
 ==== Updating the Micronaut service
 To update the Micronaut app deployment open a Terminal in your DevWorkspace and run this command.
 
-[source, shell, role=copy]
+[source, shell, role=copy, subs=+quotes]
 ----
 kn service update micronaut-app -n %user%-staging \
   --probe-liveness-opts='initialDelaySeconds=1' \
   --probe-readiness-opts='initialDelaySeconds=1' \
   --limit=cpu=1,memory=700Mi \
   --scale=0..5 \
-  --image quay.io/redhat_na_ssa/micronaut-app-native
+  --image quay.io/redhat_na_ssa/micronaut-app-native # <=== YOU CAN REPLACE TO YOUR NATIVE IMAGE HERE
+
 ----
 
 ==== Updating the Springboot service
 To update the Springboot app deployment open a Terminal in your DevWorkspace and run this command.
 
-[source, shell, role=copy]
+[source, shell, role=copy, subs=+quotes]
 ----
 kn service update springboot-app -n %user%-staging \
   --probe-liveness-opts='initialDelaySeconds=1' \
   --probe-readiness-opts='initialDelaySeconds=1' \
   --limit=cpu=1,memory=700Mi \
   --scale=0..5 \
-  --image quay.io/redhat_na_ssa/springboot-app-native
+  --image quay.io/redhat_na_ssa/springboot-app-native # <=== YOU CAN REPLACE TO YOUR NATIVE IMAGE HERE
+
 ----
 
 == Load Testing the Native Images

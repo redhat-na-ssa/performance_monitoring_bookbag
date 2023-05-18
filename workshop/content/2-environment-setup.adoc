@@ -15,13 +15,36 @@
 [[setup-project]]
 = Getting ready for the Lab
 
-== Prerequisites
+== #`%user%`# | Prerequisites
 
 Before starting our Lab, you need to set up a few prerequisites.
 This includes:
 
 * a Github account (you can quickly link:https://github.com/signup[*sign up for a new one*^] if you don't have yet)
   ** with a *Personal Access Token* (PAT)
++
+[IMPORTANT]
+=====
+
+#*Support for password authentication on GitHub was removed on August 13, 2021.*#
+
+You need a *Personal Access Token (PAT)* in your Github account in order to authenticate and *push* your changes.
+
+ * To make things easy please use a #*Classic Token*# with #*repo scope* enabled# as shown in the screencast bellow!
+
+.*Click to see how to create one in your Github account*
+[%collapsible]
+======
+image::./imgs/module-2/github_pat.gif[Github PAT setup]
+
+[NOTE]
+=======
+if you really want to use a *Fine-grained* token, please make sure you give Permissions (`Contents
+Repository contents, commits, branches, downloads, releases, and merges.`) to the right repo.
+=======
+======
+=====
+
 * a Quay.io account (you can quickly link:https://quay.io/signin[*sign up for a new one*^] if you don't have yet)
 
 [NOTE]
@@ -38,8 +61,8 @@ Here are the information you will be using throughout this Lab session.
 
 * *Openshift Web Console:* {openshift_console_url}
  ** *Access Credentials:*
-  *** *Username:* #`{user}`#
-  *** *Password:* #`{openshift_user_password}`#
+  *** #*Username:* `{user}`#
+  *** #*Password:* `{openshift_user_password}`#
 * link:{user_devworkspace_url}[*Openshift DevSpaces Workspace*]
 * link:{hyperfoil_web_cli_url}[*Hyperfoil Web CLI*]
 
@@ -115,6 +138,8 @@ Now point your local git to your fork on your own GitHub account!
 git remote set-url origin https://github.com/YOUR_GITHUB_ACCOUNT/your-repo-name.git
 # check the remote address
 git remote -v
+# perform a git pull to get the latest changes!
+git pull --rebase
 ----
 
 [TIP]
@@ -129,7 +154,6 @@ image::./imgs/module-2/VSCode_terminal_git_add_remote.gif[VSCode new Terminal - 
 
 ====
 
-
 Now lets do an empty commit and push it to test our git setup.
 
 [source, shell, role=copy]
@@ -143,34 +167,22 @@ git push
 At the first time you try to push a change to your remote git repo VSCode will show a pop-up 
 saying 
 
-"*The extension 'GitHub' wants to sign in using GitHub.*"
+image::./imgs/module-2/VSCode_github_auth_allow_popup.png[Github auth pop-up,640,480,align=center]
 
 click `Allow`.
 
-Next, another popup will show up at the bottom left saying 
+Next, another popup will show up #at the bottom left# saying 
 
-"*Che could not authenticate to your Github account. The setup for Github OAuth provider is not complete.*"
+image::./imgs/module-2/VSCode_che_github_auth_popup.png[Che extension for Github auth pop-up,640,480,align=center]
 
 Just close it by clicking the 'x' icon!!!
 
-Finally, it will ask for your personal git credentials. 
+Finally, it will ask for your personal git credentials. Look for a small prompt at the top middle of your Workspace.
+
+image::./imgs/module-2/VSCode_github_auth_prompt.png[VSCode Github auth prompt,640,480,align=center]
 
 1. type your Github `username` in the prompt that appears at the top middle of your IDE and hit `Enter`. 
-2. type your #Github Personal Access Token# and hit `Enter`.
-+
-[WARNING]
-=====
-
-#Support for password authentication on GitHub was removed on August 13, 2021.#
-
-You need a *Personal Access Token (PAT)* in your Github account in order to authenticate and *push* your changes.
-
-.*Click to see how to create one in your Github account*
-[%collapsible]
-======
-image::./imgs/module-2/github_pat.gif[Github PAT setup]
-======
-=====
+2. type your #*Github Personal Access Token*# and hit `Enter`.
 
 ====
 

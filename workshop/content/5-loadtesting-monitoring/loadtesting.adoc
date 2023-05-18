@@ -161,7 +161,6 @@ Follow the following steps:
 1. Inside the Web CLI type `upload` and hit `Enter`. 
 
 2. Click inside the `Input Text` field that appears in the console.
-[subs=-macros]
 3. Copy this URL: `{hyperfoil_benchmark_definition_url}`
 4. paste the URL into the text box and click `Upload from URL`.
 
@@ -206,6 +205,13 @@ The params `APP_URL` and `APP_CONTEXT_PATH` are both required to run our benchma
 
  * the first one is the application URI. Here we are using the internal Kubernetes cluster service URI, but you can use the Openshift external Ingress Route as well.
  * the second one is the context path of the application (eg. `/quarkus` for the `quakus-app`)
+====
+
+[IMPORTANT]
+====
+To accommodate all users in our Lab cluster we set *resource quotas* that limits the number of PODs you can run simultaneously.
+
+#PLEASE execute just one _Benchmark Run_ at a time!# Otherwise you can hit the resource quota and start getting some errors.
 ====
 
 When you start a test `run` a few things happens:
@@ -432,13 +438,13 @@ kn service update micronaut-app -n %user%-staging \
 
 Now, go ahead and execute another test run towards the *Springboot app*. For the Springboot app we'll use the default auto-scaling rule which is based on the http concurrency. 
 
-Before we start the test run lets set a threshold of 5% of the http concurrency target deliberately to make it easy to go up. Using the DevWorkspace Terminal execute the following command to update the Springboot service deployment:
+Before we start the test run lets set a threshold of 10 concurrent requests per POD deliberately to make it easy to go up. Using the DevWorkspace Terminal execute the following command to update the Springboot service deployment:
 
 [source, shell, role=copy]
 ----
 kn service update springboot-app -n %user%-staging \
  --scale-metric=concurrency \
- --scale-utilization=5 \
+ --concurrency-limit=10 \
  --no-wait
 ----
 
@@ -448,7 +454,7 @@ Now from the Hyperfoil Web CLI start a new test run, but now increasing the numb
 
 [source,shell,role=copy,subs=attributes]
 ----
-run summit-lab-load-apps -PUSERS_PER_SEC=100 -PMEMORY_BITES=20 -PCPU_ITERATIONS=5 -PAPP_URL=http://springboot-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/springboot
+run summit-lab-load-apps -PUSERS_PER_SEC=60 -PMEMORY_BITES=20 -PCPU_ITERATIONS=5 -PAPP_URL=http://springboot-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/springboot
 ----
 
 While the Benchmark is running go to link:{grafana_url}[Grafana console] and open the Dashboard named *App Performance* to see how the metrics *CPU usage*, *memory usage* and *# of replicas* plays for each application during these three load tests we just ran. 

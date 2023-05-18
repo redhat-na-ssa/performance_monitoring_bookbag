@@ -18,18 +18,18 @@
 
 == Logs
 
-Red Hat provides two alternatives for customers looking for logging aggregation solutions: 
+Red Hat Openshift provides two alternatives for customers looking for logging aggregation solutions: 
 
 - Based on *Elasticsearch, Fluentd and Kibana*: With this solution all logs are streamed from the nodes by Fluentd to Elasticsearch, which in turn stores and index them. Kibana is shipped to visualize the logs. 
-- *Grafana Loki* is also provided as an alternative to EFK. Loki is a horizontally scalable, highly available, multi-tenant log aggregation system. While Elasticsearch indexes incoming log records completely during ingestion, Loki only indexes a few fixed labels during ingestion, and defers more complex parsing until after the logs have been stored. This means Loki can collect logs more quickly. As with Elasticsearch, you can query Loki using JSON paths or regular expressions. 
+- link:https://grafana.com/oss/loki[*Grafana Loki*] is also provided as an alternative to EFK. Loki is a horizontally scalable, highly available, multi-tenant log aggregation system. While Elasticsearch indexes incoming log records completely during ingestion, Loki only indexes a few fixed labels during ingestion, and defers more complex parsing until after the logs have been stored. This means Loki can collect logs more quickly. As with Elasticsearch, you can query Loki using JSON paths or regular expressions. 
 
 This environment is installed with *Grafana Loki* as the logging aggregation tool. 
 
 With Loki the application logs are available directly from the OpenShift Console. It provides a nice interface to view the logs of your application. This is crucial to troubleshoot issues when something goes wrong. You have multiple options to view the application logs:
 
-- You can connect to a given pod and gets the logs of that specific pod. This is useful to troubleshoot issues with a specific instance of your application. Logs are available at the `Aggregated Logs` tab in the pod view.
+- You can connect to a given pod and see the logs of that specific pod. This is useful to troubleshoot issues with a specific instance of your application. Logs are available at the `Aggregated Logs` tab in the pod view.
 
-image::../imgs/module-5/ocp_console_observe_pod_logs.gif[Pod Agregated Logs view]
+image::../imgs/module-5/ocp_console_observe_pod_logs.gif[Pod Aggregated Logs view]
 
 [TIP]
 ====
