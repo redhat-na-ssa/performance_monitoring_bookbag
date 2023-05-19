@@ -49,7 +49,7 @@ For instance if you are interested in know how to create a native-executable for
 
 [IMPORTANT]
 ====
-Again, #due to our Lab session time constraint, we already built all the three apps' native images and made them available for you in our Quay.io Organization:#
+#Again, due to our Lab session time constraint, we already built all the three apps' native images and made them available for you in our Quay.io Organization:#
 
 [code]
 ----
@@ -69,18 +69,31 @@ image::../imgs/module-5/github_actions_workflow_files.png[Github Action workflow
 Each one can be used to manually trigger its respective application native image build using Github infrastructure. 
 For instance, lets trigger the workflow to build a native image for our Quarkus app.
 
-1. from your github account, open our repo and open the `Actions` tab
-2. in the left menu select the workflow `Build Quarkus native container image`
-3. then at the far right click the `Run workflow` button.
-4. fill in the fields:
+1. First you need to define two Github Secrets in your repo.
+ ** from your github account, open our repo and click the `Settings` tab
+ ** at the left menu open `Secrets and variables`, then `Actions`
+ ** create a secret named `REGISTRY_USERNAME` (by clicking the `New repository secret` button)
+  *** `*Name*`: `REGISTRY_USERNAME`
+  *** `*Secret*`: #use the same *Robot account name* you set up early# (in the xref:../4-deploying-applications.adoc#configuring-access-to-quay[Configuring access to Quay.io] section)
+ ** create another secret named `REGISTRY_TOKEN`
+  *** `*Name*`: `REGISTRY_TOKEN`
+  *** `*Secret*`: #use the same *Robot account token* you set up early# 
+2. now, open our repo and click the `Actions` tab
+3. in the left menu select the workflow `Build Quarkus native container image`
+4. then at the far right click the `Run workflow` button.
+5. fill in the field:
  ** `Container Registry Organization/Account name`: should be your personal quay.io account name
- ** `Container Registry Username`: #use the same *Robot account name* you set up early# (in the xref:../4-deploying-applications.adoc#configuring-access-to-quay[Configuring access to Quay.io] section)
- ** `Container Registry User token`: #use the same *Robot account token* you set up early#
-5. finally, click `Run workflow`
+6. finally, click `Run workflow`
 
 .*Click to see how to run a Github action workflow*
 [%collapsible]
 ====
+* Defining the secrets
+
+image::../imgs/module-5/github_secret_actions.gif[Github Secrets]
+
+* Running the build workflow
+
 image::../imgs/module-5/github_action_native_build_trigger.gif[Github Action to build native images for our applications]
 ====
 
