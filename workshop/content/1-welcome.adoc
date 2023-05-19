@@ -140,21 +140,6 @@ In this section you will compile your microservices with GraalVM (optional), pac
 
 == Presenting Red Hat Openshift
 
-Red Hat(R) OpenShift(R) is a unified platform to build, modernize, and deploy applications at scale. 
-
-For this workshop, we'll use in particular the following services and capabilities available in the Platform:
-
-* *Openshift Container Platform*: a unified platform to build, modernize, and deploy applications at scale.
-* *Red Hat Quay.io*: a private container registry to store our Container images.
-* *Openshift Pipelines*: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by link:https://tekton.dev[Tekton].
-* *Openshift DevSpaces*: the OpenShift-native developer workspace server and IDE based on link:https://www.eclipse.org/che/[Eclipse Che project^]
-* *OpenShift Serverless*: based on Knative
-* *OpenShift Monitoring*: based on Prometheus
-* *OpenShift Logging*: based on Loki
-* *Crunchy Data*: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^], gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
-
-=== What's Openshift Application Platform?
-
 Red Hat(R) OpenShift(R), the industry's leading hybrid cloud application platform powered by Kubernetes, brings together tested and trusted services to reduce the friction of developing, modernizing, deploying, running, and managing applications. OpenShift delivers a consistent experience across public cloud, on-premise, hybrid cloud, or edge architecture.
 
 OpenShift Container Platform includes multiple advanced capabilities that are tested and integrated with the underlying certified Kubernetes environment.
@@ -182,3 +167,14 @@ The following diagram shows the OpenShift capabilities that is provided with the
 image::./imgs/module-1/openshift-diagram.png[OpenShift included services and offerings]
 
 Check this link:https://www.redhat.com/en/resources/openshift-container-platform-datasheet[link] to find out more information about Red Hat OpenShift and its features.
+
+For this workshop, we'll use in particular the following services and capabilities available in the Platform:
+
+* *Openshift Container Platform*: a unified platform to build, modernize, and deploy applications at scale.
+* *Red Hat Quay.io*: a private container registry to store our Container images.
+* *Openshift Pipelines*: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by link:https://tekton.dev[Tekton].
+* *Openshift DevSpaces*: the OpenShift-native developer workspace server and IDE based on link:https://www.eclipse.org/che/[Eclipse Che project^]
+* *OpenShift Serverless*: based on Knative
+* *OpenShift Monitoring*: based on Prometheus
+* *OpenShift Logging*: based on Loki
+* *Crunchy Data*: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^], gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
