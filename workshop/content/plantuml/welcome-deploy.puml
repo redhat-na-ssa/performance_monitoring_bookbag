@@ -1,0 +1,37 @@
+@startuml
+
+skinparam dpi 300
+allow_mixing
+left to right direction
+scale 0.5
+
+node "Quay.io" as registry {
+    agent "Quarkus" as quarkus
+    agent "SpringBoot" as spring
+    agent "Micronaut" as micronaut
+    quarkus -[hidden]-> spring
+    spring -[hidden]-> micronaut
+}
+
+node "Hyperfoil Load Driver" as load {
+    agent "Hyperfoil" as hypefoil
+}
+
+node "Openshift Observability" as monitor {
+    agent "Monitoring" as monitoring
+}
+
+node "Openshift Application Platform" as ocp {
+    agent "Quarkus" as appQuarkus
+    agent "SpringBoot" as appSpringBoot
+    agent "Micronaut" as appMicronaut
+    database "Postgresql" as sharedPostgresql
+    appQuarkus ..> sharedPostgresql
+    appSpringBoot ..> sharedPostgresql
+    appMicronaut ..> sharedPostgresql
+}
+
+load ..> ocp
+monitoring ..> ocp
+
+@enduml

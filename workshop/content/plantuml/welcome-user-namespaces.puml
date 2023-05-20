@@ -1,0 +1,27 @@
+@startuml
+
+skinparam dpi 300
+allow_mixing
+' left to right direction
+scale 0.3
+
+node "user-devspaces" as devpsacesNode {
+    agent "DevWorkspace" as devworkspace
+}
+
+node "user-cicd" as cicdNode {
+    agent "Openshift Pipeline" as pipeline
+}
+
+node "user-hyperfoil" as hyperfoilNode {
+    agent "Hyperfoil Controller" as hyperfoil
+}
+
+node "user-staging" as stagingNode {
+    agent "Postgres" as pg
+}
+
+cicdNode -[hidden]-> stagingNode
+devpsacesNode -[hidden]-> hyperfoilNode
+
+@enduml

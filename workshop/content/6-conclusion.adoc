@@ -1,10 +1,8 @@
+:sectlinks:
+:sectanchors:
 == Conclusion
 
-Hopefully you learned a few things in this lab:
-
-* Thing one
-* Thing two
-
-For more information... etc...
+This is the end of the *Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift*. 
+We hope you liked it, you had fun in attending it, learnt a few things, and more importantly, will be able to take this knowledge back to your projects.
 
 Thank you!
