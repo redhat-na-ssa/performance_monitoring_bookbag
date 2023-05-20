@@ -97,11 +97,16 @@ image::../imgs/module-5/github_secret_actions.gif[Github Secrets]
 image::../imgs/module-5/github_action_native_build_trigger.gif[Github Action to build native images for our applications]
 ====
 
-The workflow run should take about *8min or less*. If it succeeds (your entered the right registry credentials) you should have a new image pushed to your Quay.io.
+The workflow run should take about *8min or less* (depending on how health the Github infrastructure is at the moment you run). If it succeeds (your set up your registry secrets properly) you should have a new image pushed to your Quay.io.
+
+[TIP]
+====
+You can start all three workflows in parallel if you will. 
+====
 
 [NOTE]
 ====
-To make things easy, the Github Action workflow is configured to push the native image to the same repository you created early when setting up the Build and Deploy CI/CD Pipeline. So, each app native image will be pushed to its corresponding repo in quay.io, but tagged with '#native#':
+To keep it simple, our Github Actions are configured to push the native images to the same repository you created early when setting up the Build and Deploy CI/CD Pipeline. So, each app native image should be pushed to its corresponding repo in quay.io, but now tagged with '#native#' instead of `latest`, like:
 
 * *quarkus-app*    - will be pushed to `quay.io/*your-account*/quarkus-app:native`
 * *micronaut-app*  - will be pushed to `quay.io/*your-account*/micronaut-app:native`
@@ -113,7 +118,7 @@ Notice the size of our native container image! Compare it with the JVM based ima
 
 image::../imgs/module-5/quay_io_quarkus_native_image.png[Quay.io - Quarkus native image,align="center"]
 
-Now, how about the resource consumption at runtime? To find that out lets update our apps' deployment and run some load tests to observe how it behaves compared to its JVM version...
+Now, #how about the resource consumption at runtime?# To find that out lets update our apps' deployment and run some load tests to observe how it behaves compared to its JVM version...
 
 [#updating-native-images]
 === Updating our application deployments to use the native container image
@@ -156,15 +161,17 @@ image::../imgs/module-5/kn_updte_quarkus_app.gif[VSCode Terminal - kn service up
 
 This command will update the app deployment pointing to the native image version of it. Notice we passed a couple of parameters to the `kn` to adjust some resource settings, like:
 
- * heath check probes
- * cpu and mem limits
- * increase the replica scaling range 
+ * *heath check probes*
+ * *cpu and mem limits*
+ * *increase the replica scaling range* 
 
-This is important as the native version of our app is supposed to require much less compute resource. As a consequence we get much more deployment density when using native builds.
+This is important as the native version of our app is *requires much less compute resource*. As a consequence we get much more deployment density when using native builds.
 
-Notice for instance, the startup time of the native version of our quarkus-app. As you can see the app started in a sub-second (`0.020s` in my case) time!!!
+Notice for instance, the startup time of the native version of our *quarkus-app*. As you can see the app #*started in a sub-second (`0.020s` in my case) time!!!*#
 
 image::../imgs/module-5/quarkus_native_startup.png[VSCode Terminal - kn service update,align="center"]
+
+*Among other benefits, such a small startup time makes Java native builds a great fit for Serverless use cases which requires fast startup times...* 
 
 Now, go ahead and update the other two apps and observe the same aspects of this update.
 

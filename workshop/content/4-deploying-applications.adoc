@@ -43,7 +43,6 @@ image::imgs/module-4/pipeline.png[Pipeline,align=center]
 We'll be using the same pipeline to deploy all three applications, but we'll run it three times (one for each app).
 ====
 
-[#configuring-access-to-quay]
 == Configuring access to Quay.io
 
 You need to create the image repositories in your https://quay.io/repository/[Quay.io] account and create credentials for the pipeline to be able to push the image.
@@ -65,7 +64,8 @@ image::imgs/module-4/quay_apps_repos.png[Quay.io apps repositories]
 
 Once the 3 repositories are created, you can create a robot account. This robot account needs write permissions for the repositories. 
 
-Follow the steps in the following gif to set your robot account: 
+[#configuring-access-to-quay]
+*Follow the steps in the following gif to set your robot account*: 
 
 image::imgs/module-4/robot_account.gif[create robot,align=center]
 
@@ -79,7 +79,7 @@ image::imgs/module-4/create_secret.gif[Create secret]
 
 [IMPORTANT]
 ====
-As shown in the gif above make sure you change the *resource name* to `quay-secret` and set the *namespace* to  `%user%-cicd`!
+#As shown in the gif above make sure you change the *resource name* to `quay-secret` and set the *namespace* to  `%user%-cicd`!#
 ====
 
 Before running the pipeline you need to link the secret you just created (containing your quay.io robot token) to the https://kubernetes.io/docs/concepts/security/service-accounts/[Service Account] used by the pipeline inside your project namespace.
@@ -160,7 +160,7 @@ image::imgs/module-4/pipeline_live_log.png[Pipeline Run live log]
 
 Once the pipeline finished successfully, all tasks on it will be green as in the following image:
 
-image::imgs/module-4/pipeline_finished.png[Pipeline finished,640,480,align=center]
+image::imgs/module-4/pipeline_finished.png[Pipeline finished,align=center]
 
 == Checking the deployment
 

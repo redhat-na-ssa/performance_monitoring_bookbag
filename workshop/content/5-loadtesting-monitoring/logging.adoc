@@ -6,6 +6,7 @@
 :openshift_cluster_ingress_domain: %openshift_cluster_ingress_domain%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
 :hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url_auth_creds: https://%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :hyperfoil_benchmark_definition_url: 'https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml'
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
 
@@ -50,6 +51,29 @@ image::../imgs/module-5/ocp_console_observe_pod_logs_filters.gif[Logs filter]
 image::../imgs/module-5/ocp_console_pod_stream.gif[Logs stream]
 
 OpenShift Logging is very useful to troubleshoot issues with more complex applications and find out application issues.
+
+=== Querying your Application Logs
+Now, imagine you want to search though all your application logs running in production (all replicas PODs). You are looking for an specific *_Error event_* that is impacting your application. Lets consider your application is scaled to tens (or even hundreds) of replicas distributed among the cluster! That wouldn't be an easy task to search though all  logs, right? 
+
+That's when the *Aggregated Logging* comes into play. Lets see how it works in action. Got to link:{hyperfoil_web_cli_url_auth_creds}[Hyperfoil Web CLI] and start an aggressive test run to force a *OutOfMemory error* in our Quarkus app using the following parameters:
+
+[source,shell,role=copy,subs=attributes]
+----
+run summit-lab-load-apps -PUSERS_PER_SEC=90 -PPHASE_DURATIONS_SECS=60s -PMEMORY_BITES=70 -PCPU_ITERATIONS=5 -PAPP_URL=http://quarkus-app.user1-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/quarkus
+----
+
+Wait for a couple of minutes until the test reaches the memory consumption phase. Then go to the Openshift Developer Console and from the link:%openshift_console_url%/topology/ns/%user%-staging[Topology view] select the Quarkus POD and wait for its replicas start to failing. Then go to link:%openshift_console_url%/dev-monitoring/ns/%user%-staging/logs[Observe view, Logs tab] and use this link:https://grafana.com/docs/loki/latest/logql[*LogQL*] to find error events:
+
+[source,role=copy]
+----
+{ log_type="application" } |= "OutOfMemoryError: Java heap space" | json | level=~"error|err|eror"
+----
+
+Watch how to do this in the screencast below:
+
+image::../imgs/module-5/ocp_aggregated_logs_query_quarkus_heap_space_error.gif[Loki query - OutOfMemory Java heap space]
+
+There are lots of useful metadata available in this view you can use as search criteria and get detailed insights as well.
 
 [NOTE]
 ====

@@ -51,7 +51,7 @@ When a *benchmark* is started the Controller deploys *Agents* (according to the 
 Agents execute the benchmark, periodically sending statistics to the Controller. 
 This way the Controller can combine and evaluate statistics from all agents on the fly. When the benchmark is completed all Agents terminate.
 
-image::../imgs/module-5/hyperfoil-diagram.png
+image::../imgs/module-5/HyperfoilLoadDriveronOpenshift-simple.png[Hyperfoil Schematic Diagram]
 
 In order to run a load testing using Hyperfoil we need to create a link:https://hyperfoil.io/userguide/benchmark.html[Benchmark^]. In Hyperfoil terms a Benchmark is a declarative YAML file where you define
 your load test Scenario. Lets take a look at one snippet of the 
@@ -425,7 +425,7 @@ see the number of replicas for the Micronaut app right after this last test run.
 
 image::../imgs/module-5/grafana_cpu_mem_replicas_graph.gif[Screenshot of Hyperfoil - memory based auto-scaling test run]
 
-Before we move on to our final test run, lets switch the Micronaut service deployment back to the default scale rule so it can scale down to zero and save some resources in our cluster. Using the Terminal inside your DevWorkspace execute:
+#Before we move on to our final test run, lets switch the Micronaut service deployment back to the default scale rule so it can scale down to zero and save some resources in our cluster.# Using the Terminal inside your DevWorkspace execute:
 
 [source, shell, role=copy]
 ----
