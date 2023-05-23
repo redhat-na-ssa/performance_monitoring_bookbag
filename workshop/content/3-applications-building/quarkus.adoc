@@ -159,7 +159,7 @@ That allows us to check the impact of the database on the CPU consumption.
         if (db) {
             Statistics statistics = new Statistics();
             statistics.type = Type.CPU;
-            statistics.parameter = iterations.toString();
+            statistics.parameter = iterationsDone.toString();
             statistics.duration = Duration.between(start, Instant.now());
             statistics.description = desc;
             repository.persist(statistics);

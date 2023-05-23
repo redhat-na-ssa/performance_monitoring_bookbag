@@ -267,14 +267,14 @@ image::../imgs/module-5/hyperfoil-web-cli-test-run-html-report.png[Screenshot of
 
 Now that you know how to execute (and inspect) your benchmark inside the Hyperfoil Web CLI, run it against the `micronaut-app` and the `springboot-app`.
 
-To run against the `micronaut-app` use:
+To run against the *micronaut-app* use:
 
 [source,shell,role=copy,subs=attributes]
 ----
 run summit-lab-load-apps -PAPP_URL=http://micronaut-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/micronaut
 ----
 
-To run against the `springboot-app` use:
+To run against the *springboot-app* use:
 
 [source,shell,role=copy,subs=attributes]
 ----
@@ -296,8 +296,8 @@ image::../imgs/module-5/ocp_console_observe_cpu_usage_after_load_testing.png[Ope
 
 [NOTE]
 ====
-By default each `phase` should last for *~2min* (`PHASE_DURATION_SECS` parameter defaults to `120s`). 
-Because some phases run in parallel the total time of our test run may be around *6min*.
+By default each `phase` should last for *~1min* (`PHASE_DURATION_SECS` parameter defaults to `60s`). 
+Because some phases run in parallel the total time of our test run may be around *3min*.
 ====
 
 == Scaling
@@ -407,7 +407,7 @@ Now, go back to the link:{hyperfoil_web_cli_url_auth_creds}[Hyperfoil Web CLI] a
 
 [source,shell,role=copy,subs=attributes]
 ----
-run summit-lab-load-apps -PMEMORY_BITES=40 -PCPU_ITERATIONS=5 -PAPP_URL=http://micronaut-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/micronaut
+run summit-lab-load-apps -PMEMORY_BITES=50 -PCPU_ITERATIONS=5 -PAPP_URL=http://micronaut-app.{user}-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/micronaut
 ----
 
 After a couple of minutes (~4min) you should be able to watch the `micronaut-app` automatically scaling from 1 to 3 replicas.

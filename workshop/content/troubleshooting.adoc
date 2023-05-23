@@ -37,7 +37,7 @@ If you tried to authenticate against Github using your account password you shou
 ----
 remote: Support for password authentication was removed on August 13, 2021.
 remote: Please see https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
-fatal: Authentication failed for 'https://github.com/your-gb-account/rhsummit2023-java-perfformance-monitoring.git/'
+fatal: Authentication failed for 'https://github.com/your-gb-account/rhsummit2023-java-performance-monitoring.git/'
 ----
 
 In this case you need to invalidate the git cache store by executing:
