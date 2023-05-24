@@ -96,7 +96,7 @@ After copying and pasting inside your class you may get your class with wrong in
 You can ask the IDE to `Format Document` by choosing one of the following two options:
 
 * Context Menu (mouse right-click) inside the class file and selecting `Format Document` option
-* Opening the Command Palette (`Ctrl + Shift + P` or `Cmd + Shit + P` on mac), start typing `Format...` and select `Format Document`
+* Opening the Command Palette (`Ctrl + Shift + P` or `Cmd + Shift + P` on mac), start typing `Format...` and select `Format Document`
 ====
 
 Let's add a `hello` method returning *_Hello World_*, so we can quickly check if our endpoint responds or not.
