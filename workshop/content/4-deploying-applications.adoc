@@ -136,7 +136,7 @@ Fill in the mandatory parameters:
 
 For the Workspaces section, select:
 
-* *shared-workspace*: select `PersistenceVolumeClaim`, then select `shared-workspace-pvc` from the list
+* #*shared-workspace*: select `PersistenceVolumeClaim`, then select `shared-workspace-pvc` from the list#
 * *maven-settings*: leave as `Empty Directory`
 * *img-urls-cm*: leave as `Empty Directory`
 

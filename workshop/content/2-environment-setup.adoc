@@ -89,7 +89,7 @@ image::./imgs/module-2/github-clone.png[Screenshot of GitHub showing the reposit
 
 == Opening Up Your DevWorkspace in Openshift DevSpaces
 
-link:https://developers.redhat.com/products/openshift-dev-spaces/overview[Openshift DevSpaces^] allows you to have an instant cloud-based dev environment already prepared for this workshop.
+*Openshift DevSpaces* allows you to have an instant cloud-based dev environment already prepared for this workshop.
 
 image:https://img.shields.io/static/v1?label=Open+My+DevWorkspace&message=Openshift+DevSpaces&color=EE0000&style=for-the-badge&logo=redhatopenshift[link={user_devworkspace_url},title=Click to open your DevWorkspace on Openshift]
 
