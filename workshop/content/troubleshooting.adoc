@@ -89,6 +89,10 @@ git remote set-url origin https://YOUR-ACCOUNT-NAME-HERE@github.com/YOUR-GIT-ACC
 
 Now you should be able to do a `git push` and see a prompt asking for your credentials.
 
+== Error while creating Quay Secret
+
+Your user does not have permission to delete or edit secrets in the `cicd` namespace. If you missed something in this step, call an instructor the delete the secret for you. 
+
 == Openshift forbidden error
 
 When executing any command or Task in the DevWorkspace's Terminal...
@@ -102,6 +106,8 @@ It may happen your DevWorkspace was not able to inject your user information pro
 To solve that issue, from the IDE *Task Manager* please, execute the *Task* named `98: OC Login`. You will be prompted to enter your assigned user password: `%password%`.
 
 image::./imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
+
+
 
 == Hyperfoil Web CLI Authentication
 
@@ -119,3 +125,4 @@ ERROR: Failed to retrieve source for benchmark summit-lab-load-apps: Server resp
 ```
 
 In this case try to use this url link:{hyperfoil_web_cli_url_auth_creds}[] to authenticate the Hyperfoul Web CLI again.
+
