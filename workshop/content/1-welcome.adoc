@@ -106,7 +106,7 @@ image::./imgs/module-1/welcome-user-namespaces.png[User's namespaces]
 
 === What Will You Deploy?
 
-Once developed and tested locally, you will build your microservices' container images and deploy them to the Openshift Container Platform:
+Once developed and tested, you will build your microservices' container images and deploy them to the Openshift Container Platform:
 
 * You will create an Quay.io Registry Account to store and manage the container images
 * You will run a Tekton Pipeline that:

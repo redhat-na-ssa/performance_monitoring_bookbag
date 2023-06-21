@@ -5,8 +5,8 @@
 :openshift_console_url: %openshift_console_url%
 :user_devworkspace_dashboard_url: https://devspaces.%openshift_cluster_ingress_domain%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%/dashboard/#/ide/%user%-devspaces/workshop-performance-monitoring-apps
-:template-github-url: https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps.git
-:hyperfoil_web_cli_url: https://%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:template-github-url: https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps/fork
+:hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
 
 :sectlinks:
 :sectanchors:
@@ -21,30 +21,6 @@ Before starting our Lab, you need to set up a few prerequisites.
 This includes:
 
 * a Github account (you can quickly link:https://github.com/signup[*sign up for a new one*^] if you don't have yet)
-  ** with a *Personal Access Token* (PAT)
-+
-[IMPORTANT]
-=====
-
-#*Support for password authentication on GitHub was removed on August 13, 2021.*#
-
-You need a *Personal Access Token (PAT)* in your Github account in order to authenticate and *push* your changes.
-
- * To make things easy please use a #*Classic Token*# with #*repo scope* enabled# as shown in the screencast bellow!
-
-.*Click to see how to create one in your Github account*
-[%collapsible]
-======
-image::./imgs/module-2/github_pat.gif[Github PAT setup]
-
-[NOTE]
-=======
-if you really want to use a *Fine-grained* token, please make sure you give Permissions (`Contents
-Repository contents, commits, branches, downloads, releases, and merges.`) to the right repo.
-=======
-======
-=====
-
 * a Quay.io account (you can quickly link:https://quay.io/signin[*sign up for a new one*^] if you don't have yet)
 
 [NOTE]
@@ -68,33 +44,48 @@ Here are the information you will be using throughout this Lab session.
 
 [IMPORTANT]
 ====
-Please, if you have any issue accessing any of the resources during the lab, don't hesitate to ask any of the lab assistants or instructors for help!
+**Please, if you have any issue accessing any of the resources during the lab, don't hesitate to ask any of the lab assistants or instructors for help!**
 ====
 
-== Using the GitHub Template
+== Forking the Workshop project on GitHub
 
-Open link:{template-github-url}[this GitHub repository,window=_blank], click on `Use this template` then `Create a new repository`.
+Fork link:{template-github-url}[this project repository,window=_blank], into your own GitHub account.
 
-image::./imgs/module-2/github-template.png[Screenshot of GitHub showing the "Use this template" button,640,480,align=center]
+image::./imgs/module-2/github-fork-repo.png[Screenshot of GitHub forking project,640,480,align=center]
 
-You will be redirected to the repository creation page.
-Select the owner of the repository, enter a name for your new repository (for e.g.
-`rhsummit2023-workshop-performance-monitoring`), set the repo visibility to `public` and click on `Create repository from template`.
+[IMPORTANT]
+====
+**#Before clicking `Create Fork` button uncheck the 'Copy the main branch only' field!#**
+====
 
-Once the repository is created, copy its URL so we can use it in the next step.
+Once the repository is forked into your account, copy its URL so we can use it in the next step.
 
 Click the **Code** button, then copy your repository url.
 
 image::./imgs/module-2/github-clone.png[Screenshot of GitHub showing the repository URL,440,280,align=center]
 
-== Opening Up Your DevWorkspace in Openshift DevSpaces
+== Creating your DevWorkspace in Openshift DevSpaces
 
 *Openshift DevSpaces* allows you to have an instant cloud-based dev environment already prepared for this workshop.
 
-image:https://img.shields.io/static/v1?label=Open+My+DevWorkspace&message=Openshift+DevSpaces&color=EE0000&style=for-the-badge&logo=redhatopenshift[link={user_devworkspace_url},title=Click to open your DevWorkspace on Openshift]
+Create your own *DevWorkspace* using the link:{user_devworkspace_dashboard_url}[*Devspaces Dashboard*]. Use your assigned Openshift user credentials to login for the first time. Then paste your forked git repo (https) URL into the `Git Repo URL` field and click *Create & Open* button.
 
+image:./imgs/module-2/devspaces-dashboard.jpg[Opeshift DevSpaces Dashboard]
 
-When you first access your DevWorkspace, you'll be prompted to log in. Use the same Openshift credentials provided to you at the top of this page. After logging in, you should see your Workspace (`workspace-performance-monitoring-apps`). Click the `Open` link. Wait for a few seconds until it gets fully initialized (it can take a few minutes for the first time). When it's ready, you should see a VSCode IDE in your browser! It's the same VSCode you may already be familiar with.
+Devspaces will clone your git repo, search for the `devfile` manifest at the root of the project repo and start creating your DevWorkspaces.
+
+[IMPORTANT]
+====
+At this moment Devspaces will prompt you to authenticate using your Github personal account.
+====
+
+See the DevWorkspace creation happens for the first time bellow.
+
+image::./imgs/module-2/devspaces-gb-oauth-flow.gif[DevWorkspace initialization]
+
+// image:https://img.shields.io/static/v1?label=Open+My+DevWorkspace&message=Openshift+DevSpaces&color=EE0000&style=for-the-badge&logo=redhatopenshift[link={user_devworkspace_url},title=Click to open your DevWorkspace on Openshift]
+
+Wait for a few seconds until it gets fully initialized (it can take a few minutes for the first time). When it's ready, you should see a VSCode IDE in your browser! It's the same VSCode you may already be familiar with.
 
 [IMPORTANT]
 ====
@@ -104,92 +95,16 @@ Please, watch out for a few pop-ups that may appear at the bottom right of the I
  * `Do you trust the authors of the files in this Folder?` banner. Mark the checkbox and click the *Yes* button.
  * `Tools for Microprofile...`. Click *Yes* button
  * `Opening Java Projects...`. Click *'check details'* just to check the Java Language Server initialization. Then you can close the terminal.
-
-.*Click to see how to open your DevWorkspace for the first time*
-[%collapsible]
-======
-image::./imgs/module-2/openshift-devspaces-first-access.gif[DevWorkspace initialization]
-======
-====
-
-[TIP]
-====
-You can experiment with Openshift Devspaces for 30 days by signing up for a Red Hat Developer Sandbox account, see link:https://developers.redhat.com/developer-sandbox[Red Hat Developer Sandbox].
-====
-
-== Configuring Git
-Your workspace has already cloned the workshop template repo. But before you start coding, you need to properly setup git for the first time inside your DevWorkspace. 
-
-Open a new `Terminal` panel and execute the following commands:
-[source, shell]
-----
-# set your name and email to sign commits
-git config --local user.email "%user%@rhsummit2023.com"
-git config --local user.name "%user% at RH Summit 2023"
-# to avoid git asking your credentials all the time
-git config --local credential.helper store
-----
-
-Now point your local git to your fork on your own GitHub account!
-
-[source, shell]
-----
-# copy and paste your OWN git repo URL!!!
-git remote set-url origin https://github.com/YOUR_GITHUB_ACCOUNT/your-repo-name.git
-# check the remote address
-git remote -v
-# perform a git pull to get the latest changes!
-git pull --rebase
-----
-
-[TIP]
-====
-You can open new VSCode Terminal  by using `'Ctrl + \`'`
-
-.*Click to see how to open a new Terminal*
-[%collapsible]
-=====
-image::./imgs/module-2/VSCode_terminal_git_add_remote.gif[VSCode new Terminal - git remote set-url]
-=====
-
-====
-
-Now lets do an empty commit and push it to test our git setup.
-
-[source, shell, role=copy]
-----
-git commit --allow-empty -m "Git setup"
-git push
-----
-
-[IMPORTANT]
-====
-At the first time you try to push a change to your remote git repo VSCode will show a pop-up 
-saying 
-
-image::./imgs/module-2/VSCode_github_auth_allow_popup.png[Github auth pop-up,640,480,align=center]
-
-click `Allow`.
-
-Next, another popup will show up #at the bottom left# saying 
-
-image::./imgs/module-2/VSCode_che_github_auth_popup.png[Che extension for Github auth pop-up,640,480,align=center]
-
-Just close it by clicking the 'x' icon!!!
-
-Finally, it will ask for your personal git credentials. Look for a small prompt at the top middle of your Workspace.
-
-image::./imgs/module-2/VSCode_github_auth_prompt.png[VSCode Github auth prompt,640,480,align=center]
-
-1. type your Github `username` in the prompt that appears at the top middle of your IDE and hit `Enter`. 
-2. type your #*Github Personal Access Token*# and hit `Enter`.
-
 ====
 
 Now you should be good to start coding!
 
-== Building the Initial Project
-Using the same terminal build the projects using Maven (already present in your DevWorkspace):
+== Initial Maven build
+Using the IDE terminal, build the projects using Maven. You can open new VSCode Terminal by using `'Ctrl + \`'` shortcut or using the main menu as shown bellow.
+
+image::./imgs/module-2/VSCode_terminal.gif[VSCode new Terminal - git remote set-url]
+
+Then just execute:
 
 [source,shell,role=copy]
 ----
