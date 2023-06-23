@@ -6,7 +6,7 @@
 :user_devworkspace_dashboard_url: https://devspaces.%openshift_cluster_ingress_domain%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%/dashboard/#/ide/%user%-devspaces/workshop-performance-monitoring-apps
 :template-github-url: https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps.git
-:hyperfoil_web_cli_url: https://%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url: https://hyperfoil-instance-%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
 
 :sectlinks:
@@ -99,7 +99,7 @@ So, let's expose our application metrics using application Prometheus extensions
 
 [NOTE]
 ====
-*If deployed the three apps using our script* (`$PROJECT_SOURCE/scripts/deploy-services-from-registry.sh`) back in the previous module, just skip to link:#Using-Grafana-to-visualize-Application-JVM-metrics[Using Grafana to visualize Application JVM metrics]. Otherwise keep following to enable Prometheus in our apps.
+*If you deployed all the three apps using our script* (`$PROJECT_SOURCE/scripts/deploy-services-from-registry.sh`) back in the previous module, just skip to link:#Using-Grafana-to-visualize-Application-JVM-metrics[Using Grafana to visualize Application JVM metrics]. Otherwise keep following to enable Prometheus in our apps.
 ====
 
 ==== Exposing application metrics in Quarkus

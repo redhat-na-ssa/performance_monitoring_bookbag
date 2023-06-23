@@ -5,8 +5,8 @@
 :openshift_console_url: %openshift_console_url%
 :openshift_cluster_ingress_domain: %openshift_cluster_ingress_domain%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
-:hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
-:hyperfoil_web_cli_url_auth_creds: https://%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url: https://hyperfoil-instance-%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url_auth_creds: https://%user%:%password%@hyperfoil-instance-%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :hyperfoil_benchmark_definition_url: 'https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml'
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
 
@@ -55,7 +55,7 @@ OpenShift Logging is very useful to troubleshoot issues with more complex applic
 === Querying your Application Logs
 Now, imagine you want to search though all your application logs running in production (all replicas PODs). You are looking for an specific *_Error event_* that is impacting your application. Lets consider your application is scaled to tens (or even hundreds) of replicas distributed among the cluster! That wouldn't be an easy task to search though all  logs, right? 
 
-That's when the *Aggregated Logging* comes into play. Lets see how it works in action. Got to link:{hyperfoil_web_cli_url_auth_creds}[Hyperfoil Web CLI] and start an aggressive test run to force a *OutOfMemory error* in our Quarkus app using the following parameters:
+That's when the *Aggregated Logging* comes into play. Lets see how it works in action. Got to link:{hyperfoil_web_cli_url}[Hyperfoil Web CLI] and start an aggressive test run to force a *OutOfMemory error* in our Quarkus app using the following parameters:
 
 [source,shell,role=copy,subs=attributes]
 ----

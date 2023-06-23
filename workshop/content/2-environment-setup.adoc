@@ -6,7 +6,7 @@
 :user_devworkspace_dashboard_url: https://devspaces.%openshift_cluster_ingress_domain%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%/dashboard/#/ide/%user%-devspaces/workshop-performance-monitoring-apps
 :template-github-url: https://github.com/redhat-na-ssa/workshop_performance-monitoring-apps/fork
-:hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url: https://hyperfoil-instance-%user%-hyperfoil.%openshift_cluster_ingress_domain%
 
 :sectlinks:
 :sectanchors:

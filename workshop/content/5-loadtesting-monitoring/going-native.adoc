@@ -4,8 +4,8 @@
 :openshift_user_password: %password%
 :openshift_console_url: %openshift_console_url%
 :user_devworkspace_url: https://devspaces.%openshift_cluster_ingress_domain%
-:hyperfoil_web_cli_url: https://%user%-hyperfoil.%openshift_cluster_ingress_domain%
-:hyperfoil_web_cli_url_auth_creds: https://%user%:%password%@%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url: https://hyperfoil-instance-%user%-hyperfoil.%openshift_cluster_ingress_domain%
+:hyperfoil_web_cli_url_auth_creds: https://%user%:%password%@hyperfoil-instance-%user%-hyperfoil.%openshift_cluster_ingress_domain%
 :hyperfoil_benchmark_definition_url: https://raw.githubusercontent.com/redhat-na-ssa/workshop_performance-monitoring-apps-template/main/scripts/hyperfoil/summit-load-apps.hf.yaml
 :grafana_url: https://grafana-route-grafana.%openshift_cluster_ingress_domain%
 :pgadmin_url: https://pgadmin-%user%-staging.%openshift_cluster_ingress_domain%
@@ -207,7 +207,7 @@ kn service update springboot-app -n %user%-staging \
 
 After all your native images are built and deployed, let's run our load tests again.
 
-Open the link:{hyperfoil_web_cli_url_auth_creds}[Hyperfoil Web CLI] and start new Test runs as described in the load testing section.
+Open the link:{hyperfoil_web_cli_url}[Hyperfoil Web CLI] and start new Test runs as described in the load testing section.
 
 You can run the same load tests we ran the first time we introduce Hyperfoil Web CLI to you in the  xref:loadtesting.adoc#running-hyperfoil[load testing section].
 
