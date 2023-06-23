@@ -18,8 +18,8 @@ In this section you will:
 
 [NOTE]
 ====
-This section of our workshop requires you to code some Java classes, build an test the App using your DevWorkspace. This is what we call *Development Inner-loop* process. We tried to make each section optional, so *if you are not interested in the hands-on coding part of this workshop 
-we provided a git branch with the source code solution in the project repo*. So, you can switch to the branch `solution` and just build an test the app.
+This section of our workshop requires you to code some Java classes, build an test the App using your DevWorkspace. This is what we call *Development Inner-loop* process. We tried to make each section optional. *If you are not interested in the hands-on coding part of this workshop, 
+we provided a git branch with the source code solution in the project repo*. You can switch to the branch `solution` and just build an test the app.
 
 To do so, execute the following command in the Terminal.
 

@@ -9,7 +9,7 @@
 
 == Welcome
 During this workshop attendees will have the opportunity to participate in a hands-on Lab, 
-introductory-level session focused on performance monitoring using different Modern cloud-native Java runtimes. 
+introductory-level session focused on performance monitoring using different modern cloud-native Java runtimes. 
 Throughout the session, participants will execute tasks such as build, test and deploy microservices using link:https://quarkus.io[Quarkus^], link:https://spring.io[Spring Boot(R)^] and link:https://micronaut.io[Micronaut(R)^], 
 on top of the link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat(R) OpenShift(R)^] Application Platform and run load testing scenarios while monitoring the application performance. 
 Specifically, attendees will analyze CPU load and memory usage, establish a baseline, and then observe the impact of scaling up application containers.
@@ -18,7 +18,7 @@ This workshop runs in a shared Openshift Cluster hosted on a Red Hat lab environ
 
 What you are going to do:
 
-* Create your own GitHub Repo based on a GitHub Template
+* Fork an repository to your Github organization.
 * Develop three microservices that consume CPU and memory, each one using a different runtime stack
   ** Quarkus
   ** Spring Boot
@@ -106,12 +106,12 @@ image::./imgs/module-1/welcome-user-namespaces.png[User's namespaces]
 
 === What Will You Deploy?
 
-Once developed and tested, you will build your microservices' container images and deploy them to the Openshift Container Platform:
+Once developed and tested, you will build your microservices' container images and deploy them to the OpenShift Container Platform:
 
 * You will create an Quay.io Registry Account to store and manage the container images
 * You will run a Tekton Pipeline that:
   ** builds each microservice into a container image;
-  ** pushes each application container image to your Quay.io Registry account;
+  ** pushes each application container image to your Quay.io registry account;
   ** and finally deploys each one on a staging namespace created on Openshift.
 
 image::./imgs/module-1/welcome-deploy.png[Components, 640, 480]
@@ -122,7 +122,7 @@ You have this material in your hands, and you can now follow it step-by-step.
 The structure of this workshop is as follows:
 
 * `_Accessing your DevWorkspace_`:
-In this section you will access your DevWorkspace that was pre-provisioned on Openshift DevSpaces.
+In this section you will access your DevWorkspace that was pre-provisioned on OpenShift DevSpaces.
 * `_Developing the Quarkus Application_`:
 In this section you will develop a microservice using Quarkus, test it and run it locally.
 * `_Developing the Micronaut Application_`:
@@ -130,15 +130,15 @@ In this section you will build, test and deploy a microservice using Micronaut.
 * `_Developing the Spring Boot Application_`:
 In this section you will build, test and deploy a microservice using Spring Boot.
 * `_Setting Up the Quay.io Registry_`:
-This section requires you to create a personal free account on link:https://quay.io[Quay.io^] - a Managed Container Registry Service hosted hosted by Red Hat.
+This section requires you to create a personal free account on link:https://quay.io[Quay.io^] - a managed container registry service hosted by Red Hat.
 * `_Deploying the Applications_`:
-In this section you will set up a CI/CD pipeline using Openshift Pipelines (based on Tekton) so that our application builds and deploys in an automated way.
+In this section you will set up a CI/CD pipeline using OpenShift Pipelines (based on Tekton) to build and deploy the applications in an automated way.
 * `_Load Testing, Scaling and Monitoring the Applications_`:
 In this section you will add some load to your microservices, monitor them, scale them, check their logs, etc.
 * `_Going Native_`:
-In this section you will compile your microservices with GraalVM (optional), package and deploy them to Openshift, and see how it impacts the performance.
+In this section you will compile your microservices with GraalVM (optional), package and deploy them to OpenShift, and see how it impacts the performance.
 
-== Presenting Red Hat Openshift
+== Presenting Red Hat OpenShift
 
 Red Hat(R) OpenShift(R), the industry's leading hybrid cloud application platform powered by Kubernetes, brings together tested and trusted services to reduce the friction of developing, modernizing, deploying, running, and managing applications. OpenShift delivers a consistent experience across public cloud, on-premise, hybrid cloud, or edge architecture.
 
@@ -168,13 +168,13 @@ image::./imgs/module-1/openshift-diagram.png[OpenShift included services and off
 
 Check this link:https://www.redhat.com/en/resources/openshift-container-platform-datasheet[link] to find out more information about Red Hat OpenShift and its features.
 
-For this workshop, we'll use in particular the following services and capabilities available in the Platform:
+For this workshop, we'll use the following services and capabilities available in the platform:
 
-* *Openshift Container Platform*: a unified platform to build, modernize, and deploy applications at scale.
+* *OpenShift Container Platform*: a unified platform to build, modernize, and deploy applications at scale.
 * *Red Hat Quay.io*: a private container registry to store our Container images.
 * *Openshift Pipelines*: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by link:https://tekton.dev[Tekton].
-* *Openshift DevSpaces*: the OpenShift-native developer workspace server and IDE based on link:https://www.eclipse.org/che/[Eclipse Che project^]
+* *OpenShift DevSpaces*: the OpenShift-native developer workspace server and IDE based on link:https://www.eclipse.org/che/[Eclipse Che project^]
 * *OpenShift Serverless*: based on Knative
 * *OpenShift Monitoring*: based on Prometheus
 * *OpenShift Logging*: based on Loki
-* *Crunchy Data*: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^], gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.
+* *Crunchy Data*: a Postgres certified Operator from link:https://www.crunchydata.com[Crunchy Data^]. It gives you a declarative Postgres solution that automatically manages your PostgreSQL clusters on Openshift/Kubernetes.

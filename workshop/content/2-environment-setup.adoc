@@ -28,7 +28,7 @@ This includes:
 Both services are public and offer free accounts, which we will be leveraging throughout this lab. 
 
  * Github is a popular SCM Git repository service.
- * Red Hat Quay is a private Container Registry service hosted by Red Hat.
+ * Red Hat Quay is a private container registry service hosted by Red Hat.
 ====
 
 == Accessing your Lab Environment
@@ -66,7 +66,7 @@ image::./imgs/module-2/github-clone.png[Screenshot of GitHub showing the reposit
 
 == Creating your DevWorkspace in Openshift DevSpaces
 
-*Openshift DevSpaces* allows you to have an instant cloud-based dev environment already prepared for this workshop.
+*OpenShift DevSpaces* allows you to have an instant cloud-based dev environment already prepared for this workshop.
 
 Create your own *DevWorkspace* using the link:{user_devworkspace_dashboard_url}[*Devspaces Dashboard*]. Use your assigned Openshift user credentials to login for the first time. Then paste your forked git repo (https) URL into the `Git Repo URL` field and click *Create & Open* button.
 
@@ -79,7 +79,7 @@ Devspaces will clone your git repo, search for the `devfile` manifest at the roo
 At this moment Devspaces will prompt you to authenticate using your Github personal account.
 ====
 
-See the DevWorkspace creation happens for the first time bellow.
+See the DevWorkspace creation happening for the first time bellow.
 
 image::./imgs/module-2/devspaces-gb-oauth-flow.gif[DevWorkspace initialization]
 
@@ -162,4 +162,4 @@ Otherwise, if you see something like: `system:serviceaccount:%user%-devspaces:wo
 image::./imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
 ====
 
-Now that you have your development environment setup and that you can build the initial code, let's develop our three microservices.
+Now that you have your development environment setup and you can build the initial code, let's develop our three microservices.

@@ -22,7 +22,7 @@ Recommended reading: https://www.redhat.com/en/topics/devops/what-is-ci-cd#overv
 
 [NOTE]
 ====
-In this section of our workshop we are going to exercise the CI & CD practices using Openshift Pipelines to build and deploy our App container images. We tried to make each section optional, so *if you are not interested in this part our workshop* 
+In this section of our workshop we are going to exercise the CI & CD practices using OpenShift Pipelines to build and deploy our App container images. We tried to make each section optional. *If you are not interested in this part our workshop*, 
 we provided you with a script you can use to deploy all the three apps using pre-built images from our quay.io organization.
 
 [code]
@@ -41,13 +41,13 @@ $PROJECT_SOURCE/scripts/deploy-services-from-registry.sh
 
 just hit enter confirming the target project namespace `{user}-staging` and wait for the deployment to complete.
 
-You can now check the three apps deployed to the {user}-staging namespace using the link:%openshift_console_url%/topology/ns/%user%-staging?view=graph[*Topology view*].
+Now you can check the three apps deployed to the {user}-staging namespace using the link:%openshift_console_url%/topology/ns/%user%-staging?view=graph[*Topology view*].
 
 *Feel free to skip the rest of this section and go straight to the next module to explore the load testing and performance monitoring of our workshop.*
 ====
 
 == Understanding the pipeline
-For this Lab session you don't need to create your pipeline from scratch. To accommodate this section in our Lab time-frame, we already provisioned a pipeline for you in the `{user}-cicd` namespace. You just need to learn what it does and how to run it.
+For this lab session you don't need to create your pipeline from scratch. To accommodate this section in our lab time-frame, we already provisioned a pipeline for you in the `{user}-cicd` namespace. You just need to learn what it does and how to run it.
 
 Access the link:{openshift_console_url}/dev-pipelines/ns/{user}-cicd[{user}-cicd project namespace]. Then, on the right side menu, click on *Pipelines*:
 
@@ -65,7 +65,7 @@ image::imgs/module-4/pipeline.png[Pipeline,align=center]
 
 [NOTE]
 ====
-We'll be using the same pipeline to deploy all three applications, but we'll run it three times (one for each app).
+We'll use the same pipeline to deploy all three applications, one execution for each app.
 ====
 
 == Configuring access to Quay.io
@@ -98,18 +98,18 @@ Once the robot is created, you can get the secret you need to authenticate the p
 
 image::imgs/module-4/get_secret.gif[get secret]
 
-With the kubernetes secret's content in your clipboard you create a new Secret resource inside your `%user%-cicd` project namespace.
+With the kubernetes secret's content in your clipboard, you create a new secret resource in your `%user%-cicd` namespace.
 
 image::imgs/module-4/create_secret.gif[Create secret]
 
 [IMPORTANT]
 ====
-#As shown in the gif above make sure you change the *resource name* to `quay-secret` and set the *namespace* to  `%user%-cicd`!#
+#As shown in the gif above, make sure you change the *resource name* to `quay-secret` and set the *namespace* to `%user%-cicd`!#
 ====
 
-Before running the pipeline you need to link the secret you just created (containing your quay.io robot token) to the https://kubernetes.io/docs/concepts/security/service-accounts/[Service Account] used by the pipeline inside your project namespace.
+Before running the pipeline you need to link the secret you just created (containing your quay.io robot token) to the https://kubernetes.io/docs/concepts/security/service-accounts/[Service Account] used by the pipeline in your namespace.
 
-You can easily do that using your link:{user_devworkspace_url}[DevWorkspace's] *Task Manager* by running the *Task* `Link Secret to Pipeline SA` as follows:
+You can easily do it by using your link:{user_devworkspace_url}[DevWorkspace's] *Task Manager* and running the *Task* `Link Secret to Pipeline SA` as follows:
 
 image::imgs/module-4/link_secret.gif[Link secret]
 
@@ -122,7 +122,7 @@ You can also link your secret to the pipeline Service Account using the `oc` CLI
 oc secrets link pipeline quay-secret --for=pull,mount -n "%user%-cicd"
 -----
 
-To check the link use
+To check the link, use
 
 [source, shell, role=copy]
 -----
@@ -150,11 +150,11 @@ Events:              <none>
 == Running the pipeline
 
 Now you are ready to start your first *Pipeline Run*. 
-Go back to the *Pipeline view* in the link:link:%openshift_console_url%/topology/ns/%user%-cicd[*Openshift Developer Console*]. Click on `Actions`, then click on `Start`.
+Go back to the *Pipeline view* in the link:%openshift_console_url%/topology/ns/%user%-cicd[*Openshift Developer Console*]. Click on `Actions`, then click on `Start`.
 
 Fill in the mandatory parameters:
 
-* *git-url*: copy and paste your git repo URL - the one you created at the beginning from the Workshop Template.
+* *git-url*: copy and paste your git repo URL - the one you created at the beginning by forking our repo.
 * *app-name*: `quarkus-app` or `micronaut-app` or `springboot-app` (#pay attention to use exact app name, otherwise the pipeline run will fail!#)
 * *registry-repo*: your (quay.io) account name
 +
@@ -222,6 +222,11 @@ To start a new *Pipeline Run*, in the link:%openshift_console_url%/topology/ns/%
 ====
 
 Once each Pipeline Run finishes successfully test them by accessing its external Route the same way you did for the *quarkus-app*.
+
+[NOTE]
+====
+the Micronaut and Spring Boot apps do not have a homepage like Quarkus, but you will be able to visualize the pods running in the topology view.
+====
 
 After successfully executing the Pipeline for each app you should be able to see them by accessing the link:%openshift_console_url%/topology/ns/%user%-staging?view=graph[*Topology* view] of the Openshift Developer Console. Like this one:
 
