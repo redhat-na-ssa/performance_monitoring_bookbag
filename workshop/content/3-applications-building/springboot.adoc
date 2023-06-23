@@ -8,15 +8,15 @@
 [[springboot]]
 = Developing the Spring Boot Application
 
-[IMPORTANT]
+[NOTE]
 ====
-Due to our Lab session time constraint, we already provided the code for the app, so you have time to experience other exiting capabilities available in the platform.
+Due to our Lab session time constraint, we already provided the code for this app, so you have time to experience other exiting capabilities available in the platform.
 
 This version of the app implements the same logic, exposing the exact same resources, but now using *SpringBoot* as its underline Runtime.
 
 Feel free to go through the source code. But #*you don't need to code any Java Class in this section*#. 
 
-*You can jump right to the* link:#Running-the-Springboot-Application-Locally[*Running the Springboot Application Locally*] section and just run the Maven commands (or run the Tasks using the IDE Task Manager) to run and test the app inside your DevWorkspace.
+*You can jump straight to the* link:#Running-the-Springboot-Application-Locally[*Running the Springboot Application Locally*] section and just run Maven commands (or run the Tasks using the IDE Task Manager) to run and test the app inside your DevWorkspace.
 ====
 
 

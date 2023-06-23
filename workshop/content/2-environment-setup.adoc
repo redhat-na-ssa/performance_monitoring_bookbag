@@ -51,7 +51,7 @@ Here are the information you will be using throughout this Lab session.
 
 Fork link:{template-github-url}[this project repository,window=_blank], into your own GitHub account.
 
-image::./imgs/module-2/github-fork-repo.png[Screenshot of GitHub forking project,640,480,align=center]
+image::./imgs/module-2/github-fork-repo.png[Screenshot of GitHub forking project,align=center]
 
 [IMPORTANT]
 ====

@@ -16,6 +16,23 @@ In this section you will:
 * Test and run the application locally
 * Check a few metrics locally
 
+[NOTE]
+====
+This section of our workshop requires you to code some Java classes, build an test the App using your DevWorkspace. This is what we call *Development Inner-loop* process. We tried to make each section optional, so *if you are not interested in the hands-on coding part of this workshop 
+we provided a git branch with the source code solution in the project repo*. So, you can switch to the branch `solution` and just build an test the app.
+
+To do so, execute the following command in the Terminal.
+
+[source,shell,role=copy]
+-----
+git checkout solution
+-----
+
+*Now, you can jump straight to the* link:#Running-the-Quarkus-Application-Locally[*Running the Quarkus Application Locally*] section and just run Maven commands (or run the Tasks using the IDE Task Manager) to run and test the app inside your DevWorkspace.
+
+====
+
+
 You should have a directory called `quarkus-app` inside your project repo (`$PROJECT_SOURCE/`). This is the root of the Quarkus microservice source code that we will be working on during this this section.
 
 == The Quarkus REST Resource
@@ -527,6 +544,7 @@ All the tests should pass and you should see the following output:
 You can also use the Task Manager to trigger Maven Test by executing the task `02: Quarkus - Test` which triggers a `mvn test` in a separate Terminal.
 ====
 
+[#Running-the-Quarkus-Application-Locally]
 == Running the Quarkus Application Locally
 
 Now that the tests are all green, let's execute the application locally and execute a few `curl` commands to test the exposed endpoints. 

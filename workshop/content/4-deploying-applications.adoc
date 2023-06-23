@@ -15,14 +15,39 @@ In this module you'll learn how to deploy the Java applications using OpenShift 
 Tekton is a CI/CD tool, made specifically to run on Kubernetes environment. It takes advantage of containers and shared resources, such as https://kubernetes.io/docs/concepts/storage/volumes/[volumes], to create reproducible processes to facilitate the creation of automation https://tekton.dev/docs/pipelines/pipelines/[pipelines].
 
 
-[NOTE]
+[TIP]
 ====
 Recommended reading: https://www.redhat.com/en/topics/devops/what-is-ci-cd#overview[What is CI/CD?]
 ====
 
-For this Lab session you don't need to create your pipeline from scratch. To accommodate this section in our Lab time-frame, we already provisioned a pipeline for you in the `{user}-cicd` namespace. You just need to learn what it does and how to run it.
+[NOTE]
+====
+In this section of our workshop we are going to exercise the CI & CD practices using Openshift Pipelines to build and deploy our App container images. We tried to make each section optional, so *if you are not interested in this part our workshop* 
+we provided you with a script you can use to deploy all the three apps using pre-built images from our quay.io organization.
+
+[code]
+----
+quay.io/redhat_na_ssa/quarkus-app
+quay.io/redhat_na_ssa/micronaut-app
+quay.io/redhat_na_ssa/springboot-app
+----
+
+To do so, execute the following script in the Terminal.
+
+[source,shell,role=copy]
+-----
+$PROJECT_SOURCE/scripts/deploy-services-from-registry.sh
+-----
+
+just hit enter confirming the target project namespace `{user}-staging` and wait for the deployment to complete.
+
+You can now check the three apps deployed to the {user}-staging namespace using the link:%openshift_console_url%/topology/ns/%user%-staging?view=graph[*Topology view*].
+
+*Feel free to skip the rest of this section and go straight to the next module to explore the load testing and performance monitoring of our workshop.*
+====
 
 == Understanding the pipeline
+For this Lab session you don't need to create your pipeline from scratch. To accommodate this section in our Lab time-frame, we already provisioned a pipeline for you in the `{user}-cicd` namespace. You just need to learn what it does and how to run it.
 
 Access the link:{openshift_console_url}/dev-pipelines/ns/{user}-cicd[{user}-cicd project namespace]. Then, on the right side menu, click on *Pipelines*:
 
@@ -132,9 +157,18 @@ Fill in the mandatory parameters:
 * *git-url*: copy and paste your git repo URL - the one you created at the beginning from the Workshop Template.
 * *app-name*: `quarkus-app` or `micronaut-app` or `springboot-app` (#pay attention to use exact app name, otherwise the pipeline run will fail!#)
 * *registry-repo*: your (quay.io) account name
++
+[NOTE]
+====
+*If you switched to the git branch `solution` during module 3 (Developing the Quarkus Application) you have to set the field #`git-revision` to `solution`# instead of `main` (default value),
+This way the pipeline will use the correct branch to build the app container image*
+
+If you didn't switched the git branch and completed the coding section in module 3 just ignore this note!
+====
++
 * leave all the others with the default values!
 
-For the Workspaces section, select:
+#*For the Workspaces section, select:*#
 
 * #*shared-workspace*: select `PersistenceVolumeClaim`, then select `shared-workspace-pvc` from the list#
 * *maven-settings*: leave as `Empty Directory`

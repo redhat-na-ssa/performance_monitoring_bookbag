@@ -97,6 +97,11 @@ Our Openshift cluster is configured to link:https://docs.openshift.com/container
 
 So, let's expose our application metrics using application Prometheus extensions. Thankfully, all three application runtimes we've been using to build our apps already provide Prometheus extensions (libraries).
 
+[NOTE]
+====
+*If deployed the three apps using our script* (`$PROJECT_SOURCE/scripts/deploy-services-from-registry.sh`) back in the previous module, just skip to link:#Using-Grafana-to-visualize-Application-JVM-metrics[Using Grafana to visualize Application JVM metrics]. Otherwise keep following to enable Prometheus in our apps.
+====
+
 ==== Exposing application metrics in Quarkus
 Quarkus provides a link:https://quarkus.io/guides/micrometer[Micrometer extension] that makes it really easy to expose application metrics to Prometheus. All we need to do is to add the `quarkus-micrometer` extension to the app's POM.
 
@@ -292,6 +297,7 @@ git push
 3. run the `build-and-deploy-apps` pipeline again to build and deploy the `springboot-app` with this new change.
 4. after the `Pipeline Run` completes successfully you can check the new app revision deployed to the `%user%-staging` project namespace by accessing its link:https://springboot-app-%user%-staging.%openshift_cluster_ingress_domain%/actuator/prometheus[external Route URL].
 
+[#Using-Grafana-to-visualize-Application-JVM-metrics]
 ==== Using Grafana to visualize Application JVM metrics
 Once you have micrometer enabled in your applications you should be able to visualize application specific metrics using Grafana.
 Open the link:{grafana_url}[Grafana console] and navigate the the *JVM (Micrometer)* dashboard. You can now monitor many metrics that are specific to your Java workload. Make sure you select the namespace related to your user.
