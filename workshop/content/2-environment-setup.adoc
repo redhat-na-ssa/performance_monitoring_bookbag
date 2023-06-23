@@ -39,7 +39,7 @@ Here are the information you will be using throughout this Lab session.
  ** *Access Credentials:*
   *** #*Username:* `{user}`#
   *** #*Password:* `{openshift_user_password}`#
-* link:{user_devworkspace_url}[*Openshift DevSpaces Workspace*]
+* link:{user_devworkspace_dashboard_url}[*Openshift DevSpaces Workspace*]
 * link:{hyperfoil_web_cli_url}[*Hyperfoil Web CLI*]
 
 [IMPORTANT]
@@ -83,7 +83,7 @@ See the DevWorkspace creation happens for the first time bellow.
 
 image::./imgs/module-2/devspaces-gb-oauth-flow.gif[DevWorkspace initialization]
 
-// image:https://img.shields.io/static/v1?label=Open+My+DevWorkspace&message=Openshift+DevSpaces&color=EE0000&style=for-the-badge&logo=redhatopenshift[link={user_devworkspace_url},title=Click to open your DevWorkspace on Openshift]
+// image:https://img.shields.io/static/v1?label=Open+My+DevWorkspace&message=Openshift+DevSpaces&color=EE0000&style=for-the-badge&logo=redhatopenshift[link={user_devworkspace_dashboard_url},title=Click to open your DevWorkspace on Openshift]
 
 Wait for a few seconds until it gets fully initialized (it can take a few minutes for the first time). When it's ready, you should see a VSCode IDE in your browser! It's the same VSCode you may already be familiar with.
 
