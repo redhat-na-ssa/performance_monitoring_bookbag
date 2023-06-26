@@ -24,7 +24,7 @@ What you are going to do:
   ** Spring Boot
   ** Micronaut
 * Compile, package and containerize these microservices
-* Run these microservices locally on your own Dev Workspace using Red Hat link:https://developers.redhat.com/products/openshift-dev-spaces/overview[Openshift DevSpaces^]
+* Run these microservices locally on your own Dev Workspace using Red Hat link:https://developers.redhat.com/products/openshift-dev-spaces/overview[OpenShift DevSpaces^]
 * Build an immutable container image for each microservice using Openshift Pipelines (based on link:https://tekton.dev[Tekton^])
 * Deploy your containers to a staging namespace created on Openshift
 * Execute and monitor the microservices using different performance parameters
@@ -172,7 +172,7 @@ For this workshop, we'll use the following services and capabilities available i
 
 * *OpenShift Container Platform*: a unified platform to build, modernize, and deploy applications at scale.
 * *Red Hat Quay.io*: a private container registry to store our Container images.
-* *Openshift Pipelines*: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by link:https://tekton.dev[Tekton].
+* *OpenShift Pipelines*: a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources backed by link:https://tekton.dev[Tekton].
 * *OpenShift DevSpaces*: the OpenShift-native developer workspace server and IDE based on link:https://www.eclipse.org/che/[Eclipse Che project^]
 * *OpenShift Serverless*: based on Knative
 * *OpenShift Monitoring*: based on Prometheus

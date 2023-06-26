@@ -12,7 +12,7 @@
 ====
 Due to our Lab session time constraint, we already provided the code for this app, so you have time to experience other exiting capabilities available in the platform.
 
-This version of the app implements the same logic, exposing the exact same resources, but now using *SpringBoot* as its underline Runtime.
+This version of the app implements the same logic, exposing the exact same resources, but now using *Spring Boot* as its underline Runtime.
 
 Feel free to go through the source code. But #*you don't need to code any Java Class in this section*#. 
 

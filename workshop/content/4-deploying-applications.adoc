@@ -150,7 +150,7 @@ Events:              <none>
 == Running the pipeline
 
 Now you are ready to start your first *Pipeline Run*. 
-Go back to the *Pipeline view* in the link:%openshift_console_url%/topology/ns/%user%-cicd[*Openshift Developer Console*]. Click on `Actions`, then click on `Start`.
+Go back to the *Pipeline view* in the link:%openshift_console_url%/topology/ns/%user%-cicd[*OpenShift Developer Console*]. Click on `Actions`, then click on `Start`.
 
 Fill in the mandatory parameters:
 
@@ -202,7 +202,7 @@ Since we're deploying our apps as Serverless applications, after the initial dep
 
 To test if the deployment was successful, you can make a request to the application using its external https://docs.openshift.com/container-platform/4.12/networking/routes/route-configuration.html[Route].
 
-Using the %openshift_console_url%[OpenShift console], go to the `%user%staging` project. In the topology view, click on the arrow icon in the quarkus application box:
+Using the %openshift_console_url%[OpenShift console], go to the `%user%-staging` project. In the topology view, click on the arrow icon in the quarkus application box:
 
 image::imgs/module-4/app_running.png[App running,640,480,align=center]
 
@@ -210,7 +210,7 @@ You should be able to visualize the Quarkus application home page, just like in 
 
 image::imgs/module-4/quarkus_home.png[Quarkus Home,640,480,align=center]
 
-Now run the Pipeline again for the other two apps: *micronaut-app* and *springboot-app*!
+Now run the pipeline again for the other two apps: *micronaut-app* and *springboot-app*!
 
 [TIP]
 ====
@@ -221,14 +221,14 @@ To start a new *Pipeline Run*, in the link:%openshift_console_url%/topology/ns/%
  * at the top left, click `Actions` and then `Start`
 ====
 
-Once each Pipeline Run finishes successfully test them by accessing its external Route the same way you did for the *quarkus-app*.
+Once each Pipeline Run finish successfully, test them by accessing their external Routes the same way you did for the *quarkus-app*.
 
 [NOTE]
 ====
 the Micronaut and Spring Boot apps do not have a homepage like Quarkus, but you will be able to visualize the pods running in the topology view.
 ====
 
-After successfully executing the Pipeline for each app you should be able to see them by accessing the link:%openshift_console_url%/topology/ns/%user%-staging?view=graph[*Topology* view] of the Openshift Developer Console. Like this one:
+After successfully executing the pipeline for each app, you should be able to see them by accessing the link:%openshift_console_url%/topology/ns/%user%-staging?view=graph[*Topology* view] of the OpenShift Developer Console. Like this:
 
 image::imgs/module-4/app_deployed_using_pipeline.png[Openshift Topology view - Three apps successfully deployed]
 
