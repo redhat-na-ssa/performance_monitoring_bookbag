@@ -137,7 +137,7 @@ mvn quarkus:dev
 -----
 ====
 
-When the application starts inside the DevWorkspace, watch for a pop-up at the left bottom of the Terminal and click Open. Then access its `/q/metrics` context path (without the `/quarkus-app` root path!). You should see a bunch of metrics like:
+When the application starts inside the DevWorkspace, watch for a pop-up at the left bottom of the Terminal and click Open. Then access its `/q/metrics` context path (without the `/quarkus` root path!). You should see a bunch of metrics like:
 
 image::../imgs/module-5/quarkus_metrics.png[Quarkus JVM metrics,align=center]
 
@@ -162,7 +162,7 @@ git commit -am "exposing JVM metrics for quarkus-app"
 git push
 ----
 +
-2. go to OpenShift Console Developer perspective, switch to the `{user}-cicd` and open the link:{openshift_console_url}/dev-pipelines/ns/{user}-cicd[*Pipelines* view] from the left Menu.
+2. go to OpenShift Console Developer perspective, switch to the `{user}-cicd` and link:{openshift_console_url}/k8s/ns/{user}-cicd/tekton.dev~v1beta1~Pipeline/build-and-deploy-apps[*Start* a new Pipeline Run].
 +
 [IMPORTANT]
 ====
@@ -223,7 +223,7 @@ Now, lets test it.
 From the Task Manager run the task `05: Micronaut - Start in dev mode` to check our change.
 
 When the application starts, open it in your browser (look for a popup at the left bottom of your IDE and click open). Then access the 
-`/prometheus` context path (without the `/micronaut-app` root path!). You should see a bunch of metrics 
+`/prometheus` context path (without the `/micronaut` root path!). You should see a bunch of metrics 
 
 image::../imgs/module-5/micronaut_metrics.png[Micronaut JVM metrics,align=center]
 
@@ -238,7 +238,7 @@ git commit -am "exposing JVM metrics for micronaut"
 git push
 ----
 +
-2. go to OpenShift Console Developer perspective, switch to the `{user}-cicd` and open the link:{openshift_console_url}/dev-pipelines/ns/{user}-cicd[*Pipelines* view] from the left Menu.
+2. go to OpenShift Console Developer perspective, switch to the `{user}-cicd` and link:{openshift_console_url}/k8s/ns/{user}-cicd/tekton.dev~v1beta1~Pipeline/build-and-deploy-apps[*Start* a new Pipeline Run].
 3. run the `build-and-deploy-apps` pipeline again to build and deploy the `micronaut-app` with this new change.
 4. after the `Pipeline Run` completes successfully you can check the new app revision deployed to the `%user%-staging` project namespace by accessing its link:https://micronaut-app-%user%-staging.%openshift_cluster_ingress_domain%/prometheus[external Route URL].
 
@@ -277,7 +277,7 @@ Now, lets test it.
 From the Task Manager run the task `08: SpringBoot - Start in dev mode` to check our change.
 
 When the application starts, open it in your browser (look for a popup at the left bottom of your IDE and click open). Then access the 
-`/actuator/prometheus` context path (without the `/springboot-app` root path!). You should see a bunch of metrics like:
+`/actuator/prometheus` context path (without the `/springboot` root path!). You should see a bunch of metrics like:
 
 image::../imgs/module-5/springboot_metrics.png[Springboot JVM metrics,align=center]
 
@@ -292,7 +292,7 @@ git commit -am "exposing JVM metrics for springboot"
 git push
 ----
 +
-2. go to Openshift Console Developer perspective, switch to the `{user}-cicd` and link:{openshift_console_url}/dev-pipelines/ns/{user}-cicd[open the *Pipelines* view] from the left Menu.
+2. go to OpenShift Console Developer perspective, switch to the `{user}-cicd` and link:{openshift_console_url}/k8s/ns/{user}-cicd/tekton.dev~v1beta1~Pipeline/build-and-deploy-apps[*Start* a new Pipeline Run].
 3. run the `build-and-deploy-apps` pipeline again to build and deploy the `springboot-app` with this new change.
 4. after the `Pipeline Run` completes successfully you can check the new app revision deployed to the `%user%-staging` project namespace by accessing its link:https://springboot-app-%user%-staging.%openshift_cluster_ingress_domain%/actuator/prometheus[external Route URL].
 

@@ -63,7 +63,7 @@ Got to link:{hyperfoil_web_cli_url}[Hyperfoil Web CLI] and start an aggressive t
 
 [source,shell,role=copy,subs=attributes]
 ----
-run summit-lab-load-apps -PUSERS_PER_SEC=90 -PPHASE_DURATIONS_SECS=60s -PMEMORY_BITES=70 -PCPU_ITERATIONS=5 -PAPP_URL=http://quarkus-app.user1-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/quarkus
+run summit-lab-load-apps -PUSERS_PER_SEC=90 -PPHASE_DURATIONS_SECS=60s -PMEMORY_BITES=70 -PCPU_ITERATIONS=5 -PAPP_URL=http://quarkus-app.%user%-staging.svc.cluster.local -PAPP_CONTEXT_PATH=/quarkus
 ----
 
 Wait for a couple of minutes until the test reaches the memory consumption phase. Then go to the Openshift Developer Console, and from the link:%openshift_console_url%/topology/ns/%user%-staging[Topology view], select the Quarkus pod and wait for its replicas start to fail. Then go to link:%openshift_console_url%/dev-monitoring/ns/%user%-staging/logs[Observe view, Logs tab] and use this link:https://grafana.com/docs/loki/latest/logql[*LogQL*] to find error events:

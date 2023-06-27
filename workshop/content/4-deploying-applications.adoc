@@ -65,7 +65,7 @@ image::imgs/module-4/pipeline.png[Pipeline,align=center]
 
 [NOTE]
 ====
-We'll use the same pipeline to deploy all three applications, one execution for each app.
+*We'll use the same pipeline to deploy all three applications, #one execution for each app#*.
 ====
 
 == Configuring access to Quay.io
@@ -202,7 +202,7 @@ Since we're deploying our apps as Serverless applications, after the initial dep
 
 To test if the deployment was successful, you can make a request to the application using its external https://docs.openshift.com/container-platform/4.12/networking/routes/route-configuration.html[Route].
 
-Using the %openshift_console_url%[OpenShift console], go to the `%user%-staging` project. In the topology view, click on the arrow icon in the quarkus application box:
+Using the OpenShift console, go to the `%user%-staging` project. In the link:%openshift_console_url%/topology/ns/%user%-staging?view=graph[*Topology* view], click on the arrow icon in the quarkus application box:
 
 image::imgs/module-4/app_running.png[App running,640,480,align=center]
 
@@ -210,7 +210,7 @@ You should be able to visualize the Quarkus application home page, just like in 
 
 image::imgs/module-4/quarkus_home.png[Quarkus Home,640,480,align=center]
 
-Now run the pipeline again for the other two apps: *micronaut-app* and *springboot-app*!
+#Now run the pipeline again for the other two apps: *micronaut-app* and *springboot-app*!#
 
 [TIP]
 ====
