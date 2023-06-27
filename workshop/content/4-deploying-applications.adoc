@@ -98,7 +98,7 @@ Once the robot is created, you can get the secret you need to authenticate the p
 
 image::imgs/module-4/get_secret.gif[get secret]
 
-With the kubernetes secret's content in your clipboard, you create a new secret resource in your `%user%-cicd` namespace.
+With the kubernetes secret's content in your clipboard, link:{openshift_console_url}/k8s/ns/{user}-cicd/import[you *create a new secret resource* in your `%user%-cicd` namespace].
 
 image::imgs/module-4/create_secret.gif[Create secret]
 
