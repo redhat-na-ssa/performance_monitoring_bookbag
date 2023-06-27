@@ -18,14 +18,14 @@
 
 In this section you will:
 
-* Learn what GraalVM is, and what is a native build
+* Learn what GraalVM is and what is a native build
 * Build a native image of your applications (optional)
 * Update our application deployments to use the native image version
 * Load test them
 
 == What is GraalVM
 
-GraalVM is a new technology, allowing for the creation of a native build of a Java application;
+GraalVM is a new technology, allowing the creation of a native build of a Java application;
 your application will be compiled to a native executable, and will not need a JVM to run.
 That executable will be specific to your operating system, and will start much faster than with a JVM.
 
@@ -33,16 +33,21 @@ You can find more information on GraalVM at https://www.graalvm.org/[https://www
 
 [NOTE]
 ====
-Red Hat provides downstream release of GraalVM called link:https://github.com/graalvm/mandrel[*Mandrel*], focused on native image compilation of *Java applications in Red Hat-backed projects*. As such, it is not a GraalVM native-image replacement for all users. For instance, Mandrel does not ship with polyglot or LLVM toolchain support, which some use cases might require. However, Red Hat engineers contribute to upstream GraalVM and work hard to stay up-to-date with upstream GraalVM code. 
+Red Hat provides downstream release of GraalVM called link:https://github.com/graalvm/mandrel[*Mandrel*], focused on native image compilation of *Java applications in Red Hat-backed projects*. As such, it is not a GraalVM native-image replacement for all users. 
+For instance, Mandrel does not ship with polyglot or LLVM toolchain support, which some use cases might require. However, Red Hat engineers contribute to upstream GraalVM and work hard to stay up-to-date with upstream GraalVM code.
+====
+
+[NOTE]
+====
 For more details on Mandrel distribution and its use on Java Application (using Quarkus) checkout link:https://developers.redhat.com/blog/2021/04/14/mandrel-a-specialized-distribution-of-graalvm-for-quarkus[this article].
 ====
 
 [NOTE]
 ====
-Because native builds are much slower than JVM builds and are resource intensive (cpu and mem) we won't execute them in this Lab. 
+Because native builds are much slower than JVM builds and are resource intensive (cpu and mem), we won't execute them in this Lab. 
 There are guides showing how you can setup a GraalVM environment to create a native-executable for each of the modern cloud-native java runtimes we've been using in this Lab. 
 
-For instance if you are interested in know how to create a native-executable for your Quarkus App link:https://quarkus.io/guides/building-native-image[checkout this guide in  Quarkus.io.]
+For instance, if you are interested in know how to create a native-executable for your Quarkus App, checkout this link:https://quarkus.io/guides/building-native-image[guide] in Quarkus.io.
 ====
 
 == Building native image using Github Actions
