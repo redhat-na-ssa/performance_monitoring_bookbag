@@ -72,10 +72,10 @@ There three workflow definitions inside `$PROJECT_SOURCE/.github/workflows`:
 image::../imgs/module-5/github_actions_workflow_files.png[Github Action workflow definitions,440,280,align="center"]
 
 Each one can be used to manually trigger its respective application native image build using Github infrastructure. 
-For instance, lets trigger the workflow to build a native image for our Quarkus app.
+For instance, let's trigger the workflow to build a native image for our Quarkus app.
 
 1. First you need to define two Github Secrets in your repo.
- ** from your github account, open our repo and click the `Settings` tab
+ ** from your github account, open your repo and click the `Settings` tab
  ** at the left menu open `Secrets and variables`, then `Actions`
  ** create a secret named `REGISTRY_USERNAME` (by clicking the `New repository secret` button)
   *** `*Name*`: `REGISTRY_USERNAME`
@@ -85,7 +85,7 @@ For instance, lets trigger the workflow to build a native image for our Quarkus 
   *** `*Secret*`: #use the same *Robot account token* you set up early# 
 2. now, open our repo and click the `Actions` tab
 3. in the left menu select the workflow `Build Quarkus native container image`
-4. then at the far right click the `Run workflow` button.
+4. at the far right click the `Run workflow` button.
 5. fill in the field:
  ** `Container Registry Organization/Account name`: should be your personal quay.io account name
 6. finally, click `Run workflow`
@@ -102,7 +102,7 @@ image::../imgs/module-5/github_secret_actions.gif[Github Secrets]
 image::../imgs/module-5/github_action_native_build_trigger.gif[Github Action to build native images for our applications]
 ====
 
-The workflow run should take about *8min or less* (depending on how health the Github infrastructure is at the moment you run). If it succeeds (your set up your registry secrets properly) you should have a new image pushed to your Quay.io.
+The workflow run should take about *8min or less* (depending on how health the Github infrastructure is at the moment you run). If it succeeds (your set up your registry secrets properly), you should have a new image pushed to your Quay.io.
 
 [TIP]
 ====
@@ -123,11 +123,11 @@ Notice the size of our native container image! Compare it with the JVM based ima
 
 image::../imgs/module-5/quay_io_quarkus_native_image.png[Quay.io - Quarkus native image,align="center"]
 
-Now, #how about the resource consumption at runtime?# To find that out lets update our apps' deployment and run some load tests to observe how it behaves compared to its JVM version...
+Now, #how about the resource consumption at runtime?# To find that out, let's update our deployments and run some load tests to observe how it behaves compared to its JVM version...
 
 [#updating-native-images]
 === Updating our application deployments to use the native container image
-Because your apps are deployed as Serverless workload (based on Knative Serving) we'll be using the Knative CLI (`kn`) to update them.
+Because your apps are deployed as Serverless workload (based on Knative Serving), we'll use the Knative CLI (`kn`) to update them.
 
 ==== Updating the Quarkus service
 To update the Quarkus app deployment, open a Terminal in your DevWorkspace and run this command.
@@ -145,7 +145,7 @@ kn service update quarkus-app -n %user%-staging \
 
 [TIP]
 ====
-If you were able to successfully run the Github Action workflow and to want to use your own image here, *just remember to replace the `--image` param to point to your quay.io account*. For instance, to use you own quarkus native image use
+If you were able to successfully run the Github Action workflow and want to use your own image here, *just remember to replace the `--image` param to point to your quay.io account*. For instance, to use your own quarkus native image use:
 
 [source, subs=+quotes]
 -----
@@ -172,16 +172,16 @@ This command will update the app deployment pointing to the native image version
 
 This is important as the native version of our app is *requires much less compute resource*. As a consequence we get much more deployment density when using native builds.
 
-Notice for instance, the startup time of the native version of our *quarkus-app*. As you can see the app #*started in a sub-second (`0.020s` in my case) time!!!*#
+Observe the startup time of the native version of our *quarkus-app*. As you can see, the app #*started in milliseconds (`0.020s` in my case) !!!*#
 
 image::../imgs/module-5/quarkus_native_startup.png[VSCode Terminal - kn service update,align="center"]
 
-*Among other benefits, such a small startup time makes Java native builds a great fit for Serverless use cases which requires fast startup times...* 
+*Among other benefits, such a small startup time makes Java native builds a great fit for Serverless use cases, which requires fast startup times...* 
 
 Now, go ahead and update the other two apps and observe the same aspects of this update.
 
 ==== Updating the Micronaut service
-To update the Micronaut app deployment open a Terminal in your DevWorkspace and run this command.
+To update the Micronaut app deployment, open a Terminal in your DevWorkspace and run this command.
 
 [source, shell, role=copy, subs=+quotes]
 ----
@@ -194,8 +194,8 @@ kn service update micronaut-app -n %user%-staging \
 
 ----
 
-==== Updating the Springboot service
-To update the Springboot app deployment open a Terminal in your DevWorkspace and run this command.
+==== Updating the Spring Boot service
+To update the Spring Boot app deployment, open a Terminal in your DevWorkspace and run this command.
 
 [source, shell, role=copy, subs=+quotes]
 ----
@@ -220,6 +220,6 @@ You can run the same load tests we ran the first time we introduce Hyperfoil Web
 
 While the load test is running, let's take a look at the results using link:{grafana_url}[Grafana].
 
-You should now see the results of the load tests for the native images, and you can compare them to the previous results of the JVM images.
+You should check the results of the load tests for the native images and compare them to the previous results of the JVM images.
 
 image::../imgs/module-5/grafana_workload_dashboards.gif[Grafana workload dashboard]
