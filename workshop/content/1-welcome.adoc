@@ -5,7 +5,7 @@
 :markup-in-source: verbatim,attributes,quotes
 :source-highlighter: highlight.js
 
-= Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift
+= Modern Cloud-native Java runtimes performance monitoring on Red Hat OpenShift
 
 == Welcome
 During this workshop attendees will have the opportunity to participate in a hands-on Lab, 
