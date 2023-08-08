@@ -2,7 +2,7 @@
 :sectanchors:
 == Conclusion
 
-This is the end of the *Modern Cloud-native Java runtimes performance monitoring on Red Hat OpenShift*. 
+This is the end of the *Java Performance Monitoring on OpenShift*. 
 We hope you liked it, learned a few things, and more importantly, will be able to take this knowledge back to your projects.
 
 Thank you!

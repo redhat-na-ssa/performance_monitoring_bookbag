@@ -116,12 +116,12 @@ You should see an output similar to this:
 [source,shell]
 ----
 [INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary for Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift! 1.0.0-SNAPSHOT:
+[INFO] Reactor Summary for Java Performance Monitoring on OpenShift! 1.0.0-SNAPSHOT:
 [INFO] 
-[INFO] Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift! SUCCESS [  0.015 s]
-[INFO] Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift :: Micronaut SUCCESS [  5.301 s]
-[INFO] Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift :: SpringBoot SUCCESS [  0.820 s]
-[INFO] Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift :: Quarkus SUCCESS [  6.738 s]
+[INFO] Java Performance Monitoring on OpenShift! SUCCESS [  0.015 s]
+[INFO] Java Performance Monitoring on OpenShift :: Micronaut SUCCESS [  5.301 s]
+[INFO] Java Performance Monitoring on OpenShift :: SpringBoot SUCCESS [  0.820 s]
+[INFO] Java Performance Monitoring on OpenShift :: Quarkus SUCCESS [  6.738 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------

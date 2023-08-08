@@ -1,5 +1,5 @@
 ---
-name: Modern Cloud-native Java runtimes performance monitoring on Red Hat Openshift
+name: Java Performance Monitoring on OpenShift
 modules:
   activate:
     - 1-welcome
