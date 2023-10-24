@@ -21,7 +21,7 @@
 One of the first things you usually want to do once your application is deployed is to configure monitoring.
 For this, we'll be using the monitoring capability built in OpenShift. This feature comes with a pre-set of ready to use dashboards for monitoring application workload metrics right from the OpenShift Console. 
 
-We'll be also using link:https://grafan.com[Grafana] to visualize metrics provided out-of-the-box by the OpenShift Monitoring stack.
+We'll be also using link:https://grafana.com[Grafana] to visualize metrics provided out-of-the-box by the OpenShift Monitoring stack.
 
 [NOTE]
 ====
