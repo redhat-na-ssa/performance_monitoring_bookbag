@@ -22,7 +22,7 @@ Recommended reading: https://www.redhat.com/en/topics/devops/what-is-ci-cd#overv
 
 [NOTE]
 ====
-In this section of our workshop we are going to exercise the CI & CD practices using OpenShift Pipelines to build and deploy our App container images. We tried to make each section optional. *If you are not interested in this part our workshop*, 
+In this section of our workshop we are going to exercise the CI & CD practices using OpenShift Pipelines to build and deploy our App container images. We tried to make each section optional. *If you are not interested in this part of the workshop*, 
 we provided you with a script you can use to deploy all the three apps using pre-built images from our quay.io organization.
 
 [code]

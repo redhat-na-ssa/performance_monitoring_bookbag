@@ -24,12 +24,12 @@
 Now that we have our apps built and deployed to our staging environment, it's time to add some load to them.
 This will allow us to see two things:
 
-1. observe resource consumption metrics (CPU, memory, networking traffic, etc) for each app container.
-2. how the auto-scaling feature works when using Openshift Serverless deployment mode.
+1. Observe resource consumption metrics (CPU, memory, networking traffic, etc) for each app container.
+2. How the auto-scaling feature works when using *OpenShift Serverless* for deployment.
 
 == Introducing Hyperfoil Load Driver
 
-Nowadays there are many opensource tools that can be used to generate application load towards your applications. 
+Nowadays there are many open-source tools that can be used to generate application load towards your applications. 
 Many of these tools were designed before containers and Kubernetes, making their deployment, configuration and scalability a challenge considering the distributed nature of Kubernetes. 
 
 For this Lab we will be use a tool called link:https://hyperfoil.io[Hyperfoil.io^]. Hyperfoil is described as a *microservice-oriented distributed benchmark framework*.
@@ -186,7 +186,7 @@ Benchmark summit-lab-load-apps uploaded.
 
 [TIP]
 ====
- you don't have to make any change to the benchmark definition. But if you need to (or just want to see its definition) you can open it right from the Web CLI using an embedded editor. To do that just type `edit summit-lab-load-apps` in the Web CLI as shown in the screenshot. 
+ you don't have to make any changes to the benchmark definition. But if you need to, or just want to see its definition, you can open it right from the Web CLI using the embedded editor. To do that just type `edit summit-lab-load-apps` in the Web CLI as shown in the screenshot. 
 ====
 
 Now you ca start your first `run` by just executing:
@@ -211,12 +211,12 @@ To accommodate all users in our Lab cluster, we set *resource quotas* that limit
 #PLEASE, execute just one _Benchmark Run_ at a time!# Otherwise you can hit the resource quota and start getting some errors.
 ====
 
-When you start a test `run`, a few things happens:
+When you start a test `run`, a few things will happen:
 
-1. the *Controller* starts the *Agents*
-2. the agents registers against the Controller.
-3. each Agent gets the test Scenario and start running its Phases, as defined in the benchmark.
-4. as the `run` goes each agent continually report various stats to the Controller.
+1. The *Controller* starts the *Agents*.
+2. The agents registers against the Controller.
+3. Each Agent gets the test Scenario and start running its Phases, as defined in the benchmark.
+4. As the `run` goes each agent continually report various stats to the Controller.
 +
 NOTE: Eventually an agent may get overwhelmed (run out of resource for various reasons) and the `run` may get interrupted.
 That's when you have to adjust your test scenario accordingly to your resources and application capacity. 
@@ -257,8 +257,8 @@ image::../imgs/module-5/hyperfoil-web-cli-test-phase-metrics.png[Screenshot of H
 to get a list of all Test runs, use the `runs` command.
 ====
 
-Lastly, but not least, you can get a very detailed (html) report by executing the `report 0001` command in the Web CLI (`0001` is the `RunId`, yours may be different). 
-Hyperfoil will generate a nice html report that gets automatically downloaded though your web browser.
+Lastly, but not least, you can get a detailed html report by executing the `report 0001` command in the Web CLI (`0001` is the `RunId`, yours may be different). 
+Hyperfoil will generate a report that gets automatically downloaded by your web browser.
 
 image::../imgs/module-5/hyperfoil-web-cli-test-run-html-report.png[Screenshot of Hyperfoil Web CLI - test run html report,align=center]
 

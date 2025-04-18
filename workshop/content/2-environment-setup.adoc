@@ -20,8 +20,8 @@
 Before starting our Lab, you need to set up a few prerequisites.
 This includes:
 
-* a Github account (you can quickly link:https://github.com/signup[*sign up for a new one*^] if you don't have yet)
-* a Quay.io account (you can quickly link:https://quay.io/signin[*sign up for a new one*^] if you don't have yet)
+* a Github account (you can quickly link:https://github.com/signup[*sign up for a new one*^], if you don't have one yet)
+* a Quay.io account (you can quickly link:https://quay.io/signin[*sign up for a new one*^], if you don't have one yet)
 
 [NOTE]
 ====
@@ -49,7 +49,7 @@ Here are the information you will be using throughout this Lab session.
 
 == Forking the Workshop project on GitHub
 
-Fork this link:{template-github-url}[project repository,window=_blank], into your own GitHub account.
+Fork this link:{template-github-url}[project repository,window=_blank] into your own GitHub account.
 
 image::./imgs/module-2/github-fork-repo.png[Screenshot of GitHub forking project,align=center]
 
@@ -66,7 +66,7 @@ image::./imgs/module-2/github-clone.png[Screenshot of GitHub showing the reposit
 
 == Creating your DevWorkspace in Openshift DevSpaces
 
-*OpenShift DevSpaces* allows you to have an instant cloud-based dev environment already prepared for this workshop.
+*OpenShift DevSpaces* allows you to create a cloud-based development environment, so you don't have to install anything in your laptop.
 
 Create your own *DevWorkspace* using the link:{user_devworkspace_dashboard_url}[*Devspaces Dashboard*]. Use your assigned Openshift user credentials to login for the first time. Then paste your forked git repo (https) URL into the `Git Repo URL` field and click *Create & Open* button.
 
@@ -138,20 +138,20 @@ Everything you use (tools and commands) in this workspace is defined using the *
 Check link:https://devfile.io[Devfile.io] for more details.
 ====
 
-== Checking your OpenShift login
+== Checking your OpenShift Login
 
-#Before we move on let's check one more thing inside DevWorkspace.#
+#Before we move on, let's check one more thing inside DevWorkspace.#
 
-Using the Terminal (`'Ctrl + \`'` to open it) execute the following command to check if your user is properly logged in the Openshift Cluster:
+Using the Terminal (`'Ctrl + \`'` to open it), execute the following command to check if your user is properly logged in the OpenShift cluster:
 
 [source, shell, role=copy]
 ----
 oc whoami
 ----
 
-If you see your assigned username: `%user%`, you are good to go! 
+If you see your assigned username(`%user%`), you are good to go! 
 
-Otherwise, if you see something like: `system:serviceaccount:%user%-devspaces:workspacexxxxxxxxx-sa`, please do this:
+Otherwise, if you see something like, `system:serviceaccount:%user%-devspaces:workspacexxxxxxxxx-sa`, please do this:
 
 1. Open the *Task Manager* and execute the *Task* named `98: OC Login`
 2. Enter your assigned user password: `%password%`
@@ -162,4 +162,4 @@ Otherwise, if you see something like: `system:serviceaccount:%user%-devspaces:wo
 image::./imgs/troubleshooting/VSCode_task_manager_oc_login.gif[OC Login Task]
 ====
 
-Now that you have your development environment setup and you can build the initial code, let's develop our three microservices.
+Now that you have your development environment set up and you can build the initial code, let's develop our three microservices.
